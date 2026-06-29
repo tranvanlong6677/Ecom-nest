@@ -1,15 +1,14 @@
-import { Injectable } from '@nestjs/common';
-import * as bcrypt from 'bcrypt';
-
-export const saltOrRounds = 10;
+import { Injectable } from '@nestjs/common'
+import { compare, hash } from 'bcrypt'
+const saltRounds = 10
 
 @Injectable()
 export class HashingService {
-  async hash(data: string): Promise<string> {
-    return await bcrypt.hash(data, saltOrRounds);
+  hash(value: string) {
+    return hash(value, saltRounds)
   }
 
-  async compare(data: string, encrypted: string): Promise<boolean> {
-    return bcrypt.compare(data, encrypted);
+  compare(value: string, hash: string) {
+    return compare(value, hash)
   }
 }

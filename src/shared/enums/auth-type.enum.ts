@@ -7,4 +7,4 @@ export enum AuthType {
 export const AuthOptionsType = {
   AND: 'and',
   OR: 'or',
-} as const;
+} as const

@@ -1,15 +1,15 @@
-import { Exclude } from 'class-transformer';
+import { Exclude } from 'class-transformer'
 
 export class UserModel {
-  id: number;
-  email: string;
-  name: string;
+  id: number
+  email: string
+  name: string
   @Exclude()
-  password: string;
-  createdAt: Date;
-  updatedAt: Date;
+  password: string
+  createdAt: Date
+  updatedAt: Date
 
   constructor(partial: Partial<UserModel>) {
-    Object.assign(this, partial);
+    Object.assign(this, partial)
   }
 }
