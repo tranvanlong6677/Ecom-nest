@@ -18,6 +18,10 @@ const configSchema = z.object({
   REFRESH_TOKEN_EXPIRES_IN: z.string(),
   SECRET_API_KEY: z.string(),
   PORT: z.string().optional().default('8000'),
+  ADMIN_NAME: z.string(),
+  ADMIN_PASSWORD: z.string(),
+  ADMIN_EMAIL: z.string(),
+  ADMIN_PHONE_NUMBER: z.string(),
 })
 
 const configServer = configSchema.safeParse(process.env)
