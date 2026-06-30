@@ -38,11 +38,6 @@ export type UserTranslation = Prisma.UserTranslationModel
  */
 export type VerificationCode = Prisma.VerificationCodeModel
 /**
- * Model Device
- * 
- */
-export type Device = Prisma.DeviceModel
-/**
  * Model RefreshToken
  * 
  */
@@ -78,6 +73,16 @@ export type Category = Prisma.CategoryModel
  */
 export type CategoryTranslation = Prisma.CategoryTranslationModel
 /**
+ * Model Variant
+ * 
+ */
+export type Variant = Prisma.VariantModel
+/**
+ * Model VariantOption
+ * 
+ */
+export type VariantOption = Prisma.VariantOptionModel
+/**
  * Model SKU
  * 
  */
@@ -108,25 +113,10 @@ export type ProductSKUSnapshot = Prisma.ProductSKUSnapshotModel
  */
 export type Order = Prisma.OrderModel
 /**
- * Model Payment
- * 
- */
-export type Payment = Prisma.PaymentModel
-/**
- * Model Websocket
- * 
- */
-export type Websocket = Prisma.WebsocketModel
-/**
  * Model Review
  * 
  */
 export type Review = Prisma.ReviewModel
-/**
- * Model ReviewMedia
- * 
- */
-export type ReviewMedia = Prisma.ReviewMediaModel
 /**
  * Model PaymentTransaction
  * 

@@ -7,8 +7,9 @@ import { AuthGuard } from './guards/auth.guard'
 import { HashingService } from './services/hashing.service'
 import { JwtService } from './services/jwt.service'
 import { PrismaService } from './services/prisma.service'
+import { TokenService } from './services/token.service'
 
-const sharedServices = [PrismaService, HashingService, JwtService]
+const sharedServices = [PrismaService, HashingService, JwtService, TokenService]
 
 @Global()
 @Module({

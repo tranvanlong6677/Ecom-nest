@@ -55,7 +55,6 @@ export const ModelName = {
   User: 'User',
   UserTranslation: 'UserTranslation',
   VerificationCode: 'VerificationCode',
-  Device: 'Device',
   RefreshToken: 'RefreshToken',
   Permission: 'Permission',
   Role: 'Role',
@@ -63,16 +62,15 @@ export const ModelName = {
   ProductTranslation: 'ProductTranslation',
   Category: 'Category',
   CategoryTranslation: 'CategoryTranslation',
+  Variant: 'Variant',
+  VariantOption: 'VariantOption',
   SKU: 'SKU',
   Brand: 'Brand',
   BrandTranslation: 'BrandTranslation',
   CartItem: 'CartItem',
   ProductSKUSnapshot: 'ProductSKUSnapshot',
   Order: 'Order',
-  Payment: 'Payment',
-  Websocket: 'Websocket',
   Review: 'Review',
-  ReviewMedia: 'ReviewMedia',
   PaymentTransaction: 'PaymentTransaction',
   Message: 'Message'
 } as const
@@ -96,9 +94,9 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const LanguageScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  code: 'code',
   createdById: 'createdById',
   updatedById: 'updatedById',
-  deletedById: 'deletedById',
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -119,7 +117,6 @@ export const UserScalarFieldEnum = {
   roleId: 'roleId',
   createdById: 'createdById',
   updatedById: 'updatedById',
-  deletedById: 'deletedById',
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -136,7 +133,6 @@ export const UserTranslationScalarFieldEnum = {
   description: 'description',
   createdById: 'createdById',
   updatedById: 'updatedById',
-  deletedById: 'deletedById',
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -157,23 +153,9 @@ export const VerificationCodeScalarFieldEnum = {
 export type VerificationCodeScalarFieldEnum = (typeof VerificationCodeScalarFieldEnum)[keyof typeof VerificationCodeScalarFieldEnum]
 
 
-export const DeviceScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  userAgent: 'userAgent',
-  ip: 'ip',
-  lastActive: 'lastActive',
-  createdAt: 'createdAt',
-  isActive: 'isActive'
-} as const
-
-export type DeviceScalarFieldEnum = (typeof DeviceScalarFieldEnum)[keyof typeof DeviceScalarFieldEnum]
-
-
 export const RefreshTokenScalarFieldEnum = {
   token: 'token',
   userId: 'userId',
-  deviceId: 'deviceId',
   expiresAt: 'expiresAt',
   createdAt: 'createdAt'
 } as const
@@ -187,10 +169,8 @@ export const PermissionScalarFieldEnum = {
   description: 'description',
   path: 'path',
   method: 'method',
-  module: 'module',
   createdById: 'createdById',
   updatedById: 'updatedById',
-  deletedById: 'deletedById',
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -206,7 +186,6 @@ export const RoleScalarFieldEnum = {
   isActive: 'isActive',
   createdById: 'createdById',
   updatedById: 'updatedById',
-  deletedById: 'deletedById',
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -217,16 +196,12 @@ export type RoleScalarFieldEnum = (typeof RoleScalarFieldEnum)[keyof typeof Role
 
 export const ProductScalarFieldEnum = {
   id: 'id',
-  publishedAt: 'publishedAt',
-  name: 'name',
-  basePrice: 'basePrice',
-  virtualPrice: 'virtualPrice',
+  base_price: 'base_price',
+  virtual_price: 'virtual_price',
   brandId: 'brandId',
   images: 'images',
-  variants: 'variants',
   createdById: 'createdById',
   updatedById: 'updatedById',
-  deletedById: 'deletedById',
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -243,7 +218,6 @@ export const ProductTranslationScalarFieldEnum = {
   description: 'description',
   createdById: 'createdById',
   updatedById: 'updatedById',
-  deletedById: 'deletedById',
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -254,12 +228,9 @@ export type ProductTranslationScalarFieldEnum = (typeof ProductTranslationScalar
 
 export const CategoryScalarFieldEnum = {
   id: 'id',
-  name: 'name',
-  logo: 'logo',
   parentCategoryId: 'parentCategoryId',
   createdById: 'createdById',
   updatedById: 'updatedById',
-  deletedById: 'deletedById',
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -276,7 +247,6 @@ export const CategoryTranslationScalarFieldEnum = {
   description: 'description',
   createdById: 'createdById',
   updatedById: 'updatedById',
-  deletedById: 'deletedById',
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -285,16 +255,43 @@ export const CategoryTranslationScalarFieldEnum = {
 export type CategoryTranslationScalarFieldEnum = (typeof CategoryTranslationScalarFieldEnum)[keyof typeof CategoryTranslationScalarFieldEnum]
 
 
+export const VariantScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  productId: 'productId',
+  createdById: 'createdById',
+  updatedById: 'updatedById',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type VariantScalarFieldEnum = (typeof VariantScalarFieldEnum)[keyof typeof VariantScalarFieldEnum]
+
+
+export const VariantOptionScalarFieldEnum = {
+  id: 'id',
+  value: 'value',
+  variantId: 'variantId',
+  createdById: 'createdById',
+  updatedById: 'updatedById',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type VariantOptionScalarFieldEnum = (typeof VariantOptionScalarFieldEnum)[keyof typeof VariantOptionScalarFieldEnum]
+
+
 export const SKUScalarFieldEnum = {
   id: 'id',
   value: 'value',
   price: 'price',
   stock: 'stock',
-  image: 'image',
+  images: 'images',
   productId: 'productId',
   createdById: 'createdById',
   updatedById: 'updatedById',
-  deletedById: 'deletedById',
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -306,10 +303,8 @@ export type SKUScalarFieldEnum = (typeof SKUScalarFieldEnum)[keyof typeof SKUSca
 export const BrandScalarFieldEnum = {
   id: 'id',
   logo: 'logo',
-  name: 'name',
   createdById: 'createdById',
   updatedById: 'updatedById',
-  deletedById: 'deletedById',
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -326,7 +321,6 @@ export const BrandTranslationScalarFieldEnum = {
   description: 'description',
   createdById: 'createdById',
   updatedById: 'updatedById',
-  deletedById: 'deletedById',
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -350,14 +344,11 @@ export type CartItemScalarFieldEnum = (typeof CartItemScalarFieldEnum)[keyof typ
 export const ProductSKUSnapshotScalarFieldEnum = {
   id: 'id',
   productName: 'productName',
-  skuPrice: 'skuPrice',
-  image: 'image',
+  price: 'price',
+  images: 'images',
   skuValue: 'skuValue',
   skuId: 'skuId',
   orderId: 'orderId',
-  quantity: 'quantity',
-  productId: 'productId',
-  productTranslations: 'productTranslations',
   createdAt: 'createdAt'
 } as const
 
@@ -368,12 +359,8 @@ export const OrderScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   status: 'status',
-  receiver: 'receiver',
-  shopId: 'shopId',
-  paymentId: 'paymentId',
   createdById: 'createdById',
   updatedById: 'updatedById',
-  deletedById: 'deletedById',
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -382,49 +369,17 @@ export const OrderScalarFieldEnum = {
 export type OrderScalarFieldEnum = (typeof OrderScalarFieldEnum)[keyof typeof OrderScalarFieldEnum]
 
 
-export const PaymentScalarFieldEnum = {
-  id: 'id',
-  status: 'status',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
-
-
-export const WebsocketScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  createdAt: 'createdAt'
-} as const
-
-export type WebsocketScalarFieldEnum = (typeof WebsocketScalarFieldEnum)[keyof typeof WebsocketScalarFieldEnum]
-
-
 export const ReviewScalarFieldEnum = {
   id: 'id',
   content: 'content',
   rating: 'rating',
-  orderId: 'orderId',
   productId: 'productId',
   userId: 'userId',
-  updateCount: 'updateCount',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum]
-
-
-export const ReviewMediaScalarFieldEnum = {
-  id: 'id',
-  url: 'url',
-  type: 'type',
-  reviewId: 'reviewId',
-  createdAt: 'createdAt'
-} as const
-
-export type ReviewMediaScalarFieldEnum = (typeof ReviewMediaScalarFieldEnum)[keyof typeof ReviewMediaScalarFieldEnum]
 
 
 export const PaymentTransactionScalarFieldEnum = {
@@ -466,13 +421,6 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
-export const JsonNullValueInput = {
-  JsonNull: JsonNull
-} as const
-
-export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
-
-
 export const QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
@@ -487,13 +435,4 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
-
-
-export const JsonNullValueFilter = {
-  DbNull: DbNull,
-  JsonNull: JsonNull,
-  AnyNull: AnyNull
-} as const
-
-export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

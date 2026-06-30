@@ -8,13 +8,4 @@ export class AppService {
   getHello(): string {
     return 'Hello World!'
   }
-
-  createLanguage() {
-    return this.prisma.language.create({
-      data: {
-        id: 'vi1',
-        name: 'Vietnamese1111',
-      },
-    })
-  }
 }

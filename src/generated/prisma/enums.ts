@@ -9,17 +9,8 @@
 * 🟢 You can import this file directly.
 */
 
-export const PaymentStatus = {
-  PENDING: 'PENDING',
-  SUCCESS: 'SUCCESS',
-  FAILED: 'FAILED'
-} as const
-
-export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
-
-
 export const OrderStatus = {
-  PENDING_PAYMENT: 'PENDING_PAYMENT',
+  PENDING_CONFIRMATION: 'PENDING_CONFIRMATION',
   PENDING_PICKUP: 'PENDING_PICKUP',
   PENDING_DELIVERY: 'PENDING_DELIVERY',
   DELIVERED: 'DELIVERED',
@@ -30,14 +21,12 @@ export const OrderStatus = {
 export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus]
 
 
-export const VerificationCodeType = {
+export const RegistrationCodeType = {
   REGISTER: 'REGISTER',
-  FORGOT_PASSWORD: 'FORGOT_PASSWORD',
-  LOGIN: 'LOGIN',
-  DISABLE_2FA: 'DISABLE_2FA'
+  FORGOT_PASSWORD: 'FORGOT_PASSWORD'
 } as const
 
-export type VerificationCodeType = (typeof VerificationCodeType)[keyof typeof VerificationCodeType]
+export type RegistrationCodeType = (typeof RegistrationCodeType)[keyof typeof RegistrationCodeType]
 
 
 export const UserStatus = {
@@ -60,11 +49,3 @@ export const HTTPMethod = {
 } as const
 
 export type HTTPMethod = (typeof HTTPMethod)[keyof typeof HTTPMethod]
-
-
-export const MediaType = {
-  IMAGE: 'IMAGE',
-  VIDEO: 'VIDEO'
-} as const
-
-export type MediaType = (typeof MediaType)[keyof typeof MediaType]

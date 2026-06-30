@@ -30,14 +30,12 @@ export type PermissionAvgAggregateOutputType = {
   id: number | null
   createdById: number | null
   updatedById: number | null
-  deletedById: number | null
 }
 
 export type PermissionSumAggregateOutputType = {
   id: number | null
   createdById: number | null
   updatedById: number | null
-  deletedById: number | null
 }
 
 export type PermissionMinAggregateOutputType = {
@@ -46,10 +44,8 @@ export type PermissionMinAggregateOutputType = {
   description: string | null
   path: string | null
   method: $Enums.HTTPMethod | null
-  module: string | null
   createdById: number | null
   updatedById: number | null
-  deletedById: number | null
   deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -61,10 +57,8 @@ export type PermissionMaxAggregateOutputType = {
   description: string | null
   path: string | null
   method: $Enums.HTTPMethod | null
-  module: string | null
   createdById: number | null
   updatedById: number | null
-  deletedById: number | null
   deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -76,10 +70,8 @@ export type PermissionCountAggregateOutputType = {
   description: number
   path: number
   method: number
-  module: number
   createdById: number
   updatedById: number
-  deletedById: number
   deletedAt: number
   createdAt: number
   updatedAt: number
@@ -91,14 +83,12 @@ export type PermissionAvgAggregateInputType = {
   id?: true
   createdById?: true
   updatedById?: true
-  deletedById?: true
 }
 
 export type PermissionSumAggregateInputType = {
   id?: true
   createdById?: true
   updatedById?: true
-  deletedById?: true
 }
 
 export type PermissionMinAggregateInputType = {
@@ -107,10 +97,8 @@ export type PermissionMinAggregateInputType = {
   description?: true
   path?: true
   method?: true
-  module?: true
   createdById?: true
   updatedById?: true
-  deletedById?: true
   deletedAt?: true
   createdAt?: true
   updatedAt?: true
@@ -122,10 +110,8 @@ export type PermissionMaxAggregateInputType = {
   description?: true
   path?: true
   method?: true
-  module?: true
   createdById?: true
   updatedById?: true
-  deletedById?: true
   deletedAt?: true
   createdAt?: true
   updatedAt?: true
@@ -137,10 +123,8 @@ export type PermissionCountAggregateInputType = {
   description?: true
   path?: true
   method?: true
-  module?: true
   createdById?: true
   updatedById?: true
-  deletedById?: true
   deletedAt?: true
   createdAt?: true
   updatedAt?: true
@@ -239,10 +223,8 @@ export type PermissionGroupByOutputType = {
   description: string
   path: string
   method: $Enums.HTTPMethod
-  module: string
   createdById: number | null
   updatedById: number | null
-  deletedById: number | null
   deletedAt: Date | null
   createdAt: Date
   updatedAt: Date
@@ -277,17 +259,14 @@ export type PermissionWhereInput = {
   description?: Prisma.StringFilter<"Permission"> | string
   path?: Prisma.StringFilter<"Permission"> | string
   method?: Prisma.EnumHTTPMethodFilter<"Permission"> | $Enums.HTTPMethod
-  module?: Prisma.StringFilter<"Permission"> | string
   createdById?: Prisma.IntNullableFilter<"Permission"> | number | null
   updatedById?: Prisma.IntNullableFilter<"Permission"> | number | null
-  deletedById?: Prisma.IntNullableFilter<"Permission"> | number | null
   deletedAt?: Prisma.DateTimeNullableFilter<"Permission"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Permission"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Permission"> | Date | string
   roles?: Prisma.RoleListRelationFilter
   createdBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   updatedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
-  deletedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
 export type PermissionOrderByWithRelationInput = {
@@ -296,17 +275,14 @@ export type PermissionOrderByWithRelationInput = {
   description?: Prisma.SortOrder
   path?: Prisma.SortOrder
   method?: Prisma.SortOrder
-  module?: Prisma.SortOrder
   createdById?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedById?: Prisma.SortOrderInput | Prisma.SortOrder
-  deletedById?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   roles?: Prisma.RoleOrderByRelationAggregateInput
   createdBy?: Prisma.UserOrderByWithRelationInput
   updatedBy?: Prisma.UserOrderByWithRelationInput
-  deletedBy?: Prisma.UserOrderByWithRelationInput
 }
 
 export type PermissionWhereUniqueInput = Prisma.AtLeast<{
@@ -318,17 +294,14 @@ export type PermissionWhereUniqueInput = Prisma.AtLeast<{
   description?: Prisma.StringFilter<"Permission"> | string
   path?: Prisma.StringFilter<"Permission"> | string
   method?: Prisma.EnumHTTPMethodFilter<"Permission"> | $Enums.HTTPMethod
-  module?: Prisma.StringFilter<"Permission"> | string
   createdById?: Prisma.IntNullableFilter<"Permission"> | number | null
   updatedById?: Prisma.IntNullableFilter<"Permission"> | number | null
-  deletedById?: Prisma.IntNullableFilter<"Permission"> | number | null
   deletedAt?: Prisma.DateTimeNullableFilter<"Permission"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Permission"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Permission"> | Date | string
   roles?: Prisma.RoleListRelationFilter
   createdBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   updatedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
-  deletedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "id">
 
 export type PermissionOrderByWithAggregationInput = {
@@ -337,10 +310,8 @@ export type PermissionOrderByWithAggregationInput = {
   description?: Prisma.SortOrder
   path?: Prisma.SortOrder
   method?: Prisma.SortOrder
-  module?: Prisma.SortOrder
   createdById?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedById?: Prisma.SortOrderInput | Prisma.SortOrder
-  deletedById?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -360,10 +331,8 @@ export type PermissionScalarWhereWithAggregatesInput = {
   description?: Prisma.StringWithAggregatesFilter<"Permission"> | string
   path?: Prisma.StringWithAggregatesFilter<"Permission"> | string
   method?: Prisma.EnumHTTPMethodWithAggregatesFilter<"Permission"> | $Enums.HTTPMethod
-  module?: Prisma.StringWithAggregatesFilter<"Permission"> | string
   createdById?: Prisma.IntNullableWithAggregatesFilter<"Permission"> | number | null
   updatedById?: Prisma.IntNullableWithAggregatesFilter<"Permission"> | number | null
-  deletedById?: Prisma.IntNullableWithAggregatesFilter<"Permission"> | number | null
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Permission"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Permission"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Permission"> | Date | string
@@ -371,29 +340,25 @@ export type PermissionScalarWhereWithAggregatesInput = {
 
 export type PermissionCreateInput = {
   name: string
-  description?: string
+  description: string
   path: string
   method: $Enums.HTTPMethod
-  module?: string
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   roles?: Prisma.RoleCreateNestedManyWithoutPermissionsInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedPermissionsInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedPermissionsInput
-  deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedPermissionsInput
 }
 
 export type PermissionUncheckedCreateInput = {
   id?: number
   name: string
-  description?: string
+  description: string
   path: string
   method: $Enums.HTTPMethod
-  module?: string
   createdById?: number | null
   updatedById?: number | null
-  deletedById?: number | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -405,14 +370,12 @@ export type PermissionUpdateInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   path?: Prisma.StringFieldUpdateOperationsInput | string
   method?: Prisma.EnumHTTPMethodFieldUpdateOperationsInput | $Enums.HTTPMethod
-  module?: Prisma.StringFieldUpdateOperationsInput | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   roles?: Prisma.RoleUpdateManyWithoutPermissionsNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedPermissionsNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedPermissionsNestedInput
-  deletedBy?: Prisma.UserUpdateOneWithoutDeletedPermissionsNestedInput
 }
 
 export type PermissionUncheckedUpdateInput = {
@@ -421,10 +384,8 @@ export type PermissionUncheckedUpdateInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   path?: Prisma.StringFieldUpdateOperationsInput | string
   method?: Prisma.EnumHTTPMethodFieldUpdateOperationsInput | $Enums.HTTPMethod
-  module?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -434,13 +395,11 @@ export type PermissionUncheckedUpdateInput = {
 export type PermissionCreateManyInput = {
   id?: number
   name: string
-  description?: string
+  description: string
   path: string
   method: $Enums.HTTPMethod
-  module?: string
   createdById?: number | null
   updatedById?: number | null
-  deletedById?: number | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -451,7 +410,6 @@ export type PermissionUpdateManyMutationInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   path?: Prisma.StringFieldUpdateOperationsInput | string
   method?: Prisma.EnumHTTPMethodFieldUpdateOperationsInput | $Enums.HTTPMethod
-  module?: Prisma.StringFieldUpdateOperationsInput | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -463,10 +421,8 @@ export type PermissionUncheckedUpdateManyInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   path?: Prisma.StringFieldUpdateOperationsInput | string
   method?: Prisma.EnumHTTPMethodFieldUpdateOperationsInput | $Enums.HTTPMethod
-  module?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -488,10 +444,8 @@ export type PermissionCountOrderByAggregateInput = {
   description?: Prisma.SortOrder
   path?: Prisma.SortOrder
   method?: Prisma.SortOrder
-  module?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   updatedById?: Prisma.SortOrder
-  deletedById?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -501,7 +455,6 @@ export type PermissionAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   updatedById?: Prisma.SortOrder
-  deletedById?: Prisma.SortOrder
 }
 
 export type PermissionMaxOrderByAggregateInput = {
@@ -510,10 +463,8 @@ export type PermissionMaxOrderByAggregateInput = {
   description?: Prisma.SortOrder
   path?: Prisma.SortOrder
   method?: Prisma.SortOrder
-  module?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   updatedById?: Prisma.SortOrder
-  deletedById?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -525,10 +476,8 @@ export type PermissionMinOrderByAggregateInput = {
   description?: Prisma.SortOrder
   path?: Prisma.SortOrder
   method?: Prisma.SortOrder
-  module?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   updatedById?: Prisma.SortOrder
-  deletedById?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -538,7 +487,6 @@ export type PermissionSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   updatedById?: Prisma.SortOrder
-  deletedById?: Prisma.SortOrder
 }
 
 export type PermissionCreateNestedManyWithoutCreatedByInput = {
@@ -555,13 +503,6 @@ export type PermissionCreateNestedManyWithoutUpdatedByInput = {
   connect?: Prisma.PermissionWhereUniqueInput | Prisma.PermissionWhereUniqueInput[]
 }
 
-export type PermissionCreateNestedManyWithoutDeletedByInput = {
-  create?: Prisma.XOR<Prisma.PermissionCreateWithoutDeletedByInput, Prisma.PermissionUncheckedCreateWithoutDeletedByInput> | Prisma.PermissionCreateWithoutDeletedByInput[] | Prisma.PermissionUncheckedCreateWithoutDeletedByInput[]
-  connectOrCreate?: Prisma.PermissionCreateOrConnectWithoutDeletedByInput | Prisma.PermissionCreateOrConnectWithoutDeletedByInput[]
-  createMany?: Prisma.PermissionCreateManyDeletedByInputEnvelope
-  connect?: Prisma.PermissionWhereUniqueInput | Prisma.PermissionWhereUniqueInput[]
-}
-
 export type PermissionUncheckedCreateNestedManyWithoutCreatedByInput = {
   create?: Prisma.XOR<Prisma.PermissionCreateWithoutCreatedByInput, Prisma.PermissionUncheckedCreateWithoutCreatedByInput> | Prisma.PermissionCreateWithoutCreatedByInput[] | Prisma.PermissionUncheckedCreateWithoutCreatedByInput[]
   connectOrCreate?: Prisma.PermissionCreateOrConnectWithoutCreatedByInput | Prisma.PermissionCreateOrConnectWithoutCreatedByInput[]
@@ -573,13 +514,6 @@ export type PermissionUncheckedCreateNestedManyWithoutUpdatedByInput = {
   create?: Prisma.XOR<Prisma.PermissionCreateWithoutUpdatedByInput, Prisma.PermissionUncheckedCreateWithoutUpdatedByInput> | Prisma.PermissionCreateWithoutUpdatedByInput[] | Prisma.PermissionUncheckedCreateWithoutUpdatedByInput[]
   connectOrCreate?: Prisma.PermissionCreateOrConnectWithoutUpdatedByInput | Prisma.PermissionCreateOrConnectWithoutUpdatedByInput[]
   createMany?: Prisma.PermissionCreateManyUpdatedByInputEnvelope
-  connect?: Prisma.PermissionWhereUniqueInput | Prisma.PermissionWhereUniqueInput[]
-}
-
-export type PermissionUncheckedCreateNestedManyWithoutDeletedByInput = {
-  create?: Prisma.XOR<Prisma.PermissionCreateWithoutDeletedByInput, Prisma.PermissionUncheckedCreateWithoutDeletedByInput> | Prisma.PermissionCreateWithoutDeletedByInput[] | Prisma.PermissionUncheckedCreateWithoutDeletedByInput[]
-  connectOrCreate?: Prisma.PermissionCreateOrConnectWithoutDeletedByInput | Prisma.PermissionCreateOrConnectWithoutDeletedByInput[]
-  createMany?: Prisma.PermissionCreateManyDeletedByInputEnvelope
   connect?: Prisma.PermissionWhereUniqueInput | Prisma.PermissionWhereUniqueInput[]
 }
 
@@ -611,20 +545,6 @@ export type PermissionUpdateManyWithoutUpdatedByNestedInput = {
   deleteMany?: Prisma.PermissionScalarWhereInput | Prisma.PermissionScalarWhereInput[]
 }
 
-export type PermissionUpdateManyWithoutDeletedByNestedInput = {
-  create?: Prisma.XOR<Prisma.PermissionCreateWithoutDeletedByInput, Prisma.PermissionUncheckedCreateWithoutDeletedByInput> | Prisma.PermissionCreateWithoutDeletedByInput[] | Prisma.PermissionUncheckedCreateWithoutDeletedByInput[]
-  connectOrCreate?: Prisma.PermissionCreateOrConnectWithoutDeletedByInput | Prisma.PermissionCreateOrConnectWithoutDeletedByInput[]
-  upsert?: Prisma.PermissionUpsertWithWhereUniqueWithoutDeletedByInput | Prisma.PermissionUpsertWithWhereUniqueWithoutDeletedByInput[]
-  createMany?: Prisma.PermissionCreateManyDeletedByInputEnvelope
-  set?: Prisma.PermissionWhereUniqueInput | Prisma.PermissionWhereUniqueInput[]
-  disconnect?: Prisma.PermissionWhereUniqueInput | Prisma.PermissionWhereUniqueInput[]
-  delete?: Prisma.PermissionWhereUniqueInput | Prisma.PermissionWhereUniqueInput[]
-  connect?: Prisma.PermissionWhereUniqueInput | Prisma.PermissionWhereUniqueInput[]
-  update?: Prisma.PermissionUpdateWithWhereUniqueWithoutDeletedByInput | Prisma.PermissionUpdateWithWhereUniqueWithoutDeletedByInput[]
-  updateMany?: Prisma.PermissionUpdateManyWithWhereWithoutDeletedByInput | Prisma.PermissionUpdateManyWithWhereWithoutDeletedByInput[]
-  deleteMany?: Prisma.PermissionScalarWhereInput | Prisma.PermissionScalarWhereInput[]
-}
-
 export type PermissionUncheckedUpdateManyWithoutCreatedByNestedInput = {
   create?: Prisma.XOR<Prisma.PermissionCreateWithoutCreatedByInput, Prisma.PermissionUncheckedCreateWithoutCreatedByInput> | Prisma.PermissionCreateWithoutCreatedByInput[] | Prisma.PermissionUncheckedCreateWithoutCreatedByInput[]
   connectOrCreate?: Prisma.PermissionCreateOrConnectWithoutCreatedByInput | Prisma.PermissionCreateOrConnectWithoutCreatedByInput[]
@@ -650,20 +570,6 @@ export type PermissionUncheckedUpdateManyWithoutUpdatedByNestedInput = {
   connect?: Prisma.PermissionWhereUniqueInput | Prisma.PermissionWhereUniqueInput[]
   update?: Prisma.PermissionUpdateWithWhereUniqueWithoutUpdatedByInput | Prisma.PermissionUpdateWithWhereUniqueWithoutUpdatedByInput[]
   updateMany?: Prisma.PermissionUpdateManyWithWhereWithoutUpdatedByInput | Prisma.PermissionUpdateManyWithWhereWithoutUpdatedByInput[]
-  deleteMany?: Prisma.PermissionScalarWhereInput | Prisma.PermissionScalarWhereInput[]
-}
-
-export type PermissionUncheckedUpdateManyWithoutDeletedByNestedInput = {
-  create?: Prisma.XOR<Prisma.PermissionCreateWithoutDeletedByInput, Prisma.PermissionUncheckedCreateWithoutDeletedByInput> | Prisma.PermissionCreateWithoutDeletedByInput[] | Prisma.PermissionUncheckedCreateWithoutDeletedByInput[]
-  connectOrCreate?: Prisma.PermissionCreateOrConnectWithoutDeletedByInput | Prisma.PermissionCreateOrConnectWithoutDeletedByInput[]
-  upsert?: Prisma.PermissionUpsertWithWhereUniqueWithoutDeletedByInput | Prisma.PermissionUpsertWithWhereUniqueWithoutDeletedByInput[]
-  createMany?: Prisma.PermissionCreateManyDeletedByInputEnvelope
-  set?: Prisma.PermissionWhereUniqueInput | Prisma.PermissionWhereUniqueInput[]
-  disconnect?: Prisma.PermissionWhereUniqueInput | Prisma.PermissionWhereUniqueInput[]
-  delete?: Prisma.PermissionWhereUniqueInput | Prisma.PermissionWhereUniqueInput[]
-  connect?: Prisma.PermissionWhereUniqueInput | Prisma.PermissionWhereUniqueInput[]
-  update?: Prisma.PermissionUpdateWithWhereUniqueWithoutDeletedByInput | Prisma.PermissionUpdateWithWhereUniqueWithoutDeletedByInput[]
-  updateMany?: Prisma.PermissionUpdateManyWithWhereWithoutDeletedByInput | Prisma.PermissionUpdateManyWithWhereWithoutDeletedByInput[]
   deleteMany?: Prisma.PermissionScalarWhereInput | Prisma.PermissionScalarWhereInput[]
 }
 
@@ -711,27 +617,23 @@ export type PermissionUncheckedUpdateManyWithoutRolesNestedInput = {
 
 export type PermissionCreateWithoutCreatedByInput = {
   name: string
-  description?: string
+  description: string
   path: string
   method: $Enums.HTTPMethod
-  module?: string
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   roles?: Prisma.RoleCreateNestedManyWithoutPermissionsInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedPermissionsInput
-  deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedPermissionsInput
 }
 
 export type PermissionUncheckedCreateWithoutCreatedByInput = {
   id?: number
   name: string
-  description?: string
+  description: string
   path: string
   method: $Enums.HTTPMethod
-  module?: string
   updatedById?: number | null
-  deletedById?: number | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -750,27 +652,23 @@ export type PermissionCreateManyCreatedByInputEnvelope = {
 
 export type PermissionCreateWithoutUpdatedByInput = {
   name: string
-  description?: string
+  description: string
   path: string
   method: $Enums.HTTPMethod
-  module?: string
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   roles?: Prisma.RoleCreateNestedManyWithoutPermissionsInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedPermissionsInput
-  deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedPermissionsInput
 }
 
 export type PermissionUncheckedCreateWithoutUpdatedByInput = {
   id?: number
   name: string
-  description?: string
+  description: string
   path: string
   method: $Enums.HTTPMethod
-  module?: string
   createdById?: number | null
-  deletedById?: number | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -784,45 +682,6 @@ export type PermissionCreateOrConnectWithoutUpdatedByInput = {
 
 export type PermissionCreateManyUpdatedByInputEnvelope = {
   data: Prisma.PermissionCreateManyUpdatedByInput | Prisma.PermissionCreateManyUpdatedByInput[]
-  skipDuplicates?: boolean
-}
-
-export type PermissionCreateWithoutDeletedByInput = {
-  name: string
-  description?: string
-  path: string
-  method: $Enums.HTTPMethod
-  module?: string
-  deletedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  roles?: Prisma.RoleCreateNestedManyWithoutPermissionsInput
-  createdBy?: Prisma.UserCreateNestedOneWithoutCreatedPermissionsInput
-  updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedPermissionsInput
-}
-
-export type PermissionUncheckedCreateWithoutDeletedByInput = {
-  id?: number
-  name: string
-  description?: string
-  path: string
-  method: $Enums.HTTPMethod
-  module?: string
-  createdById?: number | null
-  updatedById?: number | null
-  deletedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  roles?: Prisma.RoleUncheckedCreateNestedManyWithoutPermissionsInput
-}
-
-export type PermissionCreateOrConnectWithoutDeletedByInput = {
-  where: Prisma.PermissionWhereUniqueInput
-  create: Prisma.XOR<Prisma.PermissionCreateWithoutDeletedByInput, Prisma.PermissionUncheckedCreateWithoutDeletedByInput>
-}
-
-export type PermissionCreateManyDeletedByInputEnvelope = {
-  data: Prisma.PermissionCreateManyDeletedByInput | Prisma.PermissionCreateManyDeletedByInput[]
   skipDuplicates?: boolean
 }
 
@@ -851,10 +710,8 @@ export type PermissionScalarWhereInput = {
   description?: Prisma.StringFilter<"Permission"> | string
   path?: Prisma.StringFilter<"Permission"> | string
   method?: Prisma.EnumHTTPMethodFilter<"Permission"> | $Enums.HTTPMethod
-  module?: Prisma.StringFilter<"Permission"> | string
   createdById?: Prisma.IntNullableFilter<"Permission"> | number | null
   updatedById?: Prisma.IntNullableFilter<"Permission"> | number | null
-  deletedById?: Prisma.IntNullableFilter<"Permission"> | number | null
   deletedAt?: Prisma.DateTimeNullableFilter<"Permission"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Permission"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Permission"> | Date | string
@@ -876,46 +733,26 @@ export type PermissionUpdateManyWithWhereWithoutUpdatedByInput = {
   data: Prisma.XOR<Prisma.PermissionUpdateManyMutationInput, Prisma.PermissionUncheckedUpdateManyWithoutUpdatedByInput>
 }
 
-export type PermissionUpsertWithWhereUniqueWithoutDeletedByInput = {
-  where: Prisma.PermissionWhereUniqueInput
-  update: Prisma.XOR<Prisma.PermissionUpdateWithoutDeletedByInput, Prisma.PermissionUncheckedUpdateWithoutDeletedByInput>
-  create: Prisma.XOR<Prisma.PermissionCreateWithoutDeletedByInput, Prisma.PermissionUncheckedCreateWithoutDeletedByInput>
-}
-
-export type PermissionUpdateWithWhereUniqueWithoutDeletedByInput = {
-  where: Prisma.PermissionWhereUniqueInput
-  data: Prisma.XOR<Prisma.PermissionUpdateWithoutDeletedByInput, Prisma.PermissionUncheckedUpdateWithoutDeletedByInput>
-}
-
-export type PermissionUpdateManyWithWhereWithoutDeletedByInput = {
-  where: Prisma.PermissionScalarWhereInput
-  data: Prisma.XOR<Prisma.PermissionUpdateManyMutationInput, Prisma.PermissionUncheckedUpdateManyWithoutDeletedByInput>
-}
-
 export type PermissionCreateWithoutRolesInput = {
   name: string
-  description?: string
+  description: string
   path: string
   method: $Enums.HTTPMethod
-  module?: string
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedPermissionsInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedPermissionsInput
-  deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedPermissionsInput
 }
 
 export type PermissionUncheckedCreateWithoutRolesInput = {
   id?: number
   name: string
-  description?: string
+  description: string
   path: string
   method: $Enums.HTTPMethod
-  module?: string
   createdById?: number | null
   updatedById?: number | null
-  deletedById?: number | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -945,12 +782,10 @@ export type PermissionUpdateManyWithWhereWithoutRolesInput = {
 export type PermissionCreateManyCreatedByInput = {
   id?: number
   name: string
-  description?: string
+  description: string
   path: string
   method: $Enums.HTTPMethod
-  module?: string
   updatedById?: number | null
-  deletedById?: number | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -959,26 +794,10 @@ export type PermissionCreateManyCreatedByInput = {
 export type PermissionCreateManyUpdatedByInput = {
   id?: number
   name: string
-  description?: string
+  description: string
   path: string
   method: $Enums.HTTPMethod
-  module?: string
   createdById?: number | null
-  deletedById?: number | null
-  deletedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type PermissionCreateManyDeletedByInput = {
-  id?: number
-  name: string
-  description?: string
-  path: string
-  method: $Enums.HTTPMethod
-  module?: string
-  createdById?: number | null
-  updatedById?: number | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -989,13 +808,11 @@ export type PermissionUpdateWithoutCreatedByInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   path?: Prisma.StringFieldUpdateOperationsInput | string
   method?: Prisma.EnumHTTPMethodFieldUpdateOperationsInput | $Enums.HTTPMethod
-  module?: Prisma.StringFieldUpdateOperationsInput | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   roles?: Prisma.RoleUpdateManyWithoutPermissionsNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedPermissionsNestedInput
-  deletedBy?: Prisma.UserUpdateOneWithoutDeletedPermissionsNestedInput
 }
 
 export type PermissionUncheckedUpdateWithoutCreatedByInput = {
@@ -1004,9 +821,7 @@ export type PermissionUncheckedUpdateWithoutCreatedByInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   path?: Prisma.StringFieldUpdateOperationsInput | string
   method?: Prisma.EnumHTTPMethodFieldUpdateOperationsInput | $Enums.HTTPMethod
-  module?: Prisma.StringFieldUpdateOperationsInput | string
   updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1019,9 +834,7 @@ export type PermissionUncheckedUpdateManyWithoutCreatedByInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   path?: Prisma.StringFieldUpdateOperationsInput | string
   method?: Prisma.EnumHTTPMethodFieldUpdateOperationsInput | $Enums.HTTPMethod
-  module?: Prisma.StringFieldUpdateOperationsInput | string
   updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1032,13 +845,11 @@ export type PermissionUpdateWithoutUpdatedByInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   path?: Prisma.StringFieldUpdateOperationsInput | string
   method?: Prisma.EnumHTTPMethodFieldUpdateOperationsInput | $Enums.HTTPMethod
-  module?: Prisma.StringFieldUpdateOperationsInput | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   roles?: Prisma.RoleUpdateManyWithoutPermissionsNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedPermissionsNestedInput
-  deletedBy?: Prisma.UserUpdateOneWithoutDeletedPermissionsNestedInput
 }
 
 export type PermissionUncheckedUpdateWithoutUpdatedByInput = {
@@ -1047,9 +858,7 @@ export type PermissionUncheckedUpdateWithoutUpdatedByInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   path?: Prisma.StringFieldUpdateOperationsInput | string
   method?: Prisma.EnumHTTPMethodFieldUpdateOperationsInput | $Enums.HTTPMethod
-  module?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1062,52 +871,7 @@ export type PermissionUncheckedUpdateManyWithoutUpdatedByInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   path?: Prisma.StringFieldUpdateOperationsInput | string
   method?: Prisma.EnumHTTPMethodFieldUpdateOperationsInput | $Enums.HTTPMethod
-  module?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type PermissionUpdateWithoutDeletedByInput = {
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  path?: Prisma.StringFieldUpdateOperationsInput | string
-  method?: Prisma.EnumHTTPMethodFieldUpdateOperationsInput | $Enums.HTTPMethod
-  module?: Prisma.StringFieldUpdateOperationsInput | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  roles?: Prisma.RoleUpdateManyWithoutPermissionsNestedInput
-  createdBy?: Prisma.UserUpdateOneWithoutCreatedPermissionsNestedInput
-  updatedBy?: Prisma.UserUpdateOneWithoutUpdatedPermissionsNestedInput
-}
-
-export type PermissionUncheckedUpdateWithoutDeletedByInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  path?: Prisma.StringFieldUpdateOperationsInput | string
-  method?: Prisma.EnumHTTPMethodFieldUpdateOperationsInput | $Enums.HTTPMethod
-  module?: Prisma.StringFieldUpdateOperationsInput | string
-  createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  roles?: Prisma.RoleUncheckedUpdateManyWithoutPermissionsNestedInput
-}
-
-export type PermissionUncheckedUpdateManyWithoutDeletedByInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  path?: Prisma.StringFieldUpdateOperationsInput | string
-  method?: Prisma.EnumHTTPMethodFieldUpdateOperationsInput | $Enums.HTTPMethod
-  module?: Prisma.StringFieldUpdateOperationsInput | string
-  createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1118,13 +882,11 @@ export type PermissionUpdateWithoutRolesInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   path?: Prisma.StringFieldUpdateOperationsInput | string
   method?: Prisma.EnumHTTPMethodFieldUpdateOperationsInput | $Enums.HTTPMethod
-  module?: Prisma.StringFieldUpdateOperationsInput | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdBy?: Prisma.UserUpdateOneWithoutCreatedPermissionsNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedPermissionsNestedInput
-  deletedBy?: Prisma.UserUpdateOneWithoutDeletedPermissionsNestedInput
 }
 
 export type PermissionUncheckedUpdateWithoutRolesInput = {
@@ -1133,10 +895,8 @@ export type PermissionUncheckedUpdateWithoutRolesInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   path?: Prisma.StringFieldUpdateOperationsInput | string
   method?: Prisma.EnumHTTPMethodFieldUpdateOperationsInput | $Enums.HTTPMethod
-  module?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1148,10 +908,8 @@ export type PermissionUncheckedUpdateManyWithoutRolesInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   path?: Prisma.StringFieldUpdateOperationsInput | string
   method?: Prisma.EnumHTTPMethodFieldUpdateOperationsInput | $Enums.HTTPMethod
-  module?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1194,17 +952,14 @@ export type PermissionSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   description?: boolean
   path?: boolean
   method?: boolean
-  module?: boolean
   createdById?: boolean
   updatedById?: boolean
-  deletedById?: boolean
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   roles?: boolean | Prisma.Permission$rolesArgs<ExtArgs>
   createdBy?: boolean | Prisma.Permission$createdByArgs<ExtArgs>
   updatedBy?: boolean | Prisma.Permission$updatedByArgs<ExtArgs>
-  deletedBy?: boolean | Prisma.Permission$deletedByArgs<ExtArgs>
   _count?: boolean | Prisma.PermissionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["permission"]>
 
@@ -1214,16 +969,13 @@ export type PermissionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   description?: boolean
   path?: boolean
   method?: boolean
-  module?: boolean
   createdById?: boolean
   updatedById?: boolean
-  deletedById?: boolean
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   createdBy?: boolean | Prisma.Permission$createdByArgs<ExtArgs>
   updatedBy?: boolean | Prisma.Permission$updatedByArgs<ExtArgs>
-  deletedBy?: boolean | Prisma.Permission$deletedByArgs<ExtArgs>
 }, ExtArgs["result"]["permission"]>
 
 export type PermissionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1232,16 +984,13 @@ export type PermissionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   description?: boolean
   path?: boolean
   method?: boolean
-  module?: boolean
   createdById?: boolean
   updatedById?: boolean
-  deletedById?: boolean
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   createdBy?: boolean | Prisma.Permission$createdByArgs<ExtArgs>
   updatedBy?: boolean | Prisma.Permission$updatedByArgs<ExtArgs>
-  deletedBy?: boolean | Prisma.Permission$deletedByArgs<ExtArgs>
 }, ExtArgs["result"]["permission"]>
 
 export type PermissionSelectScalar = {
@@ -1250,32 +999,27 @@ export type PermissionSelectScalar = {
   description?: boolean
   path?: boolean
   method?: boolean
-  module?: boolean
   createdById?: boolean
   updatedById?: boolean
-  deletedById?: boolean
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type PermissionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "path" | "method" | "module" | "createdById" | "updatedById" | "deletedById" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["permission"]>
+export type PermissionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "path" | "method" | "createdById" | "updatedById" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["permission"]>
 export type PermissionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   roles?: boolean | Prisma.Permission$rolesArgs<ExtArgs>
   createdBy?: boolean | Prisma.Permission$createdByArgs<ExtArgs>
   updatedBy?: boolean | Prisma.Permission$updatedByArgs<ExtArgs>
-  deletedBy?: boolean | Prisma.Permission$deletedByArgs<ExtArgs>
   _count?: boolean | Prisma.PermissionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PermissionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   createdBy?: boolean | Prisma.Permission$createdByArgs<ExtArgs>
   updatedBy?: boolean | Prisma.Permission$updatedByArgs<ExtArgs>
-  deletedBy?: boolean | Prisma.Permission$deletedByArgs<ExtArgs>
 }
 export type PermissionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   createdBy?: boolean | Prisma.Permission$createdByArgs<ExtArgs>
   updatedBy?: boolean | Prisma.Permission$updatedByArgs<ExtArgs>
-  deletedBy?: boolean | Prisma.Permission$deletedByArgs<ExtArgs>
 }
 
 export type $PermissionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1284,7 +1028,6 @@ export type $PermissionPayload<ExtArgs extends runtime.Types.Extensions.Internal
     roles: Prisma.$RolePayload<ExtArgs>[]
     createdBy: Prisma.$UserPayload<ExtArgs> | null
     updatedBy: Prisma.$UserPayload<ExtArgs> | null
-    deletedBy: Prisma.$UserPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1292,10 +1035,8 @@ export type $PermissionPayload<ExtArgs extends runtime.Types.Extensions.Internal
     description: string
     path: string
     method: $Enums.HTTPMethod
-    module: string
     createdById: number | null
     updatedById: number | null
-    deletedById: number | null
     deletedAt: Date | null
     createdAt: Date
     updatedAt: Date
@@ -1696,7 +1437,6 @@ export interface Prisma__PermissionClient<T, Null = never, ExtArgs extends runti
   roles<T extends Prisma.Permission$rolesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Permission$rolesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   createdBy<T extends Prisma.Permission$createdByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Permission$createdByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   updatedBy<T extends Prisma.Permission$updatedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Permission$updatedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  deletedBy<T extends Prisma.Permission$deletedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Permission$deletedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1731,10 +1471,8 @@ export interface PermissionFieldRefs {
   readonly description: Prisma.FieldRef<"Permission", 'String'>
   readonly path: Prisma.FieldRef<"Permission", 'String'>
   readonly method: Prisma.FieldRef<"Permission", 'HTTPMethod'>
-  readonly module: Prisma.FieldRef<"Permission", 'String'>
   readonly createdById: Prisma.FieldRef<"Permission", 'Int'>
   readonly updatedById: Prisma.FieldRef<"Permission", 'Int'>
-  readonly deletedById: Prisma.FieldRef<"Permission", 'Int'>
   readonly deletedAt: Prisma.FieldRef<"Permission", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Permission", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Permission", 'DateTime'>
@@ -2185,25 +1923,6 @@ export type Permission$createdByArgs<ExtArgs extends runtime.Types.Extensions.In
  * Permission.updatedBy
  */
 export type Permission$updatedByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the User
-   */
-  select?: Prisma.UserSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the User
-   */
-  omit?: Prisma.UserOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UserInclude<ExtArgs> | null
-  where?: Prisma.UserWhereInput
-}
-
-/**
- * Permission.deletedBy
- */
-export type Permission$deletedByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the User
    */
