@@ -35,6 +35,7 @@ export default tseslint.config(
       '@typescript-eslint/no-unsafe-call': 'off',
       '@typescript-eslint/no-unsafe-return': 'off',
       '@typescript-eslint/no-unsafe-declaration-merging': 'off',
+      'prefer-const': 'warn',
     },
   },
 )
