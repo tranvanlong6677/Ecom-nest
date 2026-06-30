@@ -10,6 +10,7 @@ export class RolesService {
 
   async getClientRoleId() {
     if (this.clientRoleId) {
+      console.log('get client role id from cache: ', this.clientRoleId)
       return this.clientRoleId
     }
     const role = await this.prismaService.role.findFirstOrThrow({
@@ -17,6 +18,7 @@ export class RolesService {
         name: RoleName.Client,
       },
     })
+    console.log('get client role id from db: ', role.id)
     this.clientRoleId = role.id
     return role.id
   }
