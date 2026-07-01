@@ -4,7 +4,8 @@ import { PrismaService } from '@/shared/services/prisma.service'
 import { TokenService } from '@/shared/services/token.service'
 import { RolesService } from '@/routes/auth/role.service'
 import { isNotFoundPrismaError, isUniqueConstraintPrismaError } from '@/shared/helper'
-import { RegisterBodyDto } from '@/routes/auth/auth.dto'
+import { LoginBodyType, RegisterBodyType } from './auth.model'
+import { AuthRepository } from './auth.repo'
 
 @Injectable()
 export class AuthService {
@@ -13,26 +14,21 @@ export class AuthService {
     private readonly prismaService: PrismaService,
     private readonly tokenService: TokenService,
     private readonly rolesService: RolesService,
+    private readonly authRepo: AuthRepository,
   ) {}
-  async register(body: RegisterBodyDto) {
+  async register(body: RegisterBodyType) {
     try {
       const clientRoleId = await this.rolesService.getClientRoleId()
       const hashedPassword = await this.hashingService.hash(body.password)
-      const user = await this.prismaService.user.create({
-        data: {
-          email: body.email,
-          password: hashedPassword,
-          name: body.name,
-          phoneNumber: body.phoneNumber,
-          roleId: clientRoleId,
-        },
-        omit: {
-          password: true,
-          totpSecret: true,
-        },
+      return await this.authRepo.createUser({
+        email: body.email,
+        name: body.name,
+        phoneNumber: body.phoneNumber,
+        password: hashedPassword,
+        roleId: clientRoleId,
       })
-      return user
     } catch (error) {
+      console.log({ error })
       if (isUniqueConstraintPrismaError(error)) {
         throw new ConflictException('Email đã tồn tại')
       }
@@ -40,7 +36,7 @@ export class AuthService {
     }
   }
 
-  async login(body: any) {
+  async login(body: LoginBodyType) {
     const user = await this.prismaService.user.findUnique({
       where: {
         email: body.email,
@@ -60,24 +56,8 @@ export class AuthService {
         },
       ])
     }
-    const tokens = await this.generateTokens({ userId: user.id })
+    const tokens = await this.authRepo.generateTokens({ userId: user.id })
     return tokens
-  }
-
-  async generateTokens(payload: { userId: number }) {
-    const [accessToken, refreshToken] = await Promise.all([
-      this.tokenService.signAccessToken(payload),
-      this.tokenService.signRefreshToken(payload),
-    ])
-    const decodedRefreshToken = await this.tokenService.verifyRefreshToken(refreshToken)
-    await this.prismaService.refreshToken.create({
-      data: {
-        token: refreshToken,
-        userId: payload.userId,
-        expiresAt: new Date(decodedRefreshToken.exp * 1000),
-      },
-    })
-    return { accessToken, refreshToken }
   }
 
   async refreshToken(refreshToken: string) {
@@ -97,7 +77,7 @@ export class AuthService {
         },
       })
       // 4. Tạo mới accessToken và refreshToken
-      return await this.generateTokens({ userId })
+      return await this.authRepo.generateTokens({ userId })
     } catch (error) {
       // Trường hợp đã refresh token rồi, hãy thông báo cho user biết
       // refresh token của họ đã bị đánh cắp
