@@ -3,9 +3,13 @@ import { HashingService } from '@/shared/services/hashing.service'
 import { PrismaService } from '@/shared/services/prisma.service'
 import { TokenService } from '@/shared/services/token.service'
 import { RolesService } from '@/routes/auth/role.service'
-import { isNotFoundPrismaError, isUniqueConstraintPrismaError } from '@/shared/helper'
-import { LoginBodyType, RegisterBodyType } from './auth.model'
+import { generateOTP, isNotFoundPrismaError, isUniqueConstraintPrismaError } from '@/shared/helper'
+import { LoginBodyType, RegisterBodyType, SendOTPBodyType } from './auth.model'
+import { VerificationCodePurpose } from '@/shared/constants/auth.constants'
 import { AuthRepository } from './auth.repo'
+import { SharedRepository } from '@/shared/repository/shared-user.repo'
+import envConfig from '@/shared/config'
+import ms from 'ms'
 
 @Injectable()
 export class AuthService {
@@ -15,20 +19,34 @@ export class AuthService {
     private readonly tokenService: TokenService,
     private readonly rolesService: RolesService,
     private readonly authRepo: AuthRepository,
+    private readonly sharedRepo: SharedRepository,
   ) {}
   async register(body: RegisterBodyType) {
     try {
+      const verificationCode = await this.authRepo.findVerificationCode({
+        email: body.email,
+        code: body.code,
+        type: VerificationCodePurpose.REGISTER,
+      })
+      if (!verificationCode) {
+        throw new UnprocessableEntityException([{ path: 'code', message: 'OTP code is incorrect' }])
+      }
+      if (verificationCode.expiresAt < new Date()) {
+        throw new UnprocessableEntityException([{ path: 'code', message: 'OTP code is expired' }])
+      }
       const clientRoleId = await this.rolesService.getClientRoleId()
       const hashedPassword = await this.hashingService.hash(body.password)
-      return await this.authRepo.createUser({
-        email: body.email,
-        name: body.name,
-        phoneNumber: body.phoneNumber,
-        password: hashedPassword,
-        roleId: clientRoleId,
-      })
+      return await this.authRepo.createUser(
+        {
+          email: body.email,
+          name: body.name,
+          phoneNumber: body.phoneNumber,
+          password: hashedPassword,
+          roleId: clientRoleId,
+        },
+        body.email,
+      )
     } catch (error) {
-      console.log({ error })
       if (isUniqueConstraintPrismaError(error)) {
         throw new ConflictException('Email đã tồn tại')
       }
@@ -107,5 +125,28 @@ export class AuthService {
       }
       throw new UnauthorizedException()
     }
+  }
+
+  async sendOtp(body: SendOTPBodyType) {
+    const user = await this.sharedRepo.findUser({ email: body.email })
+    const isRegister = body.type === VerificationCodePurpose.REGISTER
+    if (isRegister && user) {
+      throw new UnprocessableEntityException([{ path: 'email', message: 'Email already exists' }])
+    }
+    if (!isRegister && !user) {
+      throw new UnprocessableEntityException([{ path: 'email', message: 'Account does not exist' }])
+    }
+
+    const otpCode = generateOTP()
+    const expiresAt = new Date(Date.now() + ms(envConfig.OTP_EXPIRES as ms.StringValue))
+
+    const verificationCode = await this.authRepo.createVerificationCode({
+      email: body.email,
+      type: body.type,
+      code: otpCode,
+      expiresAt,
+    })
+
+    return verificationCode
   }
 }

@@ -8,13 +8,23 @@ import { HashingService } from '@/shared/services/hashing.service'
 import { JwtService } from '@/shared/services/jwt.service'
 import { PrismaService } from '@/shared/services/prisma.service'
 import { TokenService } from '@/shared/services/token.service'
+import { SharedRepository } from '@/shared/repository/shared-user.repo'
+import { CleanupTask } from '@/shared/tasks/cleanup.task'
 
 const sharedServices = [PrismaService, HashingService, JwtService, TokenService]
-
+const sharedRepos = [SharedRepository]
+const sharedTasks = [CleanupTask]
 @Global()
 @Module({
   imports: [JwtModule.register({})],
-  providers: [...sharedServices, AccessTokenGuard, ApiKeyGuard, { provide: APP_GUARD, useClass: AuthGuard }],
-  exports: [...sharedServices],
+  providers: [
+    ...sharedServices,
+    ...sharedRepos,
+    ...sharedTasks,
+    AccessTokenGuard,
+    ApiKeyGuard,
+    { provide: APP_GUARD, useClass: AuthGuard },
+  ],
+  exports: [...sharedServices, ...sharedRepos],
 })
 export class SharedModule {}

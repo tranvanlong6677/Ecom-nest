@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from '@/shared/services/prisma.service'
-import { RegisterBodyType, UserType } from './auth.model'
+import { RegisterBodyType, VerificationCodeType } from './auth.model'
 import { TokenService } from '@/shared/services/token.service'
+import { UserType } from '@/shared/models/user.model'
 
 @Injectable()
 export class AuthRepository {
@@ -11,14 +12,15 @@ export class AuthRepository {
   ) {}
 
   async createUser(
-    user: Omit<RegisterBodyType, 'confirmPassword'> & Pick<UserType, 'roleId'>,
+    user: Omit<RegisterBodyType, 'confirmPassword' | 'code'> & Pick<UserType, 'roleId'>,
+    verificationEmail: string,
   ): Promise<Omit<UserType, 'password' | 'totpSecret'>> {
-    return await this.prismaService.user.create({
-      data: user,
-      omit: {
-        password: true,
-        totpSecret: true,
-      },
+    return await this.prismaService.$transaction(async (tx) => {
+      const [newUser] = await Promise.all([
+        tx.user.create({ data: user, omit: { password: true, totpSecret: true } }),
+        tx.verificationCode.delete({ where: { email: verificationEmail } }),
+      ])
+      return newUser
     })
   }
 
@@ -36,5 +38,26 @@ export class AuthRepository {
       },
     })
     return { accessToken, refreshToken }
+  }
+
+  async createVerificationCode(
+    payload: Pick<VerificationCodeType, 'email' | 'type' | 'code' | 'expiresAt'>,
+  ): Promise<VerificationCodeType> {
+    return await this.prismaService.verificationCode.upsert({
+      where: { email: payload.email },
+      create: payload,
+      update: {
+        code: payload.code,
+        expiresAt: payload.expiresAt,
+      },
+    })
+  }
+
+  async findVerificationCode(
+    condition: Pick<VerificationCodeType, 'email' | 'type' | 'code'>,
+  ): Promise<VerificationCodeType | null> {
+    return await this.prismaService.verificationCode.findFirst({
+      where: condition,
+    })
   }
 }

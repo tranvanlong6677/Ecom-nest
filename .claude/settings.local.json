@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -c \"import sys,json; d=json.load(sys.stdin); print(d.get('tool_input',{}).get('file_path',''))\" | { read -r f; echo \"$f\" | grep -qE '\\.(ts|tsx)$' && cd /home/longtv01/Desktop/Code/Ecom/ecom-nest && npx eslint --fix \"$f\"; } 2>/dev/null || true",
+            "statusMessage": "ESLint fixing unused imports..."
+          }
+        ]
+      }
+    ]
+  }
+}

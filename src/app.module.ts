@@ -9,9 +9,10 @@ import CustomZodValidationPipe from '@/shared/pipes/custom-zod-validation.pipe'
 import { ZodSerializerInterceptor } from 'nestjs-zod'
 import { HttpExceptionFilter } from '@/shared/filters/http-exception.filter'
 import { CatchEverythingFilter } from '@/shared/filters/catch-everything.filter'
+import { ScheduleModule } from '@nestjs/schedule'
 
 @Module({
-  imports: [SharedModule, AuthModule],
+  imports: [ScheduleModule.forRoot(), SharedModule, AuthModule],
   controllers: [AppController],
   providers: [
     AppService,
