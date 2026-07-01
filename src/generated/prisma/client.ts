@@ -13,12 +13,12 @@ import * as process from 'node:process'
 import * as path from 'node:path'
 
 import * as runtime from "@prisma/client/runtime/client"
-import * as $Enums from '@/generated/prisma/enums.js'
-import * as $Class from '@/generated/prisma/internal/class.js'
-import * as Prisma from '@/generated/prisma/internal/prismaNamespace.js'
+import * as $Enums from './enums.js'
+import * as $Class from './internal/class.js'
+import * as Prisma from './internal/prismaNamespace.js'
 
-export * as $Enums from '@/generated/prisma/enums.js'
-export * from '@/generated/prisma/enums.js'
+export * as $Enums from './enums.js'
+export * from './enums.js'
 /**
  * ## Prisma Client
  * 

@@ -9,8 +9,8 @@
  */
 
 import type * as runtime from "@prisma/client/runtime/client"
-import * as $Enums from '@/generated/prisma/enums.js'
-import type * as Prisma from '@/generated/prisma/internal/prismaNamespace.js'
+import * as $Enums from './enums.js'
+import type * as Prisma from './internal/prismaNamespace.js'
 
 
 export type IntFilter<$PrismaModel = never> = {
