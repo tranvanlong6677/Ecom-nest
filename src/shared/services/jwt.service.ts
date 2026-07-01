@@ -2,8 +2,8 @@ import { Injectable, UnauthorizedException } from '@nestjs/common'
 import type { JwtSignOptions, JwtVerifyOptions } from '@nestjs/jwt'
 import { JwtService as Jwt } from '@nestjs/jwt'
 import type { StringValue } from 'ms'
-import envConfig from '../config'
-import { TokenPayload } from '../types/jwt.type'
+import envConfig from '@/shared/config'
+import { TokenPayload } from '@/shared/types/jwt.type'
 
 @Injectable()
 export class JwtService {

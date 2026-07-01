@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common'
-import { AppController } from './app.controller'
-import { AppService } from './app.service'
-import { SharedModule } from './shared/shared.module'
-import { AuthModule } from './routes/auth/auth.module'
-import { RolesService } from './routes/auth/role.service'
+import { AppController } from '@/app.controller'
+import { AppService } from '@/app.service'
+import { SharedModule } from '@/shared/shared.module'
+import { AuthModule } from '@/routes/auth/auth.module'
+import { RolesService } from '@/routes/auth/role.service'
 import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core'
-import CustomZodValidationPipe from './shared/pipes/custom-zod-validation.pipe'
+import CustomZodValidationPipe from '@/shared/pipes/custom-zod-validation.pipe'
 import { ZodSerializerInterceptor } from 'nestjs-zod'
-import { HttpExceptionFilter } from './shared/filters/http-exception.filter'
-import { CatchEverythingFilter } from './shared/filters/catch-everything.filter'
+import { HttpExceptionFilter } from '@/shared/filters/http-exception.filter'
+import { CatchEverythingFilter } from '@/shared/filters/catch-everything.filter'
 
 @Module({
   imports: [SharedModule, AuthModule],

@@ -1,10 +1,10 @@
 import { ConflictException, Injectable, UnauthorizedException, UnprocessableEntityException } from '@nestjs/common'
-import { HashingService } from '../../shared/services/hashing.service'
-import { PrismaService } from '../../shared/services/prisma.service'
-import { TokenService } from '../../shared/services/token.service'
-import { RolesService } from './role.service'
-import { isNotFoundPrismaError, isUniqueConstraintPrismaError } from '../../shared/helper'
-import { RegisterBodyDto } from './auth.dto'
+import { HashingService } from '@/shared/services/hashing.service'
+import { PrismaService } from '@/shared/services/prisma.service'
+import { TokenService } from '@/shared/services/token.service'
+import { RolesService } from '@/routes/auth/role.service'
+import { isNotFoundPrismaError, isUniqueConstraintPrismaError } from '@/shared/helper'
+import { RegisterBodyDto } from '@/routes/auth/auth.dto'
 
 @Injectable()
 export class AuthService {

@@ -1,6 +1,6 @@
 import { createZodDto } from 'nestjs-zod'
 import { z } from 'zod'
-import { UserStatus } from '../../generated/prisma/enums'
+import { UserStatus } from '@/generated/prisma/enums'
 
 const UserSchema = z.object({
   id: z.number(),

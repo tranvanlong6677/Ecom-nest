@@ -1,8 +1,8 @@
 import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common'
 import { JsonWebTokenError, TokenExpiredError } from '@nestjs/jwt'
 import type { Request } from 'express'
-import { REQUEST_USER_KEY } from '../constants/auth.constants'
-import { JwtService } from '../services/jwt.service'
+import { REQUEST_USER_KEY } from '@/shared/constants/auth.constants'
+import { JwtService } from '@/shared/services/jwt.service'
 
 @Injectable()
 export class AccessTokenGuard implements CanActivate {

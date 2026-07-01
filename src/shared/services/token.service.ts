@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import type { StringValue } from 'ms'
-import envConfig from '../config'
-import type { TokenPayload } from '../types/jwt.type'
+import envConfig from '@/shared/config'
+import type { TokenPayload } from '@/shared/types/jwt.type'
 
 @Injectable()
 export class TokenService {

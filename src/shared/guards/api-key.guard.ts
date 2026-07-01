@@ -1,6 +1,6 @@
 import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common'
 import type { Request } from 'express'
-import envConfig from '../config'
+import envConfig from '@/shared/config'
 
 @Injectable()
 export class ApiKeyGuard implements CanActivate {
