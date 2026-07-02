@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import { UserStatus } from '../constants/auth.constants'
+import { RoleType } from './role.model'
 
 export const UserSchema = z.object({
   id: z.number(),
@@ -25,3 +26,5 @@ export const UserSchema = z.object({
 })
 
 export type UserType = z.infer<typeof UserSchema>
+
+export type UserWithRoleType = UserType & { role: RoleType }

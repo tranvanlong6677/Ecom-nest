@@ -4,7 +4,7 @@ import { PrismaService } from '@/shared/services/prisma.service'
 import { TokenService } from '@/shared/services/token.service'
 import { RolesService } from '@/routes/auth/role.service'
 import { generateOTP, isNotFoundPrismaError, isUniqueConstraintPrismaError } from '@/shared/helper'
-import { LoginBodyType, RegisterBodyType, SendOTPBodyType } from './auth.model'
+import { DeviceType, LoginBodyType, RegisterBodyType, SendOTPBodyType } from './auth.model'
 import { VerificationCodePurpose } from '@/shared/constants/auth.constants'
 import { AuthRepository } from './auth.repo'
 import { SharedRepository } from '@/shared/repository/shared-user.repo'
@@ -56,28 +56,38 @@ export class AuthService {
     }
   }
 
-  async login(body: LoginBodyType) {
-    const user = await this.prismaService.user.findUnique({
-      where: {
-        email: body.email,
-      },
-    })
-
+  async login(body: LoginBodyType & Pick<DeviceType, 'userAgent' | 'ip'>) {
+    const user = await this.sharedRepo.findUser({ email: body.email })
     if (!user) {
-      throw new UnauthorizedException('Account is not exist')
+      throw new UnprocessableEntityException([{ path: 'email', message: 'Account is not exist' }])
     }
 
     const isPasswordMatch = await this.hashingService.compare(body.password, user.password)
     if (!isPasswordMatch) {
       throw new UnprocessableEntityException([
         {
-          field: 'password',
-          error: 'Password is incorrect',
+          path: 'password',
+          message: 'Password is incorrect',
         },
       ])
     }
-    const tokens = await this.authRepo.generateTokens({ userId: user.id })
-    return tokens
+
+    const device = await this.authRepo.createDevice({
+      userId: user.id,
+      userAgent: body.userAgent,
+      ip: body.ip,
+    })
+    const userWithRole = await this.authRepo.findUserWithRole({ id: user.id })
+    if (!userWithRole) {
+      throw new UnprocessableEntityException([{ path: 'userId', message: 'User is not exist' }])
+    }
+
+    return await this.authRepo.generateTokens({
+      userId: user.id,
+      roleId: user.roleId,
+      deviceId: device.id,
+      roleName: userWithRole.role.name,
+    })
   }
 
   async refreshToken(refreshToken: string) {
@@ -96,8 +106,15 @@ export class AuthService {
           token: refreshToken,
         },
       })
+
+      const user = await this.authRepo.findUserWithRole({ id: userId })
+      if (!user) {
+        throw new UnprocessableEntityException([{ path: 'userId', message: 'User is not exist' }])
+      }
+
+      const { roleId } = user
       // 4. Tạo mới accessToken và refreshToken
-      return await this.authRepo.generateTokens({ userId })
+      return await this.authRepo.generateTokens({ userId, deviceId: 1, roleId, roleName: user.role.name })
     } catch (error) {
       // Trường hợp đã refresh token rồi, hãy thông báo cho user biết
       // refresh token của họ đã bị đánh cắp

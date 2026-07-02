@@ -30,8 +30,7 @@ const configSchema = z.object({
 const configServer = configSchema.safeParse(process.env)
 
 if (!configServer.success) {
-  console.log('Các giá trị trong .env không hợp lệ')
-  console.log(configServer.error.issues)
+  console.log('Các giá trị trong .env không hợp lệ', configServer.error.issues)
   process.exit(1)
 }
 

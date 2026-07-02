@@ -1,14 +1,34 @@
-import { Injectable, NestInterceptor, ExecutionContext, CallHandler } from '@nestjs/common'
+import { Injectable, NestInterceptor, ExecutionContext, CallHandler, Logger } from '@nestjs/common'
+import type { Request, Response } from 'express'
 import { Observable } from 'rxjs'
-import { tap } from 'rxjs/operators'
+import { tap, catchError } from 'rxjs/operators'
+import { throwError } from 'rxjs'
+import * as requestIp from 'request-ip'
 
 @Injectable()
 export class LoggingInterceptor implements NestInterceptor {
-  intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    const request: any = context.switchToHttp().getRequest()
-    console.log('Before...', { body: request.body })
+  private readonly logger = new Logger(LoggingInterceptor.name)
 
-    const now = Date.now()
-    return next.handle().pipe(tap(() => console.log(`After... ${Date.now() - now}ms`)))
+  intercept(context: ExecutionContext, next: CallHandler): Observable<unknown> {
+    const request = context.switchToHttp().getRequest<Request>()
+    const response = context.switchToHttp().getResponse<Response>()
+    const { method, url } = request
+    const ip = requestIp.getClientIp(request) ?? 'unknown'
+    const userAgent = request.headers['user-agent'] ?? 'unknown'
+    const startTime = Date.now()
+
+    return next.handle().pipe(
+      tap(() => {
+        const duration = Date.now() - startTime
+        const statusCode = response.statusCode
+        this.logger.log(`${method} ${url} ${statusCode} ${duration}ms — ${ip} "${userAgent}"`)
+      }),
+      catchError((error: unknown) => {
+        const duration = Date.now() - startTime
+        const statusCode = error?.['status'] ?? 500
+        this.logger.error(`${method} ${url} ${statusCode} ${duration}ms — ${ip} "${userAgent}"`)
+        return throwError(() => error)
+      }),
+    )
   }
 }

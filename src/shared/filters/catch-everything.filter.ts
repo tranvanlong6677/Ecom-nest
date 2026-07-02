@@ -24,6 +24,7 @@ export class CatchEverythingFilter implements ExceptionFilter {
     const responseBody = {
       statusCode: httpStatus,
       message,
+      exception,
     }
 
     httpAdapter.reply(ctx.getResponse(), responseBody, httpStatus)

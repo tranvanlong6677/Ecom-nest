@@ -23,21 +23,10 @@ export const RegisterBodySchema = UserSchema.pick({
     }
   })
 
-export type RegisterBodyType = z.infer<typeof RegisterBodySchema>
-
-export const LoginBodySchema = z.object({
-  email: z.email(),
-  password: z.string(),
-})
-
-export type LoginBodyType = z.infer<typeof LoginBodySchema>
-
 export const RegisterResSchema = UserSchema.omit({
   password: true,
   totpSecret: true,
 })
-
-export type RegisterResType = z.infer<typeof RegisterResSchema>
 
 export const VerificationCodeSchema = z.object({
   id: z.number(),
@@ -48,13 +37,63 @@ export const VerificationCodeSchema = z.object({
   createdAt: z.date().optional(),
 })
 
-export type VerificationCodePurposeType = (typeof VerificationCodePurpose)[keyof typeof VerificationCodePurpose]
-
-export type VerificationCodeType = z.infer<typeof VerificationCodeSchema>
-
 export const SendOTPBodySchema = VerificationCodeSchema.pick({
   email: true,
   type: true,
 }).strict()
 
+export const LoginBodySchema = UserSchema.pick({
+  email: true,
+  password: true,
+}).strict()
+
+export const LoginResSchema = z.object({
+  accessToken: z.string(),
+  refreshToken: z.string(),
+})
+
+export const RefreshTokenBodySchema = z
+  .object({
+    refreshToken: z.string(),
+  })
+  .strict()
+
+export const RefreshTokenResSchema = LoginResSchema
+
+export const LogoutBodySchema = z
+  .object({
+    refreshToken: z.string(),
+  })
+  .strict()
+
+export const DeviceSchema = z.object({
+  id: z.number(),
+  userId: z.number(),
+  userAgent: z.string(),
+  ip: z.string(),
+  isActive: z.boolean(),
+  createdAt: z.date().optional(),
+  lastActive: z.date(),
+})
+
+export type DeviceType = z.infer<typeof DeviceSchema>
+
+export type RefreshTokenResType = z.infer<typeof RefreshTokenResSchema>
+
+export type LogoutBodyType = z.infer<typeof LogoutBodySchema>
+
+export type RefreshTokenBodyType = z.infer<typeof RefreshTokenBodySchema>
+
+export type LoginResType = z.infer<typeof LoginResSchema>
+
+export type LoginBodyType = z.infer<typeof LoginBodySchema>
+
+export type RegisterBodyType = z.infer<typeof RegisterBodySchema>
+
 export type SendOTPBodyType = z.infer<typeof SendOTPBodySchema>
+
+export type VerificationCodePurposeType = (typeof VerificationCodePurpose)[keyof typeof VerificationCodePurpose]
+
+export type VerificationCodeType = z.infer<typeof VerificationCodeSchema>
+
+export type RegisterResType = z.infer<typeof RegisterResSchema>
