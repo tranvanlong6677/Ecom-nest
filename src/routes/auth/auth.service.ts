@@ -8,6 +8,7 @@ import { LoginBodyType, RegisterBodyType, SendOTPBodyType } from './auth.model'
 import { VerificationCodePurpose } from '@/shared/constants/auth.constants'
 import { AuthRepository } from './auth.repo'
 import { SharedRepository } from '@/shared/repository/shared-user.repo'
+import { EmailService } from '@/shared/services/email.service'
 import envConfig from '@/shared/config'
 import ms from 'ms'
 
@@ -20,6 +21,7 @@ export class AuthService {
     private readonly rolesService: RolesService,
     private readonly authRepo: AuthRepository,
     private readonly sharedRepo: SharedRepository,
+    private readonly emailService: EmailService,
   ) {}
   async register(body: RegisterBodyType) {
     try {
@@ -140,13 +142,20 @@ export class AuthService {
     const otpCode = generateOTP()
     const expiresAt = new Date(Date.now() + ms(envConfig.OTP_EXPIRES as ms.StringValue))
 
-    const verificationCode = await this.authRepo.createVerificationCode({
+    await this.authRepo.createVerificationCode({
       email: body.email,
       type: body.type,
       code: otpCode,
       expiresAt,
     })
 
-    return verificationCode
+    const expiresInMinutes = Math.floor(ms(envConfig.OTP_EXPIRES as ms.StringValue) / 60000)
+    await this.emailService.sendOtp({
+      email: body.email,
+      code: otpCode,
+      expiresInMinutes,
+      type: body.type,
+    })
+    return { message: 'OTP sent successfully' }
   }
 }

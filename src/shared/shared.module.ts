@@ -8,10 +8,11 @@ import { HashingService } from '@/shared/services/hashing.service'
 import { JwtService } from '@/shared/services/jwt.service'
 import { PrismaService } from '@/shared/services/prisma.service'
 import { TokenService } from '@/shared/services/token.service'
+import { EmailService } from '@/shared/services/email.service'
 import { SharedRepository } from '@/shared/repository/shared-user.repo'
 import { CleanupTask } from '@/shared/tasks/cleanup.task'
 
-const sharedServices = [PrismaService, HashingService, JwtService, TokenService]
+const sharedServices = [PrismaService, HashingService, JwtService, TokenService, EmailService]
 const sharedRepos = [SharedRepository]
 const sharedTasks = [CleanupTask]
 @Global()

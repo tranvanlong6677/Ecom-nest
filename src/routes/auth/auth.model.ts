@@ -48,6 +48,8 @@ export const VerificationCodeSchema = z.object({
   createdAt: z.date().optional(),
 })
 
+export type VerificationCodePurposeType = (typeof VerificationCodePurpose)[keyof typeof VerificationCodePurpose]
+
 export type VerificationCodeType = z.infer<typeof VerificationCodeSchema>
 
 export const SendOTPBodySchema = VerificationCodeSchema.pick({
