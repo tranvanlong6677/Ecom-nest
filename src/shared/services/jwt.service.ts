@@ -3,7 +3,13 @@ import type { JwtSignOptions, JwtVerifyOptions } from '@nestjs/jwt'
 import { JwtService as Jwt } from '@nestjs/jwt'
 import type { StringValue } from 'ms'
 import envConfig from '@/shared/config'
-import { AccessTokenPayload, RefreshTokenPayload } from '@/shared/types/jwt.type'
+import {
+  AccessTokenCreateType,
+  AccessTokenPayload,
+  RefreshTokenCreateType,
+  RefreshTokenPayload,
+} from '@/shared/types/jwt.type'
+import { v4 as uuidv4 } from 'uuid'
 
 @Injectable()
 export class JwtService {
@@ -13,30 +19,33 @@ export class JwtService {
     return this.jwt.signAsync(payload, options)
   }
 
-  signAccessToken(payload: { userId: number }) {
-    return this.jwt.signAsync(payload, {
-      secret: envConfig.ACCESS_TOKEN_SECRET,
-      expiresIn: envConfig.ACCESS_TOKEN_EXPIRES_IN as StringValue,
-      algorithm: 'HS256',
-    })
+  async signAccessToken(payload: AccessTokenCreateType): Promise<string> {
+    return await this.jwt.signAsync(
+      { ...payload, uuid: uuidv4() },
+      {
+        secret: envConfig.ACCESS_TOKEN_SECRET,
+        expiresIn: envConfig.ACCESS_TOKEN_EXPIRES_IN as StringValue,
+        algorithm: 'HS256',
+      },
+    )
   }
 
-  signRefreshToken(payload: { userId: number }) {
-    return this.jwt.signAsync(payload, {
+  async signRefreshToken(payload: RefreshTokenCreateType): Promise<string> {
+    return await this.jwt.signAsync(payload, {
       secret: envConfig.REFRESH_TOKEN_SECRET,
       expiresIn: envConfig.REFRESH_TOKEN_EXPIRES_IN as StringValue,
       algorithm: 'HS256',
     })
   }
 
-  verifyAccessToken(token: string): Promise<AccessTokenPayload> {
-    return this.jwt.verifyAsync(token, {
+  async verifyAccessToken(token: string): Promise<AccessTokenPayload> {
+    return await this.jwt.verifyAsync(token, {
       secret: envConfig.ACCESS_TOKEN_SECRET,
     })
   }
 
-  verifyRefreshToken(token: string): Promise<RefreshTokenPayload> {
-    return this.jwt.verifyAsync(token, {
+  async verifyRefreshToken(token: string): Promise<RefreshTokenPayload> {
+    return await this.jwt.verifyAsync(token, {
       secret: envConfig.REFRESH_TOKEN_SECRET,
     })
   }
