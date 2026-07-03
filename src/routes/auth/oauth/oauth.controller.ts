@@ -13,6 +13,9 @@ export class OAuthController {
 
   // authorize/callback bypass ZodSerializerDto/TransformInterceptor on purpose — they
   // redirect the browser rather than return JSON.
+
+  // http://localhost:8000/auth/google?redirectUri=http://localhost:3000/oauth-callback
+
   @Get(':provider')
   @IsPublic()
   authorize(@Param() params: OAuthProviderParamDto, @Query() query: OAuthAuthorizeQueryDto, @Res() res: Response) {
