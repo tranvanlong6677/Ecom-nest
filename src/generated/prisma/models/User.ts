@@ -249,8 +249,8 @@ export type UserGroupByOutputType = {
   id: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password: string | null
+  phoneNumber: string | null
   avatar: string | null
   totpSecret: string | null
   status: $Enums.UserStatus
@@ -289,8 +289,8 @@ export type UserWhereInput = {
   id?: Prisma.IntFilter<"User"> | number
   email?: Prisma.StringFilter<"User"> | string
   name?: Prisma.StringFilter<"User"> | string
-  password?: Prisma.StringFilter<"User"> | string
-  phoneNumber?: Prisma.StringFilter<"User"> | string
+  password?: Prisma.StringNullableFilter<"User"> | string | null
+  phoneNumber?: Prisma.StringNullableFilter<"User"> | string | null
   avatar?: Prisma.StringNullableFilter<"User"> | string | null
   totpSecret?: Prisma.StringNullableFilter<"User"> | string | null
   status?: Prisma.EnumUserStatusFilter<"User"> | $Enums.UserStatus
@@ -301,6 +301,7 @@ export type UserWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   devices?: Prisma.DeviceListRelationFilter
+  providers?: Prisma.UserProviderListRelationFilter
   role?: Prisma.XOR<Prisma.RoleScalarRelationFilter, Prisma.RoleWhereInput>
   refreshTokens?: Prisma.RefreshTokenListRelationFilter
   carts?: Prisma.CartItemListRelationFilter
@@ -347,8 +348,8 @@ export type UserOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  password?: Prisma.SortOrder
-  phoneNumber?: Prisma.SortOrder
+  password?: Prisma.SortOrderInput | Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   avatar?: Prisma.SortOrderInput | Prisma.SortOrder
   totpSecret?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -359,6 +360,7 @@ export type UserOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   devices?: Prisma.DeviceOrderByRelationAggregateInput
+  providers?: Prisma.UserProviderOrderByRelationAggregateInput
   role?: Prisma.RoleOrderByWithRelationInput
   refreshTokens?: Prisma.RefreshTokenOrderByRelationAggregateInput
   carts?: Prisma.CartItemOrderByRelationAggregateInput
@@ -409,8 +411,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   name?: Prisma.StringFilter<"User"> | string
-  password?: Prisma.StringFilter<"User"> | string
-  phoneNumber?: Prisma.StringFilter<"User"> | string
+  password?: Prisma.StringNullableFilter<"User"> | string | null
+  phoneNumber?: Prisma.StringNullableFilter<"User"> | string | null
   avatar?: Prisma.StringNullableFilter<"User"> | string | null
   status?: Prisma.EnumUserStatusFilter<"User"> | $Enums.UserStatus
   roleId?: Prisma.IntFilter<"User"> | number
@@ -420,6 +422,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   devices?: Prisma.DeviceListRelationFilter
+  providers?: Prisma.UserProviderListRelationFilter
   role?: Prisma.XOR<Prisma.RoleScalarRelationFilter, Prisma.RoleWhereInput>
   refreshTokens?: Prisma.RefreshTokenListRelationFilter
   carts?: Prisma.CartItemListRelationFilter
@@ -466,8 +469,8 @@ export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  password?: Prisma.SortOrder
-  phoneNumber?: Prisma.SortOrder
+  password?: Prisma.SortOrderInput | Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   avatar?: Prisma.SortOrderInput | Prisma.SortOrder
   totpSecret?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -491,8 +494,8 @@ export type UserScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"User"> | number
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
   name?: Prisma.StringWithAggregatesFilter<"User"> | string
-  password?: Prisma.StringWithAggregatesFilter<"User"> | string
-  phoneNumber?: Prisma.StringWithAggregatesFilter<"User"> | string
+  password?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  phoneNumber?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   avatar?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   totpSecret?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   status?: Prisma.EnumUserStatusWithAggregatesFilter<"User"> | $Enums.UserStatus
@@ -507,8 +510,8 @@ export type UserScalarWhereWithAggregatesInput = {
 export type UserCreateInput = {
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -516,6 +519,7 @@ export type UserCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderCreateNestedManyWithoutUserInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemCreateNestedManyWithoutUserInput
@@ -562,8 +566,8 @@ export type UserUncheckedCreateInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -574,6 +578,7 @@ export type UserUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -616,8 +621,8 @@ export type UserUncheckedCreateInput = {
 export type UserUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -625,6 +630,7 @@ export type UserUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUpdateManyWithoutUserNestedInput
@@ -671,8 +677,8 @@ export type UserUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -683,6 +689,7 @@ export type UserUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -726,8 +733,8 @@ export type UserCreateManyInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -742,8 +749,8 @@ export type UserCreateManyInput = {
 export type UserUpdateManyMutationInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -756,8 +763,8 @@ export type UserUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -1580,11 +1587,25 @@ export type UserUpdateOneRequiredWithoutReceivedMessagesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReceivedMessagesInput, Prisma.UserUpdateWithoutReceivedMessagesInput>, Prisma.UserUncheckedUpdateWithoutReceivedMessagesInput>
 }
 
+export type UserCreateNestedOneWithoutProvidersInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProvidersInput, Prisma.UserUncheckedCreateWithoutProvidersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProvidersInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutProvidersNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProvidersInput, Prisma.UserUncheckedCreateWithoutProvidersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProvidersInput
+  upsert?: Prisma.UserUpsertWithoutProvidersInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProvidersInput, Prisma.UserUpdateWithoutProvidersInput>, Prisma.UserUncheckedUpdateWithoutProvidersInput>
+}
+
 export type UserCreateWithoutCreatedLanguagesInput = {
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -1592,6 +1613,7 @@ export type UserCreateWithoutCreatedLanguagesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderCreateNestedManyWithoutUserInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemCreateNestedManyWithoutUserInput
@@ -1637,8 +1659,8 @@ export type UserUncheckedCreateWithoutCreatedLanguagesInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -1649,6 +1671,7 @@ export type UserUncheckedCreateWithoutCreatedLanguagesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -1695,8 +1718,8 @@ export type UserCreateOrConnectWithoutCreatedLanguagesInput = {
 export type UserCreateWithoutUpdatedLanguagesInput = {
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -1704,6 +1727,7 @@ export type UserCreateWithoutUpdatedLanguagesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderCreateNestedManyWithoutUserInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemCreateNestedManyWithoutUserInput
@@ -1749,8 +1773,8 @@ export type UserUncheckedCreateWithoutUpdatedLanguagesInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -1761,6 +1785,7 @@ export type UserUncheckedCreateWithoutUpdatedLanguagesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -1818,8 +1843,8 @@ export type UserUpdateToOneWithWhereWithoutCreatedLanguagesInput = {
 export type UserUpdateWithoutCreatedLanguagesInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -1827,6 +1852,7 @@ export type UserUpdateWithoutCreatedLanguagesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUpdateManyWithoutUserNestedInput
@@ -1872,8 +1898,8 @@ export type UserUncheckedUpdateWithoutCreatedLanguagesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -1884,6 +1910,7 @@ export type UserUncheckedUpdateWithoutCreatedLanguagesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -1936,8 +1963,8 @@ export type UserUpdateToOneWithWhereWithoutUpdatedLanguagesInput = {
 export type UserUpdateWithoutUpdatedLanguagesInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -1945,6 +1972,7 @@ export type UserUpdateWithoutUpdatedLanguagesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUpdateManyWithoutUserNestedInput
@@ -1990,8 +2018,8 @@ export type UserUncheckedUpdateWithoutUpdatedLanguagesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -2002,6 +2030,7 @@ export type UserUncheckedUpdateWithoutUpdatedLanguagesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -2043,8 +2072,8 @@ export type UserUncheckedUpdateWithoutUpdatedLanguagesInput = {
 export type UserCreateWithoutCreatedUsersInput = {
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -2052,6 +2081,7 @@ export type UserCreateWithoutCreatedUsersInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderCreateNestedManyWithoutUserInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemCreateNestedManyWithoutUserInput
@@ -2097,8 +2127,8 @@ export type UserUncheckedCreateWithoutCreatedUsersInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -2109,6 +2139,7 @@ export type UserUncheckedCreateWithoutCreatedUsersInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -2155,8 +2186,8 @@ export type UserCreateOrConnectWithoutCreatedUsersInput = {
 export type UserCreateWithoutCreatedByInput = {
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -2164,6 +2195,7 @@ export type UserCreateWithoutCreatedByInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderCreateNestedManyWithoutUserInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemCreateNestedManyWithoutUserInput
@@ -2209,8 +2241,8 @@ export type UserUncheckedCreateWithoutCreatedByInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -2220,6 +2252,7 @@ export type UserUncheckedCreateWithoutCreatedByInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -2272,8 +2305,8 @@ export type UserCreateManyCreatedByInputEnvelope = {
 export type UserCreateWithoutUpdatedUsersInput = {
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -2281,6 +2314,7 @@ export type UserCreateWithoutUpdatedUsersInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderCreateNestedManyWithoutUserInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemCreateNestedManyWithoutUserInput
@@ -2326,8 +2360,8 @@ export type UserUncheckedCreateWithoutUpdatedUsersInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -2338,6 +2372,7 @@ export type UserUncheckedCreateWithoutUpdatedUsersInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -2384,8 +2419,8 @@ export type UserCreateOrConnectWithoutUpdatedUsersInput = {
 export type UserCreateWithoutUpdatedByInput = {
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -2393,6 +2428,7 @@ export type UserCreateWithoutUpdatedByInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderCreateNestedManyWithoutUserInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemCreateNestedManyWithoutUserInput
@@ -2438,8 +2474,8 @@ export type UserUncheckedCreateWithoutUpdatedByInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -2449,6 +2485,7 @@ export type UserUncheckedCreateWithoutUpdatedByInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -2512,8 +2549,8 @@ export type UserUpdateToOneWithWhereWithoutCreatedUsersInput = {
 export type UserUpdateWithoutCreatedUsersInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -2521,6 +2558,7 @@ export type UserUpdateWithoutCreatedUsersInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUpdateManyWithoutUserNestedInput
@@ -2566,8 +2604,8 @@ export type UserUncheckedUpdateWithoutCreatedUsersInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -2578,6 +2616,7 @@ export type UserUncheckedUpdateWithoutCreatedUsersInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -2639,8 +2678,8 @@ export type UserScalarWhereInput = {
   id?: Prisma.IntFilter<"User"> | number
   email?: Prisma.StringFilter<"User"> | string
   name?: Prisma.StringFilter<"User"> | string
-  password?: Prisma.StringFilter<"User"> | string
-  phoneNumber?: Prisma.StringFilter<"User"> | string
+  password?: Prisma.StringNullableFilter<"User"> | string | null
+  phoneNumber?: Prisma.StringNullableFilter<"User"> | string | null
   avatar?: Prisma.StringNullableFilter<"User"> | string | null
   totpSecret?: Prisma.StringNullableFilter<"User"> | string | null
   status?: Prisma.EnumUserStatusFilter<"User"> | $Enums.UserStatus
@@ -2666,8 +2705,8 @@ export type UserUpdateToOneWithWhereWithoutUpdatedUsersInput = {
 export type UserUpdateWithoutUpdatedUsersInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -2675,6 +2714,7 @@ export type UserUpdateWithoutUpdatedUsersInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUpdateManyWithoutUserNestedInput
@@ -2720,8 +2760,8 @@ export type UserUncheckedUpdateWithoutUpdatedUsersInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -2732,6 +2772,7 @@ export type UserUncheckedUpdateWithoutUpdatedUsersInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -2789,8 +2830,8 @@ export type UserUpdateManyWithWhereWithoutUpdatedByInput = {
 export type UserCreateWithoutUserTranslationsInput = {
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -2798,6 +2839,7 @@ export type UserCreateWithoutUserTranslationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderCreateNestedManyWithoutUserInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemCreateNestedManyWithoutUserInput
@@ -2843,8 +2885,8 @@ export type UserUncheckedCreateWithoutUserTranslationsInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -2855,6 +2897,7 @@ export type UserUncheckedCreateWithoutUserTranslationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -2901,8 +2944,8 @@ export type UserCreateOrConnectWithoutUserTranslationsInput = {
 export type UserCreateWithoutCreatedUserTranslationsInput = {
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -2910,6 +2953,7 @@ export type UserCreateWithoutCreatedUserTranslationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderCreateNestedManyWithoutUserInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemCreateNestedManyWithoutUserInput
@@ -2955,8 +2999,8 @@ export type UserUncheckedCreateWithoutCreatedUserTranslationsInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -2967,6 +3011,7 @@ export type UserUncheckedCreateWithoutCreatedUserTranslationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -3013,8 +3058,8 @@ export type UserCreateOrConnectWithoutCreatedUserTranslationsInput = {
 export type UserCreateWithoutUpdatedUserTranslationsInput = {
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -3022,6 +3067,7 @@ export type UserCreateWithoutUpdatedUserTranslationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderCreateNestedManyWithoutUserInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemCreateNestedManyWithoutUserInput
@@ -3067,8 +3113,8 @@ export type UserUncheckedCreateWithoutUpdatedUserTranslationsInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -3079,6 +3125,7 @@ export type UserUncheckedCreateWithoutUpdatedUserTranslationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -3136,8 +3183,8 @@ export type UserUpdateToOneWithWhereWithoutUserTranslationsInput = {
 export type UserUpdateWithoutUserTranslationsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -3145,6 +3192,7 @@ export type UserUpdateWithoutUserTranslationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUpdateManyWithoutUserNestedInput
@@ -3190,8 +3238,8 @@ export type UserUncheckedUpdateWithoutUserTranslationsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -3202,6 +3250,7 @@ export type UserUncheckedUpdateWithoutUserTranslationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -3254,8 +3303,8 @@ export type UserUpdateToOneWithWhereWithoutCreatedUserTranslationsInput = {
 export type UserUpdateWithoutCreatedUserTranslationsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -3263,6 +3312,7 @@ export type UserUpdateWithoutCreatedUserTranslationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUpdateManyWithoutUserNestedInput
@@ -3308,8 +3358,8 @@ export type UserUncheckedUpdateWithoutCreatedUserTranslationsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -3320,6 +3370,7 @@ export type UserUncheckedUpdateWithoutCreatedUserTranslationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -3372,8 +3423,8 @@ export type UserUpdateToOneWithWhereWithoutUpdatedUserTranslationsInput = {
 export type UserUpdateWithoutUpdatedUserTranslationsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -3381,6 +3432,7 @@ export type UserUpdateWithoutUpdatedUserTranslationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUpdateManyWithoutUserNestedInput
@@ -3426,8 +3478,8 @@ export type UserUncheckedUpdateWithoutUpdatedUserTranslationsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -3438,6 +3490,7 @@ export type UserUncheckedUpdateWithoutUpdatedUserTranslationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -3479,14 +3532,15 @@ export type UserUncheckedUpdateWithoutUpdatedUserTranslationsInput = {
 export type UserCreateWithoutDevicesInput = {
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  providers?: Prisma.UserProviderCreateNestedManyWithoutUserInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemCreateNestedManyWithoutUserInput
@@ -3533,8 +3587,8 @@ export type UserUncheckedCreateWithoutDevicesInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -3544,6 +3598,7 @@ export type UserUncheckedCreateWithoutDevicesInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  providers?: Prisma.UserProviderUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -3602,14 +3657,15 @@ export type UserUpdateToOneWithWhereWithoutDevicesInput = {
 export type UserUpdateWithoutDevicesInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  providers?: Prisma.UserProviderUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUpdateManyWithoutUserNestedInput
@@ -3656,8 +3712,8 @@ export type UserUncheckedUpdateWithoutDevicesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -3667,6 +3723,7 @@ export type UserUncheckedUpdateWithoutDevicesInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  providers?: Prisma.UserProviderUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -3709,8 +3766,8 @@ export type UserUncheckedUpdateWithoutDevicesInput = {
 export type UserCreateWithoutRefreshTokensInput = {
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -3718,6 +3775,7 @@ export type UserCreateWithoutRefreshTokensInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderCreateNestedManyWithoutUserInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
   carts?: Prisma.CartItemCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderCreateNestedManyWithoutUserInput
@@ -3763,8 +3821,8 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -3775,6 +3833,7 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderUncheckedCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
@@ -3832,8 +3891,8 @@ export type UserUpdateToOneWithWhereWithoutRefreshTokensInput = {
 export type UserUpdateWithoutRefreshTokensInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -3841,6 +3900,7 @@ export type UserUpdateWithoutRefreshTokensInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
   carts?: Prisma.CartItemUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
@@ -3886,8 +3946,8 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -3898,6 +3958,7 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUncheckedUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
@@ -3939,8 +4000,8 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
 export type UserCreateWithoutCreatedPermissionsInput = {
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -3948,6 +4009,7 @@ export type UserCreateWithoutCreatedPermissionsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderCreateNestedManyWithoutUserInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemCreateNestedManyWithoutUserInput
@@ -3993,8 +4055,8 @@ export type UserUncheckedCreateWithoutCreatedPermissionsInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -4005,6 +4067,7 @@ export type UserUncheckedCreateWithoutCreatedPermissionsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -4051,8 +4114,8 @@ export type UserCreateOrConnectWithoutCreatedPermissionsInput = {
 export type UserCreateWithoutUpdatedPermissionsInput = {
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -4060,6 +4123,7 @@ export type UserCreateWithoutUpdatedPermissionsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderCreateNestedManyWithoutUserInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemCreateNestedManyWithoutUserInput
@@ -4105,8 +4169,8 @@ export type UserUncheckedCreateWithoutUpdatedPermissionsInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -4117,6 +4181,7 @@ export type UserUncheckedCreateWithoutUpdatedPermissionsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -4174,8 +4239,8 @@ export type UserUpdateToOneWithWhereWithoutCreatedPermissionsInput = {
 export type UserUpdateWithoutCreatedPermissionsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -4183,6 +4248,7 @@ export type UserUpdateWithoutCreatedPermissionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUpdateManyWithoutUserNestedInput
@@ -4228,8 +4294,8 @@ export type UserUncheckedUpdateWithoutCreatedPermissionsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -4240,6 +4306,7 @@ export type UserUncheckedUpdateWithoutCreatedPermissionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -4292,8 +4359,8 @@ export type UserUpdateToOneWithWhereWithoutUpdatedPermissionsInput = {
 export type UserUpdateWithoutUpdatedPermissionsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -4301,6 +4368,7 @@ export type UserUpdateWithoutUpdatedPermissionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUpdateManyWithoutUserNestedInput
@@ -4346,8 +4414,8 @@ export type UserUncheckedUpdateWithoutUpdatedPermissionsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -4358,6 +4426,7 @@ export type UserUncheckedUpdateWithoutUpdatedPermissionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -4399,8 +4468,8 @@ export type UserUncheckedUpdateWithoutUpdatedPermissionsInput = {
 export type UserCreateWithoutRoleInput = {
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -4408,6 +4477,7 @@ export type UserCreateWithoutRoleInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderCreateNestedManyWithoutUserInput
@@ -4453,8 +4523,8 @@ export type UserUncheckedCreateWithoutRoleInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -4464,6 +4534,7 @@ export type UserUncheckedCreateWithoutRoleInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -4516,8 +4587,8 @@ export type UserCreateManyRoleInputEnvelope = {
 export type UserCreateWithoutCreatedRolesInput = {
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -4525,6 +4596,7 @@ export type UserCreateWithoutCreatedRolesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderCreateNestedManyWithoutUserInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemCreateNestedManyWithoutUserInput
@@ -4570,8 +4642,8 @@ export type UserUncheckedCreateWithoutCreatedRolesInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -4582,6 +4654,7 @@ export type UserUncheckedCreateWithoutCreatedRolesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -4628,8 +4701,8 @@ export type UserCreateOrConnectWithoutCreatedRolesInput = {
 export type UserCreateWithoutUpdatedRolesInput = {
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -4637,6 +4710,7 @@ export type UserCreateWithoutUpdatedRolesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderCreateNestedManyWithoutUserInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemCreateNestedManyWithoutUserInput
@@ -4682,8 +4756,8 @@ export type UserUncheckedCreateWithoutUpdatedRolesInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -4694,6 +4768,7 @@ export type UserUncheckedCreateWithoutUpdatedRolesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -4767,8 +4842,8 @@ export type UserUpdateToOneWithWhereWithoutCreatedRolesInput = {
 export type UserUpdateWithoutCreatedRolesInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -4776,6 +4851,7 @@ export type UserUpdateWithoutCreatedRolesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUpdateManyWithoutUserNestedInput
@@ -4821,8 +4897,8 @@ export type UserUncheckedUpdateWithoutCreatedRolesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -4833,6 +4909,7 @@ export type UserUncheckedUpdateWithoutCreatedRolesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -4885,8 +4962,8 @@ export type UserUpdateToOneWithWhereWithoutUpdatedRolesInput = {
 export type UserUpdateWithoutUpdatedRolesInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -4894,6 +4971,7 @@ export type UserUpdateWithoutUpdatedRolesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUpdateManyWithoutUserNestedInput
@@ -4939,8 +5017,8 @@ export type UserUncheckedUpdateWithoutUpdatedRolesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -4951,6 +5029,7 @@ export type UserUncheckedUpdateWithoutUpdatedRolesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -4992,8 +5071,8 @@ export type UserUncheckedUpdateWithoutUpdatedRolesInput = {
 export type UserCreateWithoutCreatedProductsInput = {
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -5001,6 +5080,7 @@ export type UserCreateWithoutCreatedProductsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderCreateNestedManyWithoutUserInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemCreateNestedManyWithoutUserInput
@@ -5046,8 +5126,8 @@ export type UserUncheckedCreateWithoutCreatedProductsInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -5058,6 +5138,7 @@ export type UserUncheckedCreateWithoutCreatedProductsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -5104,8 +5185,8 @@ export type UserCreateOrConnectWithoutCreatedProductsInput = {
 export type UserCreateWithoutUpdatedProductsInput = {
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -5113,6 +5194,7 @@ export type UserCreateWithoutUpdatedProductsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderCreateNestedManyWithoutUserInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemCreateNestedManyWithoutUserInput
@@ -5158,8 +5240,8 @@ export type UserUncheckedCreateWithoutUpdatedProductsInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -5170,6 +5252,7 @@ export type UserUncheckedCreateWithoutUpdatedProductsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -5227,8 +5310,8 @@ export type UserUpdateToOneWithWhereWithoutCreatedProductsInput = {
 export type UserUpdateWithoutCreatedProductsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -5236,6 +5319,7 @@ export type UserUpdateWithoutCreatedProductsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUpdateManyWithoutUserNestedInput
@@ -5281,8 +5365,8 @@ export type UserUncheckedUpdateWithoutCreatedProductsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -5293,6 +5377,7 @@ export type UserUncheckedUpdateWithoutCreatedProductsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -5345,8 +5430,8 @@ export type UserUpdateToOneWithWhereWithoutUpdatedProductsInput = {
 export type UserUpdateWithoutUpdatedProductsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -5354,6 +5439,7 @@ export type UserUpdateWithoutUpdatedProductsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUpdateManyWithoutUserNestedInput
@@ -5399,8 +5485,8 @@ export type UserUncheckedUpdateWithoutUpdatedProductsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -5411,6 +5497,7 @@ export type UserUncheckedUpdateWithoutUpdatedProductsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -5452,8 +5539,8 @@ export type UserUncheckedUpdateWithoutUpdatedProductsInput = {
 export type UserCreateWithoutCreatedProductTranslationsInput = {
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -5461,6 +5548,7 @@ export type UserCreateWithoutCreatedProductTranslationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderCreateNestedManyWithoutUserInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemCreateNestedManyWithoutUserInput
@@ -5506,8 +5594,8 @@ export type UserUncheckedCreateWithoutCreatedProductTranslationsInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -5518,6 +5606,7 @@ export type UserUncheckedCreateWithoutCreatedProductTranslationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -5564,8 +5653,8 @@ export type UserCreateOrConnectWithoutCreatedProductTranslationsInput = {
 export type UserCreateWithoutUpdatedProductTranslationsInput = {
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -5573,6 +5662,7 @@ export type UserCreateWithoutUpdatedProductTranslationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderCreateNestedManyWithoutUserInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemCreateNestedManyWithoutUserInput
@@ -5618,8 +5708,8 @@ export type UserUncheckedCreateWithoutUpdatedProductTranslationsInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -5630,6 +5720,7 @@ export type UserUncheckedCreateWithoutUpdatedProductTranslationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -5687,8 +5778,8 @@ export type UserUpdateToOneWithWhereWithoutCreatedProductTranslationsInput = {
 export type UserUpdateWithoutCreatedProductTranslationsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -5696,6 +5787,7 @@ export type UserUpdateWithoutCreatedProductTranslationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUpdateManyWithoutUserNestedInput
@@ -5741,8 +5833,8 @@ export type UserUncheckedUpdateWithoutCreatedProductTranslationsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -5753,6 +5845,7 @@ export type UserUncheckedUpdateWithoutCreatedProductTranslationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -5805,8 +5898,8 @@ export type UserUpdateToOneWithWhereWithoutUpdatedProductTranslationsInput = {
 export type UserUpdateWithoutUpdatedProductTranslationsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -5814,6 +5907,7 @@ export type UserUpdateWithoutUpdatedProductTranslationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUpdateManyWithoutUserNestedInput
@@ -5859,8 +5953,8 @@ export type UserUncheckedUpdateWithoutUpdatedProductTranslationsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -5871,6 +5965,7 @@ export type UserUncheckedUpdateWithoutUpdatedProductTranslationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -5912,8 +6007,8 @@ export type UserUncheckedUpdateWithoutUpdatedProductTranslationsInput = {
 export type UserCreateWithoutCreatedCategoriesInput = {
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -5921,6 +6016,7 @@ export type UserCreateWithoutCreatedCategoriesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderCreateNestedManyWithoutUserInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemCreateNestedManyWithoutUserInput
@@ -5966,8 +6062,8 @@ export type UserUncheckedCreateWithoutCreatedCategoriesInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -5978,6 +6074,7 @@ export type UserUncheckedCreateWithoutCreatedCategoriesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -6024,8 +6121,8 @@ export type UserCreateOrConnectWithoutCreatedCategoriesInput = {
 export type UserCreateWithoutUpdatedCategoriesInput = {
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -6033,6 +6130,7 @@ export type UserCreateWithoutUpdatedCategoriesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderCreateNestedManyWithoutUserInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemCreateNestedManyWithoutUserInput
@@ -6078,8 +6176,8 @@ export type UserUncheckedCreateWithoutUpdatedCategoriesInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -6090,6 +6188,7 @@ export type UserUncheckedCreateWithoutUpdatedCategoriesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -6147,8 +6246,8 @@ export type UserUpdateToOneWithWhereWithoutCreatedCategoriesInput = {
 export type UserUpdateWithoutCreatedCategoriesInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -6156,6 +6255,7 @@ export type UserUpdateWithoutCreatedCategoriesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUpdateManyWithoutUserNestedInput
@@ -6201,8 +6301,8 @@ export type UserUncheckedUpdateWithoutCreatedCategoriesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -6213,6 +6313,7 @@ export type UserUncheckedUpdateWithoutCreatedCategoriesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -6265,8 +6366,8 @@ export type UserUpdateToOneWithWhereWithoutUpdatedCategoriesInput = {
 export type UserUpdateWithoutUpdatedCategoriesInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -6274,6 +6375,7 @@ export type UserUpdateWithoutUpdatedCategoriesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUpdateManyWithoutUserNestedInput
@@ -6319,8 +6421,8 @@ export type UserUncheckedUpdateWithoutUpdatedCategoriesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -6331,6 +6433,7 @@ export type UserUncheckedUpdateWithoutUpdatedCategoriesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -6372,8 +6475,8 @@ export type UserUncheckedUpdateWithoutUpdatedCategoriesInput = {
 export type UserCreateWithoutCreatedCategoryTranslationsInput = {
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -6381,6 +6484,7 @@ export type UserCreateWithoutCreatedCategoryTranslationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderCreateNestedManyWithoutUserInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemCreateNestedManyWithoutUserInput
@@ -6426,8 +6530,8 @@ export type UserUncheckedCreateWithoutCreatedCategoryTranslationsInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -6438,6 +6542,7 @@ export type UserUncheckedCreateWithoutCreatedCategoryTranslationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -6484,8 +6589,8 @@ export type UserCreateOrConnectWithoutCreatedCategoryTranslationsInput = {
 export type UserCreateWithoutUpdatedCategoryTranslationsInput = {
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -6493,6 +6598,7 @@ export type UserCreateWithoutUpdatedCategoryTranslationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderCreateNestedManyWithoutUserInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemCreateNestedManyWithoutUserInput
@@ -6538,8 +6644,8 @@ export type UserUncheckedCreateWithoutUpdatedCategoryTranslationsInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -6550,6 +6656,7 @@ export type UserUncheckedCreateWithoutUpdatedCategoryTranslationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -6607,8 +6714,8 @@ export type UserUpdateToOneWithWhereWithoutCreatedCategoryTranslationsInput = {
 export type UserUpdateWithoutCreatedCategoryTranslationsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -6616,6 +6723,7 @@ export type UserUpdateWithoutCreatedCategoryTranslationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUpdateManyWithoutUserNestedInput
@@ -6661,8 +6769,8 @@ export type UserUncheckedUpdateWithoutCreatedCategoryTranslationsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -6673,6 +6781,7 @@ export type UserUncheckedUpdateWithoutCreatedCategoryTranslationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -6725,8 +6834,8 @@ export type UserUpdateToOneWithWhereWithoutUpdatedCategoryTranslationsInput = {
 export type UserUpdateWithoutUpdatedCategoryTranslationsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -6734,6 +6843,7 @@ export type UserUpdateWithoutUpdatedCategoryTranslationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUpdateManyWithoutUserNestedInput
@@ -6779,8 +6889,8 @@ export type UserUncheckedUpdateWithoutUpdatedCategoryTranslationsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -6791,6 +6901,7 @@ export type UserUncheckedUpdateWithoutUpdatedCategoryTranslationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -6832,8 +6943,8 @@ export type UserUncheckedUpdateWithoutUpdatedCategoryTranslationsInput = {
 export type UserCreateWithoutCreatedVariantsInput = {
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -6841,6 +6952,7 @@ export type UserCreateWithoutCreatedVariantsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderCreateNestedManyWithoutUserInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemCreateNestedManyWithoutUserInput
@@ -6886,8 +6998,8 @@ export type UserUncheckedCreateWithoutCreatedVariantsInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -6898,6 +7010,7 @@ export type UserUncheckedCreateWithoutCreatedVariantsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -6944,8 +7057,8 @@ export type UserCreateOrConnectWithoutCreatedVariantsInput = {
 export type UserCreateWithoutUpdatedVariantsInput = {
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -6953,6 +7066,7 @@ export type UserCreateWithoutUpdatedVariantsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderCreateNestedManyWithoutUserInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemCreateNestedManyWithoutUserInput
@@ -6998,8 +7112,8 @@ export type UserUncheckedCreateWithoutUpdatedVariantsInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -7010,6 +7124,7 @@ export type UserUncheckedCreateWithoutUpdatedVariantsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -7067,8 +7182,8 @@ export type UserUpdateToOneWithWhereWithoutCreatedVariantsInput = {
 export type UserUpdateWithoutCreatedVariantsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -7076,6 +7191,7 @@ export type UserUpdateWithoutCreatedVariantsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUpdateManyWithoutUserNestedInput
@@ -7121,8 +7237,8 @@ export type UserUncheckedUpdateWithoutCreatedVariantsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -7133,6 +7249,7 @@ export type UserUncheckedUpdateWithoutCreatedVariantsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -7185,8 +7302,8 @@ export type UserUpdateToOneWithWhereWithoutUpdatedVariantsInput = {
 export type UserUpdateWithoutUpdatedVariantsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -7194,6 +7311,7 @@ export type UserUpdateWithoutUpdatedVariantsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUpdateManyWithoutUserNestedInput
@@ -7239,8 +7357,8 @@ export type UserUncheckedUpdateWithoutUpdatedVariantsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -7251,6 +7369,7 @@ export type UserUncheckedUpdateWithoutUpdatedVariantsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -7292,8 +7411,8 @@ export type UserUncheckedUpdateWithoutUpdatedVariantsInput = {
 export type UserCreateWithoutCreatedVariantOptionsInput = {
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -7301,6 +7420,7 @@ export type UserCreateWithoutCreatedVariantOptionsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderCreateNestedManyWithoutUserInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemCreateNestedManyWithoutUserInput
@@ -7346,8 +7466,8 @@ export type UserUncheckedCreateWithoutCreatedVariantOptionsInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -7358,6 +7478,7 @@ export type UserUncheckedCreateWithoutCreatedVariantOptionsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -7404,8 +7525,8 @@ export type UserCreateOrConnectWithoutCreatedVariantOptionsInput = {
 export type UserCreateWithoutUpdatedVariantOptionsInput = {
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -7413,6 +7534,7 @@ export type UserCreateWithoutUpdatedVariantOptionsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderCreateNestedManyWithoutUserInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemCreateNestedManyWithoutUserInput
@@ -7458,8 +7580,8 @@ export type UserUncheckedCreateWithoutUpdatedVariantOptionsInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -7470,6 +7592,7 @@ export type UserUncheckedCreateWithoutUpdatedVariantOptionsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -7527,8 +7650,8 @@ export type UserUpdateToOneWithWhereWithoutCreatedVariantOptionsInput = {
 export type UserUpdateWithoutCreatedVariantOptionsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -7536,6 +7659,7 @@ export type UserUpdateWithoutCreatedVariantOptionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUpdateManyWithoutUserNestedInput
@@ -7581,8 +7705,8 @@ export type UserUncheckedUpdateWithoutCreatedVariantOptionsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -7593,6 +7717,7 @@ export type UserUncheckedUpdateWithoutCreatedVariantOptionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -7645,8 +7770,8 @@ export type UserUpdateToOneWithWhereWithoutUpdatedVariantOptionsInput = {
 export type UserUpdateWithoutUpdatedVariantOptionsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -7654,6 +7779,7 @@ export type UserUpdateWithoutUpdatedVariantOptionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUpdateManyWithoutUserNestedInput
@@ -7699,8 +7825,8 @@ export type UserUncheckedUpdateWithoutUpdatedVariantOptionsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -7711,6 +7837,7 @@ export type UserUncheckedUpdateWithoutUpdatedVariantOptionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -7752,8 +7879,8 @@ export type UserUncheckedUpdateWithoutUpdatedVariantOptionsInput = {
 export type UserCreateWithoutCreatedSKUSInput = {
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -7761,6 +7888,7 @@ export type UserCreateWithoutCreatedSKUSInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderCreateNestedManyWithoutUserInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemCreateNestedManyWithoutUserInput
@@ -7806,8 +7934,8 @@ export type UserUncheckedCreateWithoutCreatedSKUSInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -7818,6 +7946,7 @@ export type UserUncheckedCreateWithoutCreatedSKUSInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -7864,8 +7993,8 @@ export type UserCreateOrConnectWithoutCreatedSKUSInput = {
 export type UserCreateWithoutUpdatedSKUSInput = {
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -7873,6 +8002,7 @@ export type UserCreateWithoutUpdatedSKUSInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderCreateNestedManyWithoutUserInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemCreateNestedManyWithoutUserInput
@@ -7918,8 +8048,8 @@ export type UserUncheckedCreateWithoutUpdatedSKUSInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -7930,6 +8060,7 @@ export type UserUncheckedCreateWithoutUpdatedSKUSInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -7987,8 +8118,8 @@ export type UserUpdateToOneWithWhereWithoutCreatedSKUSInput = {
 export type UserUpdateWithoutCreatedSKUSInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -7996,6 +8127,7 @@ export type UserUpdateWithoutCreatedSKUSInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUpdateManyWithoutUserNestedInput
@@ -8041,8 +8173,8 @@ export type UserUncheckedUpdateWithoutCreatedSKUSInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -8053,6 +8185,7 @@ export type UserUncheckedUpdateWithoutCreatedSKUSInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -8105,8 +8238,8 @@ export type UserUpdateToOneWithWhereWithoutUpdatedSKUSInput = {
 export type UserUpdateWithoutUpdatedSKUSInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -8114,6 +8247,7 @@ export type UserUpdateWithoutUpdatedSKUSInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUpdateManyWithoutUserNestedInput
@@ -8159,8 +8293,8 @@ export type UserUncheckedUpdateWithoutUpdatedSKUSInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -8171,6 +8305,7 @@ export type UserUncheckedUpdateWithoutUpdatedSKUSInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -8212,8 +8347,8 @@ export type UserUncheckedUpdateWithoutUpdatedSKUSInput = {
 export type UserCreateWithoutCreatedBrandsInput = {
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -8221,6 +8356,7 @@ export type UserCreateWithoutCreatedBrandsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderCreateNestedManyWithoutUserInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemCreateNestedManyWithoutUserInput
@@ -8266,8 +8402,8 @@ export type UserUncheckedCreateWithoutCreatedBrandsInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -8278,6 +8414,7 @@ export type UserUncheckedCreateWithoutCreatedBrandsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -8324,8 +8461,8 @@ export type UserCreateOrConnectWithoutCreatedBrandsInput = {
 export type UserCreateWithoutUpdatedBrandsInput = {
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -8333,6 +8470,7 @@ export type UserCreateWithoutUpdatedBrandsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderCreateNestedManyWithoutUserInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemCreateNestedManyWithoutUserInput
@@ -8378,8 +8516,8 @@ export type UserUncheckedCreateWithoutUpdatedBrandsInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -8390,6 +8528,7 @@ export type UserUncheckedCreateWithoutUpdatedBrandsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -8447,8 +8586,8 @@ export type UserUpdateToOneWithWhereWithoutCreatedBrandsInput = {
 export type UserUpdateWithoutCreatedBrandsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -8456,6 +8595,7 @@ export type UserUpdateWithoutCreatedBrandsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUpdateManyWithoutUserNestedInput
@@ -8501,8 +8641,8 @@ export type UserUncheckedUpdateWithoutCreatedBrandsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -8513,6 +8653,7 @@ export type UserUncheckedUpdateWithoutCreatedBrandsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -8565,8 +8706,8 @@ export type UserUpdateToOneWithWhereWithoutUpdatedBrandsInput = {
 export type UserUpdateWithoutUpdatedBrandsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -8574,6 +8715,7 @@ export type UserUpdateWithoutUpdatedBrandsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUpdateManyWithoutUserNestedInput
@@ -8619,8 +8761,8 @@ export type UserUncheckedUpdateWithoutUpdatedBrandsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -8631,6 +8773,7 @@ export type UserUncheckedUpdateWithoutUpdatedBrandsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -8672,8 +8815,8 @@ export type UserUncheckedUpdateWithoutUpdatedBrandsInput = {
 export type UserCreateWithoutCreatedBrandTranslationsInput = {
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -8681,6 +8824,7 @@ export type UserCreateWithoutCreatedBrandTranslationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderCreateNestedManyWithoutUserInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemCreateNestedManyWithoutUserInput
@@ -8726,8 +8870,8 @@ export type UserUncheckedCreateWithoutCreatedBrandTranslationsInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -8738,6 +8882,7 @@ export type UserUncheckedCreateWithoutCreatedBrandTranslationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -8784,8 +8929,8 @@ export type UserCreateOrConnectWithoutCreatedBrandTranslationsInput = {
 export type UserCreateWithoutUpdatedBrandTranslationsInput = {
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -8793,6 +8938,7 @@ export type UserCreateWithoutUpdatedBrandTranslationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderCreateNestedManyWithoutUserInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemCreateNestedManyWithoutUserInput
@@ -8838,8 +8984,8 @@ export type UserUncheckedCreateWithoutUpdatedBrandTranslationsInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -8850,6 +8996,7 @@ export type UserUncheckedCreateWithoutUpdatedBrandTranslationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -8907,8 +9054,8 @@ export type UserUpdateToOneWithWhereWithoutCreatedBrandTranslationsInput = {
 export type UserUpdateWithoutCreatedBrandTranslationsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -8916,6 +9063,7 @@ export type UserUpdateWithoutCreatedBrandTranslationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUpdateManyWithoutUserNestedInput
@@ -8961,8 +9109,8 @@ export type UserUncheckedUpdateWithoutCreatedBrandTranslationsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -8973,6 +9121,7 @@ export type UserUncheckedUpdateWithoutCreatedBrandTranslationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -9025,8 +9174,8 @@ export type UserUpdateToOneWithWhereWithoutUpdatedBrandTranslationsInput = {
 export type UserUpdateWithoutUpdatedBrandTranslationsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -9034,6 +9183,7 @@ export type UserUpdateWithoutUpdatedBrandTranslationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUpdateManyWithoutUserNestedInput
@@ -9079,8 +9229,8 @@ export type UserUncheckedUpdateWithoutUpdatedBrandTranslationsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -9091,6 +9241,7 @@ export type UserUncheckedUpdateWithoutUpdatedBrandTranslationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -9132,8 +9283,8 @@ export type UserUncheckedUpdateWithoutUpdatedBrandTranslationsInput = {
 export type UserCreateWithoutCartsInput = {
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -9141,6 +9292,7 @@ export type UserCreateWithoutCartsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderCreateNestedManyWithoutUserInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderCreateNestedManyWithoutUserInput
@@ -9186,8 +9338,8 @@ export type UserUncheckedCreateWithoutCartsInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -9198,6 +9350,7 @@ export type UserUncheckedCreateWithoutCartsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
@@ -9255,8 +9408,8 @@ export type UserUpdateToOneWithWhereWithoutCartsInput = {
 export type UserUpdateWithoutCartsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -9264,6 +9417,7 @@ export type UserUpdateWithoutCartsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
@@ -9309,8 +9463,8 @@ export type UserUncheckedUpdateWithoutCartsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -9321,6 +9475,7 @@ export type UserUncheckedUpdateWithoutCartsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
@@ -9362,8 +9517,8 @@ export type UserUncheckedUpdateWithoutCartsInput = {
 export type UserCreateWithoutOrdersInput = {
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -9371,6 +9526,7 @@ export type UserCreateWithoutOrdersInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderCreateNestedManyWithoutUserInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemCreateNestedManyWithoutUserInput
@@ -9416,8 +9572,8 @@ export type UserUncheckedCreateWithoutOrdersInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -9428,6 +9584,7 @@ export type UserUncheckedCreateWithoutOrdersInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
@@ -9474,8 +9631,8 @@ export type UserCreateOrConnectWithoutOrdersInput = {
 export type UserCreateWithoutCreatedOrdersInput = {
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -9483,6 +9640,7 @@ export type UserCreateWithoutCreatedOrdersInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderCreateNestedManyWithoutUserInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemCreateNestedManyWithoutUserInput
@@ -9528,8 +9686,8 @@ export type UserUncheckedCreateWithoutCreatedOrdersInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -9540,6 +9698,7 @@ export type UserUncheckedCreateWithoutCreatedOrdersInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -9586,8 +9745,8 @@ export type UserCreateOrConnectWithoutCreatedOrdersInput = {
 export type UserCreateWithoutUpdatedOrdersInput = {
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -9595,6 +9754,7 @@ export type UserCreateWithoutUpdatedOrdersInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderCreateNestedManyWithoutUserInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemCreateNestedManyWithoutUserInput
@@ -9640,8 +9800,8 @@ export type UserUncheckedCreateWithoutUpdatedOrdersInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -9652,6 +9812,7 @@ export type UserUncheckedCreateWithoutUpdatedOrdersInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -9709,8 +9870,8 @@ export type UserUpdateToOneWithWhereWithoutOrdersInput = {
 export type UserUpdateWithoutOrdersInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -9718,6 +9879,7 @@ export type UserUpdateWithoutOrdersInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUpdateManyWithoutUserNestedInput
@@ -9763,8 +9925,8 @@ export type UserUncheckedUpdateWithoutOrdersInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -9775,6 +9937,7 @@ export type UserUncheckedUpdateWithoutOrdersInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
@@ -9827,8 +9990,8 @@ export type UserUpdateToOneWithWhereWithoutCreatedOrdersInput = {
 export type UserUpdateWithoutCreatedOrdersInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -9836,6 +9999,7 @@ export type UserUpdateWithoutCreatedOrdersInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUpdateManyWithoutUserNestedInput
@@ -9881,8 +10045,8 @@ export type UserUncheckedUpdateWithoutCreatedOrdersInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -9893,6 +10057,7 @@ export type UserUncheckedUpdateWithoutCreatedOrdersInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -9945,8 +10110,8 @@ export type UserUpdateToOneWithWhereWithoutUpdatedOrdersInput = {
 export type UserUpdateWithoutUpdatedOrdersInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -9954,6 +10119,7 @@ export type UserUpdateWithoutUpdatedOrdersInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUpdateManyWithoutUserNestedInput
@@ -9999,8 +10165,8 @@ export type UserUncheckedUpdateWithoutUpdatedOrdersInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -10011,6 +10177,7 @@ export type UserUncheckedUpdateWithoutUpdatedOrdersInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -10052,8 +10219,8 @@ export type UserUncheckedUpdateWithoutUpdatedOrdersInput = {
 export type UserCreateWithoutReviewsInput = {
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -10061,6 +10228,7 @@ export type UserCreateWithoutReviewsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderCreateNestedManyWithoutUserInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemCreateNestedManyWithoutUserInput
@@ -10106,8 +10274,8 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -10118,6 +10286,7 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -10175,8 +10344,8 @@ export type UserUpdateToOneWithWhereWithoutReviewsInput = {
 export type UserUpdateWithoutReviewsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -10184,6 +10353,7 @@ export type UserUpdateWithoutReviewsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUpdateManyWithoutUserNestedInput
@@ -10229,8 +10399,8 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -10241,6 +10411,7 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -10282,8 +10453,8 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
 export type UserCreateWithoutSentMessagesInput = {
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -10291,6 +10462,7 @@ export type UserCreateWithoutSentMessagesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderCreateNestedManyWithoutUserInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemCreateNestedManyWithoutUserInput
@@ -10336,8 +10508,8 @@ export type UserUncheckedCreateWithoutSentMessagesInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -10348,6 +10520,7 @@ export type UserUncheckedCreateWithoutSentMessagesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -10394,8 +10567,8 @@ export type UserCreateOrConnectWithoutSentMessagesInput = {
 export type UserCreateWithoutReceivedMessagesInput = {
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -10403,6 +10576,7 @@ export type UserCreateWithoutReceivedMessagesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderCreateNestedManyWithoutUserInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemCreateNestedManyWithoutUserInput
@@ -10448,8 +10622,8 @@ export type UserUncheckedCreateWithoutReceivedMessagesInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -10460,6 +10634,7 @@ export type UserUncheckedCreateWithoutReceivedMessagesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  providers?: Prisma.UserProviderUncheckedCreateNestedManyWithoutUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   carts?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
@@ -10517,8 +10692,8 @@ export type UserUpdateToOneWithWhereWithoutSentMessagesInput = {
 export type UserUpdateWithoutSentMessagesInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -10526,6 +10701,7 @@ export type UserUpdateWithoutSentMessagesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUpdateManyWithoutUserNestedInput
@@ -10571,8 +10747,8 @@ export type UserUncheckedUpdateWithoutSentMessagesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -10583,6 +10759,7 @@ export type UserUncheckedUpdateWithoutSentMessagesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -10635,8 +10812,8 @@ export type UserUpdateToOneWithWhereWithoutReceivedMessagesInput = {
 export type UserUpdateWithoutReceivedMessagesInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -10644,6 +10821,7 @@ export type UserUpdateWithoutReceivedMessagesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUpdateManyWithoutUserNestedInput
@@ -10689,8 +10867,242 @@ export type UserUncheckedUpdateWithoutReceivedMessagesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  roleId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUncheckedUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  carts?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
+  createdPermissions?: Prisma.PermissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedPermissions?: Prisma.PermissionUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdRoles?: Prisma.RoleUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedRoles?: Prisma.RoleUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdProducts?: Prisma.ProductUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedProducts?: Prisma.ProductUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdCategories?: Prisma.CategoryUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedCategories?: Prisma.CategoryUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdVariants?: Prisma.VariantUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedVariants?: Prisma.VariantUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdVariantOptions?: Prisma.VariantOptionUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedVariantOptions?: Prisma.VariantOptionUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdSKUS?: Prisma.SKUUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedSKUS?: Prisma.SKUUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdLanguages?: Prisma.LanguageUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedLanguages?: Prisma.LanguageUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdProductTranslations?: Prisma.ProductTranslationUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedProductTranslations?: Prisma.ProductTranslationUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdCategoryTranslations?: Prisma.CategoryTranslationUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedCategoryTranslations?: Prisma.CategoryTranslationUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdBrandTranslations?: Prisma.BrandTranslationUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedBrandTranslations?: Prisma.BrandTranslationUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdOrders?: Prisma.OrderUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedOrders?: Prisma.OrderUncheckedUpdateManyWithoutUpdatedByNestedInput
+  createdUserTranslations?: Prisma.UserTranslationUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedUserTranslations?: Prisma.UserTranslationUncheckedUpdateManyWithoutUpdatedByNestedInput
+  userTranslations?: Prisma.UserTranslationUncheckedUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutFromUserNestedInput
+  createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
+}
+
+export type UserCreateWithoutProvidersInput = {
+  email: string
+  name: string
+  password?: string | null
+  phoneNumber?: string | null
+  avatar?: string | null
+  totpSecret?: string | null
+  status?: $Enums.UserStatus
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  role: Prisma.RoleCreateNestedOneWithoutUsersInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  carts?: Prisma.CartItemCreateNestedManyWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
+  createdPermissions?: Prisma.PermissionCreateNestedManyWithoutCreatedByInput
+  updatedPermissions?: Prisma.PermissionCreateNestedManyWithoutUpdatedByInput
+  createdRoles?: Prisma.RoleCreateNestedManyWithoutCreatedByInput
+  updatedRoles?: Prisma.RoleCreateNestedManyWithoutUpdatedByInput
+  createdProducts?: Prisma.ProductCreateNestedManyWithoutCreatedByInput
+  updatedProducts?: Prisma.ProductCreateNestedManyWithoutUpdatedByInput
+  createdCategories?: Prisma.CategoryCreateNestedManyWithoutCreatedByInput
+  updatedCategories?: Prisma.CategoryCreateNestedManyWithoutUpdatedByInput
+  createdVariants?: Prisma.VariantCreateNestedManyWithoutCreatedByInput
+  updatedVariants?: Prisma.VariantCreateNestedManyWithoutUpdatedByInput
+  createdVariantOptions?: Prisma.VariantOptionCreateNestedManyWithoutCreatedByInput
+  updatedVariantOptions?: Prisma.VariantOptionCreateNestedManyWithoutUpdatedByInput
+  createdSKUS?: Prisma.SKUCreateNestedManyWithoutCreatedByInput
+  updatedSKUS?: Prisma.SKUCreateNestedManyWithoutUpdatedByInput
+  createdLanguages?: Prisma.LanguageCreateNestedManyWithoutCreatedByInput
+  updatedLanguages?: Prisma.LanguageCreateNestedManyWithoutUpdatedByInput
+  createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
+  updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
+  createdProductTranslations?: Prisma.ProductTranslationCreateNestedManyWithoutCreatedByInput
+  updatedProductTranslations?: Prisma.ProductTranslationCreateNestedManyWithoutUpdatedByInput
+  createdCategoryTranslations?: Prisma.CategoryTranslationCreateNestedManyWithoutCreatedByInput
+  updatedCategoryTranslations?: Prisma.CategoryTranslationCreateNestedManyWithoutUpdatedByInput
+  createdBrandTranslations?: Prisma.BrandTranslationCreateNestedManyWithoutCreatedByInput
+  updatedBrandTranslations?: Prisma.BrandTranslationCreateNestedManyWithoutUpdatedByInput
+  createdOrders?: Prisma.OrderCreateNestedManyWithoutCreatedByInput
+  updatedOrders?: Prisma.OrderCreateNestedManyWithoutUpdatedByInput
+  createdUserTranslations?: Prisma.UserTranslationCreateNestedManyWithoutCreatedByInput
+  updatedUserTranslations?: Prisma.UserTranslationCreateNestedManyWithoutUpdatedByInput
+  userTranslations?: Prisma.UserTranslationCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutFromUserInput
+  receivedMessages?: Prisma.MessageCreateNestedManyWithoutToUserInput
+  createdBy?: Prisma.UserCreateNestedOneWithoutCreatedUsersInput
+  createdUsers?: Prisma.UserCreateNestedManyWithoutCreatedByInput
+  updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedUsersInput
+  updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
+}
+
+export type UserUncheckedCreateWithoutProvidersInput = {
+  id?: number
+  email: string
+  name: string
+  password?: string | null
+  phoneNumber?: string | null
+  avatar?: string | null
+  totpSecret?: string | null
+  status?: $Enums.UserStatus
+  roleId: number
+  createdById?: number | null
+  updatedById?: number | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  carts?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
+  createdPermissions?: Prisma.PermissionUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedPermissions?: Prisma.PermissionUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdRoles?: Prisma.RoleUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedRoles?: Prisma.RoleUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdProducts?: Prisma.ProductUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedProducts?: Prisma.ProductUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdCategories?: Prisma.CategoryUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedCategories?: Prisma.CategoryUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdVariants?: Prisma.VariantUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedVariants?: Prisma.VariantUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdVariantOptions?: Prisma.VariantOptionUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedVariantOptions?: Prisma.VariantOptionUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdSKUS?: Prisma.SKUUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedSKUS?: Prisma.SKUUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdLanguages?: Prisma.LanguageUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedLanguages?: Prisma.LanguageUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdProductTranslations?: Prisma.ProductTranslationUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedProductTranslations?: Prisma.ProductTranslationUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdCategoryTranslations?: Prisma.CategoryTranslationUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedCategoryTranslations?: Prisma.CategoryTranslationUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdBrandTranslations?: Prisma.BrandTranslationUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedBrandTranslations?: Prisma.BrandTranslationUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutUpdatedByInput
+  createdUserTranslations?: Prisma.UserTranslationUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedUserTranslations?: Prisma.UserTranslationUncheckedCreateNestedManyWithoutUpdatedByInput
+  userTranslations?: Prisma.UserTranslationUncheckedCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutFromUserInput
+  receivedMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutToUserInput
+  createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
+}
+
+export type UserCreateOrConnectWithoutProvidersInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutProvidersInput, Prisma.UserUncheckedCreateWithoutProvidersInput>
+}
+
+export type UserUpsertWithoutProvidersInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutProvidersInput, Prisma.UserUncheckedUpdateWithoutProvidersInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutProvidersInput, Prisma.UserUncheckedCreateWithoutProvidersInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutProvidersInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutProvidersInput, Prisma.UserUncheckedUpdateWithoutProvidersInput>
+}
+
+export type UserUpdateWithoutProvidersInput = {
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  carts?: Prisma.CartItemUpdateManyWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
+  createdPermissions?: Prisma.PermissionUpdateManyWithoutCreatedByNestedInput
+  updatedPermissions?: Prisma.PermissionUpdateManyWithoutUpdatedByNestedInput
+  createdRoles?: Prisma.RoleUpdateManyWithoutCreatedByNestedInput
+  updatedRoles?: Prisma.RoleUpdateManyWithoutUpdatedByNestedInput
+  createdProducts?: Prisma.ProductUpdateManyWithoutCreatedByNestedInput
+  updatedProducts?: Prisma.ProductUpdateManyWithoutUpdatedByNestedInput
+  createdCategories?: Prisma.CategoryUpdateManyWithoutCreatedByNestedInput
+  updatedCategories?: Prisma.CategoryUpdateManyWithoutUpdatedByNestedInput
+  createdVariants?: Prisma.VariantUpdateManyWithoutCreatedByNestedInput
+  updatedVariants?: Prisma.VariantUpdateManyWithoutUpdatedByNestedInput
+  createdVariantOptions?: Prisma.VariantOptionUpdateManyWithoutCreatedByNestedInput
+  updatedVariantOptions?: Prisma.VariantOptionUpdateManyWithoutUpdatedByNestedInput
+  createdSKUS?: Prisma.SKUUpdateManyWithoutCreatedByNestedInput
+  updatedSKUS?: Prisma.SKUUpdateManyWithoutUpdatedByNestedInput
+  createdLanguages?: Prisma.LanguageUpdateManyWithoutCreatedByNestedInput
+  updatedLanguages?: Prisma.LanguageUpdateManyWithoutUpdatedByNestedInput
+  createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
+  updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
+  createdProductTranslations?: Prisma.ProductTranslationUpdateManyWithoutCreatedByNestedInput
+  updatedProductTranslations?: Prisma.ProductTranslationUpdateManyWithoutUpdatedByNestedInput
+  createdCategoryTranslations?: Prisma.CategoryTranslationUpdateManyWithoutCreatedByNestedInput
+  updatedCategoryTranslations?: Prisma.CategoryTranslationUpdateManyWithoutUpdatedByNestedInput
+  createdBrandTranslations?: Prisma.BrandTranslationUpdateManyWithoutCreatedByNestedInput
+  updatedBrandTranslations?: Prisma.BrandTranslationUpdateManyWithoutUpdatedByNestedInput
+  createdOrders?: Prisma.OrderUpdateManyWithoutCreatedByNestedInput
+  updatedOrders?: Prisma.OrderUpdateManyWithoutUpdatedByNestedInput
+  createdUserTranslations?: Prisma.UserTranslationUpdateManyWithoutCreatedByNestedInput
+  updatedUserTranslations?: Prisma.UserTranslationUpdateManyWithoutUpdatedByNestedInput
+  userTranslations?: Prisma.UserTranslationUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutFromUserNestedInput
+  receivedMessages?: Prisma.MessageUpdateManyWithoutToUserNestedInput
+  createdBy?: Prisma.UserUpdateOneWithoutCreatedUsersNestedInput
+  createdUsers?: Prisma.UserUpdateManyWithoutCreatedByNestedInput
+  updatedBy?: Prisma.UserUpdateOneWithoutUpdatedUsersNestedInput
+  updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutProvidersInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -10735,6 +11147,7 @@ export type UserUncheckedUpdateWithoutReceivedMessagesInput = {
   updatedUserTranslations?: Prisma.UserTranslationUncheckedUpdateManyWithoutUpdatedByNestedInput
   userTranslations?: Prisma.UserTranslationUncheckedUpdateManyWithoutUserNestedInput
   sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutFromUserNestedInput
+  receivedMessages?: Prisma.MessageUncheckedUpdateManyWithoutToUserNestedInput
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
@@ -10743,8 +11156,8 @@ export type UserCreateManyCreatedByInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -10759,8 +11172,8 @@ export type UserCreateManyUpdatedByInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -10774,8 +11187,8 @@ export type UserCreateManyUpdatedByInput = {
 export type UserUpdateWithoutCreatedByInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -10783,6 +11196,7 @@ export type UserUpdateWithoutCreatedByInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUpdateManyWithoutUserNestedInput
@@ -10828,8 +11242,8 @@ export type UserUncheckedUpdateWithoutCreatedByInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -10839,6 +11253,7 @@ export type UserUncheckedUpdateWithoutCreatedByInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -10882,8 +11297,8 @@ export type UserUncheckedUpdateManyWithoutCreatedByInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -10897,8 +11312,8 @@ export type UserUncheckedUpdateManyWithoutCreatedByInput = {
 export type UserUpdateWithoutUpdatedByInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -10906,6 +11321,7 @@ export type UserUpdateWithoutUpdatedByInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUpdateManyWithoutUserNestedInput
@@ -10951,8 +11367,8 @@ export type UserUncheckedUpdateWithoutUpdatedByInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -10962,6 +11378,7 @@ export type UserUncheckedUpdateWithoutUpdatedByInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -11005,8 +11422,8 @@ export type UserUncheckedUpdateManyWithoutUpdatedByInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -11021,8 +11438,8 @@ export type UserCreateManyRoleInput = {
   id?: number
   email: string
   name: string
-  password: string
-  phoneNumber: string
+  password?: string | null
+  phoneNumber?: string | null
   avatar?: string | null
   totpSecret?: string | null
   status?: $Enums.UserStatus
@@ -11036,8 +11453,8 @@ export type UserCreateManyRoleInput = {
 export type UserUpdateWithoutRoleInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -11045,6 +11462,7 @@ export type UserUpdateWithoutRoleInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
@@ -11090,8 +11508,8 @@ export type UserUncheckedUpdateWithoutRoleInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -11101,6 +11519,7 @@ export type UserUncheckedUpdateWithoutRoleInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  providers?: Prisma.UserProviderUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   carts?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
@@ -11144,8 +11563,8 @@ export type UserUncheckedUpdateManyWithoutRoleInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -11163,6 +11582,7 @@ export type UserUncheckedUpdateManyWithoutRoleInput = {
 
 export type UserCountOutputType = {
   devices: number
+  providers: number
   refreshTokens: number
   carts: number
   orders: number
@@ -11204,6 +11624,7 @@ export type UserCountOutputType = {
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   devices?: boolean | UserCountOutputTypeCountDevicesArgs
+  providers?: boolean | UserCountOutputTypeCountProvidersArgs
   refreshTokens?: boolean | UserCountOutputTypeCountRefreshTokensArgs
   carts?: boolean | UserCountOutputTypeCountCartsArgs
   orders?: boolean | UserCountOutputTypeCountOrdersArgs
@@ -11258,6 +11679,13 @@ export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
  */
 export type UserCountOutputTypeCountDevicesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.DeviceWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountProvidersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserProviderWhereInput
 }
 
 /**
@@ -11536,6 +11964,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   createdAt?: boolean
   updatedAt?: boolean
   devices?: boolean | Prisma.User$devicesArgs<ExtArgs>
+  providers?: boolean | Prisma.User$providersArgs<ExtArgs>
   role?: boolean | Prisma.RoleDefaultArgs<ExtArgs>
   refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
   carts?: boolean | Prisma.User$cartsArgs<ExtArgs>
@@ -11639,6 +12068,7 @@ export type UserSelectScalar = {
 export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "name" | "password" | "phoneNumber" | "avatar" | "totpSecret" | "status" | "roleId" | "createdById" | "updatedById" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   devices?: boolean | Prisma.User$devicesArgs<ExtArgs>
+  providers?: boolean | Prisma.User$providersArgs<ExtArgs>
   role?: boolean | Prisma.RoleDefaultArgs<ExtArgs>
   refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
   carts?: boolean | Prisma.User$cartsArgs<ExtArgs>
@@ -11696,6 +12126,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name: "User"
   objects: {
     devices: Prisma.$DevicePayload<ExtArgs>[]
+    providers: Prisma.$UserProviderPayload<ExtArgs>[]
     role: Prisma.$RolePayload<ExtArgs>
     refreshTokens: Prisma.$RefreshTokenPayload<ExtArgs>[]
     carts: Prisma.$CartItemPayload<ExtArgs>[]
@@ -11741,8 +12172,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     id: number
     email: string
     name: string
-    password: string
-    phoneNumber: string
+    password: string | null
+    phoneNumber: string | null
     avatar: string | null
     totpSecret: string | null
     status: $Enums.UserStatus
@@ -12147,6 +12578,7 @@ readonly fields: UserFieldRefs;
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   devices<T extends Prisma.User$devicesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$devicesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  providers<T extends Prisma.User$providersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$providersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserProviderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   role<T extends Prisma.RoleDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RoleDefaultArgs<ExtArgs>>): Prisma.Prisma__RoleClient<runtime.Types.Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   refreshTokens<T extends Prisma.User$refreshTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$refreshTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   carts<T extends Prisma.User$cartsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$cartsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CartItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -12652,6 +13084,30 @@ export type User$devicesArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   distinct?: Prisma.DeviceScalarFieldEnum | Prisma.DeviceScalarFieldEnum[]
+}
+
+/**
+ * User.providers
+ */
+export type User$providersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserProvider
+   */
+  select?: Prisma.UserProviderSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserProvider
+   */
+  omit?: Prisma.UserProviderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserProviderInclude<ExtArgs> | null
+  where?: Prisma.UserProviderWhereInput
+  orderBy?: Prisma.UserProviderOrderByWithRelationInput | Prisma.UserProviderOrderByWithRelationInput[]
+  cursor?: Prisma.UserProviderWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UserProviderScalarFieldEnum | Prisma.UserProviderScalarFieldEnum[]
 }
 
 /**

@@ -132,3 +132,8 @@ export type PaymentTransaction = Prisma.PaymentTransactionModel
  * 
  */
 export type Message = Prisma.MessageModel
+/**
+ * Model UserProvider
+ * 
+ */
+export type UserProvider = Prisma.UserProviderModel

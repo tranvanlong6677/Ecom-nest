@@ -5,10 +5,10 @@ import { z } from 'zod'
 export const RegisterBodySchema = UserSchema.pick({
   name: true,
   email: true,
-  phoneNumber: true,
-  password: true,
 })
   .extend({
+    phoneNumber: UserSchema.shape.phoneNumber.unwrap(),
+    password: UserSchema.shape.password.unwrap(),
     confirmPassword: z.string().min(1).max(100),
     code: z.string().min(6).max(6),
   })
@@ -44,8 +44,11 @@ export const SendOTPBodySchema = VerificationCodeSchema.pick({
 
 export const LoginBodySchema = UserSchema.pick({
   email: true,
-  password: true,
-}).strict()
+})
+  .extend({
+    password: UserSchema.shape.password.unwrap(),
+  })
+  .strict()
 
 export const LoginResSchema = z.object({
   accessToken: z.string(),

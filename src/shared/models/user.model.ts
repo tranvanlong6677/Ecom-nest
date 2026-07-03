@@ -9,14 +9,16 @@ export const UserSchema = z.object({
   phoneNumber: z
     .string()
     .min(10, 'Phone number must be at least 10 digits long')
-    .max(15, 'Phone number must be at most 15 digits long'),
+    .max(15, 'Phone number must be at most 15 digits long')
+    .nullable(),
   roleId: z.number().positive('Role ID must be a positive number'),
   avatar: z.string().nullable(),
   totpSecret: z.string().nullable(),
   password: z
     .string()
     .min(6, 'Password must be at least 6 characters long')
-    .max(100, 'Password must be at most 100 characters long'),
+    .max(100, 'Password must be at most 100 characters long')
+    .nullable(),
   status: z.enum(UserStatus),
   createdAt: z.date().optional(),
   updatedAt: z.date().optional(),

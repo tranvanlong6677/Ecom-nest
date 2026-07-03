@@ -38,6 +38,15 @@ export const UserStatus = {
 export type UserStatus = (typeof UserStatus)[keyof typeof UserStatus]
 
 
+export const OAuthProvider = {
+  GOOGLE: 'GOOGLE',
+  FACEBOOK: 'FACEBOOK',
+  GITHUB: 'GITHUB'
+} as const
+
+export type OAuthProvider = (typeof OAuthProvider)[keyof typeof OAuthProvider]
+
+
 export const HTTPMethod = {
   GET: 'GET',
   POST: 'POST',

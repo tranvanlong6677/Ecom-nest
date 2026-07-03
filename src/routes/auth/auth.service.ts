@@ -68,6 +68,12 @@ export class AuthService {
       throw new UnprocessableEntityException([{ path: 'email', message: 'Account is not exist' }])
     }
 
+    if (!user.password) {
+      throw new UnprocessableEntityException([
+        { path: 'email', message: 'This account uses social login. Please continue with Google/Facebook/GitHub.' },
+      ])
+    }
+
     const isPasswordMatch = await this.hashingService.compare(body.password, user.password)
     if (!isPasswordMatch) {
       throw new UnprocessableEntityException([
