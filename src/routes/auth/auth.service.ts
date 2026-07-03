@@ -143,11 +143,9 @@ export class AuthService {
       // 1. Kiểm tra refreshToken có hợp lệ không
       await this.tokenService.verifyRefreshToken(refreshToken)
       // 2. Xóa refreshToken trong database
-      await this.prismaService.refreshToken.delete({
-        where: {
-          token: refreshToken,
-        },
-      })
+      const token = await this.authRepo.revokeRefreshToken(refreshToken)
+      const { deviceId } = token
+      await this.authRepo.updateDevice({ id: deviceId, isActive: false, lastActive: new Date() })
       return { message: 'Logout successfully' }
     } catch (error) {
       // Trường hợp đã refresh token rồi, hãy thông báo cho user biết

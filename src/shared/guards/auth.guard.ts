@@ -1,7 +1,7 @@
 import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common'
 import { Reflector } from '@nestjs/core'
 import { AUTH_TYPE_KEY } from '@/shared/decorators/auth.decorator'
-import { AuthType } from '@/shared/enums/auth-type.enum'
+import { AuthOptionsType, AuthType } from '@/shared/enums/auth-type.enum'
 import { AccessTokenGuard } from '@/shared/guards/access-token.guard'
 import { ApiKeyGuard } from '@/shared/guards/api-key.guard'
 
@@ -27,8 +27,8 @@ export class AuthGuard implements CanActivate {
       condition: 'or' | 'and'
     }>(AUTH_TYPE_KEY, [context.getHandler(), context.getClass()])
 
-    const authTypes = authMetadata?.authTypes ?? [AuthType.None]
-    const condition = authMetadata?.condition ?? 'or'
+    const authTypes = authMetadata?.authTypes ?? [AuthType.Bearer]
+    const condition = authMetadata?.condition ?? AuthOptionsType.AND
     const guards = authTypes.map((type) => this.authTypeGuardMap[type])
 
     let error: unknown = new UnauthorizedException()

@@ -14,3 +14,5 @@ export const Auth = (authTypes: AuthType | AuthType[], options?: AuthOptions) =>
     authTypes: Array.isArray(authTypes) ? authTypes : [authTypes],
     condition: options?.condition ?? AuthOptionsType.AND,
   })
+
+export const IsPublic = () => Auth(AuthType.None)
