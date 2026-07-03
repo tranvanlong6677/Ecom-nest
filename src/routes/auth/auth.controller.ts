@@ -5,6 +5,7 @@ import {
   LoginResDTO,
   LogoutBodyDto,
   RefreshTokenBodyDto,
+  RefreshTokenResDTO,
   RegisterBodyDto,
   RegisterResDTO,
   SendOTPBodyDto,
@@ -18,31 +19,31 @@ export class AuthController {
 
   @Post('register')
   @ZodSerializerDto(RegisterResDTO)
-  async register(@Body() body: RegisterBodyDto) {
-    return await this.authService.register(body)
+  register(@Body() body: RegisterBodyDto) {
+    return this.authService.register(body)
   }
 
   @Post('send-otp')
-  async sendOtp(@Body() body: SendOTPBodyDto) {
-    return await this.authService.sendOtp(body)
+  sendOtp(@Body() body: SendOTPBodyDto) {
+    return this.authService.sendOtp(body)
   }
 
   @Post('login')
   @ZodSerializerDto(LoginResDTO)
-  async login(@Body() body: LoginBodyDto, @UserAgent() userAgent, @Ip() ip) {
+  login(@Body() body: LoginBodyDto, @UserAgent() userAgent, @Ip() ip) {
     return this.authService.login({ ...body, userAgent, ip })
   }
 
   @Post('refresh-token')
   @HttpCode(HttpStatus.OK)
-  @ZodSerializerDto(LoginResDTO)
-  async refreshToken(@Body() body: RefreshTokenBodyDto) {
-    return this.authService.refreshToken(body.refreshToken)
+  @ZodSerializerDto(RefreshTokenResDTO)
+  refreshToken(@Body() body: RefreshTokenBodyDto, @UserAgent() userAgent, @Ip() ip) {
+    return this.authService.refreshToken({ refreshToken: body.refreshToken, userAgent, ip })
   }
 
   @Post('logout')
   @ZodSerializerDto(LoginResDTO)
-  async logout(@Body() body: LogoutBodyDto) {
+  logout(@Body() body: LogoutBodyDto) {
     return this.authService.logout(body.refreshToken)
   }
 }

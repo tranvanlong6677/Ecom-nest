@@ -13,8 +13,18 @@ export class CatchEverythingFilter implements ExceptionFilter {
 
     const ctx = host.switchToHttp()
 
-    let httpStatus = exception instanceof HttpException ? exception.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR
-    let message = exception instanceof HttpException ? exception.getResponse() : 'Internal server error'
+    let httpStatus = HttpStatus.INTERNAL_SERVER_ERROR
+    let message: unknown = 'Internal server error'
+
+    if (exception instanceof HttpException) {
+      httpStatus = exception.getStatus()
+      const response = exception.getResponse()
+      if (typeof response === 'string') {
+        message = response
+      } else if (typeof response === 'object' && response !== null) {
+        message = (response as Record<string, unknown>)['message'] ?? exception.message
+      }
+    }
 
     if (isUniqueConstraintPrismaError(exception)) {
       httpStatus = HttpStatus.CONFLICT
@@ -24,7 +34,6 @@ export class CatchEverythingFilter implements ExceptionFilter {
     const responseBody = {
       statusCode: httpStatus,
       message,
-      exception,
     }
 
     httpAdapter.reply(ctx.getResponse(), responseBody, httpStatus)
