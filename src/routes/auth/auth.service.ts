@@ -1,10 +1,4 @@
-import {
-  ConflictException,
-  HttpException,
-  Injectable,
-  UnauthorizedException,
-  UnprocessableEntityException,
-} from '@nestjs/common'
+import { HttpException, Injectable, UnauthorizedException } from '@nestjs/common'
 import { HashingService } from '@/shared/services/hashing.service'
 import { PrismaService } from '@/shared/services/prisma.service'
 import { TokenService } from '@/shared/services/token.service'
@@ -17,6 +11,7 @@ import { SharedRepository } from '@/shared/repository/shared-user.repo'
 import { EmailService } from '@/shared/services/email.service'
 import envConfig from '@/shared/config'
 import ms from 'ms'
+import { EmailException, EmailOrPasswordException, OtpException, TokenException } from '@/shared/models/error.model'
 
 @Injectable()
 export class AuthService {
@@ -37,10 +32,10 @@ export class AuthService {
         type: VerificationCodePurpose.REGISTER,
       })
       if (!verificationCode) {
-        throw new UnprocessableEntityException([{ path: 'code', message: 'OTP code is incorrect' }])
+        throw OtpException.Invalid
       }
       if (verificationCode.expiresAt < new Date()) {
-        throw new UnprocessableEntityException([{ path: 'code', message: 'OTP code is expired' }])
+        throw OtpException.Expired
       }
       const clientRoleId = await this.rolesService.getClientRoleId()
       const hashedPassword = await this.hashingService.hash(body.password)
@@ -56,32 +51,25 @@ export class AuthService {
       )
     } catch (error) {
       if (isUniqueConstraintPrismaError(error)) {
-        throw new ConflictException('Email đã tồn tại')
+        throw EmailException.Exists
       }
       throw error
     }
   }
 
   async login(body: LoginBodyType & Pick<DeviceType, 'userAgent' | 'ip'>) {
-    const user = await this.sharedRepo.findUser({ email: body.email })
+    const user = await this.authRepo.findUserWithRole({ email: body.email })
     if (!user) {
-      throw new UnprocessableEntityException([{ path: 'email', message: 'Account is not exist' }])
+      throw EmailOrPasswordException.Mismatch
     }
 
     if (!user.password) {
-      throw new UnprocessableEntityException([
-        { path: 'email', message: 'This account uses social login. Please continue with Google/Facebook/GitHub.' },
-      ])
+      throw EmailOrPasswordException.Mismatch
     }
 
     const isPasswordMatch = await this.hashingService.compare(body.password, user.password)
     if (!isPasswordMatch) {
-      throw new UnprocessableEntityException([
-        {
-          path: 'password',
-          message: 'Password is incorrect',
-        },
-      ])
+      throw EmailOrPasswordException.Mismatch
     }
 
     const device = await this.authRepo.createDevice({
@@ -89,16 +77,12 @@ export class AuthService {
       userAgent: body.userAgent,
       ip: body.ip,
     })
-    const userWithRole = await this.authRepo.findUserWithRole({ id: user.id })
-    if (!userWithRole) {
-      throw new UnprocessableEntityException([{ path: 'userId', message: 'User is not exist' }])
-    }
 
     return await this.authRepo.generateTokens({
       userId: user.id,
       roleId: user.roleId,
       deviceId: device.id,
-      roleName: userWithRole.role.name,
+      roleName: user.role.name,
     })
   }
 
@@ -111,7 +95,7 @@ export class AuthService {
         token: refreshToken,
       })
       if (!tokenWithUserAndRole) {
-        throw new UnauthorizedException('Refresh token has been revoked')
+        throw TokenException.Revoked
       }
 
       // 3: Cập nhật device (ip và userAgent đều có thể bị thay đổi, ip thay đổi khi đổ i mạng, userAgent thay đổi khi browser tự update)
@@ -157,7 +141,7 @@ export class AuthService {
       // Trường hợp đã refresh token rồi, hãy thông báo cho user biết
       // refresh token của họ đã bị đánh cắp
       if (isNotFoundPrismaError(error)) {
-        throw new UnauthorizedException('Refresh token has been revoked')
+        throw TokenException.Revoked
       }
       throw new UnauthorizedException()
     }
@@ -167,10 +151,10 @@ export class AuthService {
     const user = await this.sharedRepo.findUser({ email: body.email })
     const isRegister = body.type === VerificationCodePurpose.REGISTER
     if (isRegister && user) {
-      throw new UnprocessableEntityException([{ path: 'email', message: 'Email already exists' }])
+      throw EmailException.Exists
     }
     if (!isRegister && !user) {
-      throw new UnprocessableEntityException([{ path: 'email', message: 'Account does not exist' }])
+      throw EmailException.NotFound
     }
 
     const otpCode = generateOTP()

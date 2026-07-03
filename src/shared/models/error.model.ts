@@ -1,0 +1,56 @@
+import { UnprocessableEntityException } from '@nestjs/common'
+
+export const OtpException = {
+  Invalid: new UnprocessableEntityException([
+    { path: 'code', code: 'ERROR.OTP_INVALID', message: 'OTP code is invalid' },
+  ]),
+  Expired: new UnprocessableEntityException([
+    { path: 'code', code: 'ERROR.OTP_EXPIRED', message: 'OTP code is expired' },
+  ]),
+}
+
+export const EmailException = {
+  NotFound: new UnprocessableEntityException([
+    { path: 'email', code: 'ERROR.EMAIL_NOT_FOUND', message: 'Email is not exist' },
+  ]),
+  Exists: new UnprocessableEntityException([
+    { path: 'email', code: 'ERROR.EMAIL_ALREADY_EXISTS', message: 'Email already exists' },
+  ]),
+  Social: new UnprocessableEntityException([
+    {
+      path: 'email',
+      code: 'ERROR.EMAIL_IS_SOCIAL_ACCOUNT',
+      message: 'This account uses social login. Please continue with Google/Facebook/GitHub.',
+    },
+  ]),
+}
+
+export const PasswordException = {
+  Mismatch: new UnprocessableEntityException([
+    { path: 'password', code: 'ERROR.PASSWORD_INCORRECT', message: 'Password is incorrect' },
+  ]),
+}
+
+export const EmailOrPasswordException = {
+  Mismatch: new UnprocessableEntityException([
+    { path: 'emailOrPassword', code: 'ERROR.EMAIL_OR_PASSWORD_INCORRECT', message: 'Email or password is incorrect' },
+  ]),
+}
+
+export const DeviceException = {
+  NotFound: new UnprocessableEntityException([
+    { path: 'deviceId', code: 'ERROR.DEVICE_NOT_FOUND', message: 'Device is not exist' },
+  ]),
+}
+
+export const TokenException = {
+  NotFound: new UnprocessableEntityException([
+    { path: 'refreshToken', code: 'ERROR.REFRESH_TOKEN_NOT_FOUND', message: 'Refresh token is not exist' },
+  ]),
+  Invalid: new UnprocessableEntityException([
+    { path: 'refreshToken', code: 'ERROR.REFRESH_TOKEN_INVALID', message: 'Refresh token is invalid' },
+  ]),
+  Revoked: new UnprocessableEntityException([
+    { path: 'refreshToken', code: 'ERROR.REFRESH_TOKEN_REVOKED', message: 'Refresh token is revoked' },
+  ]),
+}
