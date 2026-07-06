@@ -6,6 +6,7 @@ import { RolesService } from '@/routes/auth/role.service'
 import { generateOTP, isNotFoundPrismaError, isUniqueConstraintPrismaError } from '@/shared/helper'
 import {
   DeviceType,
+  DisableTwoFactorBodyType,
   ForgotPasswordBodyType,
   LoginBodyType,
   RefreshTokenBodyType,
@@ -25,7 +26,11 @@ import {
   OtpException,
   PasswordException,
   TokenException,
+  TwoFactorException,
+  UserException,
 } from '@/shared/models/error.model'
+import { UserType } from '@/shared/models/user.model'
+import { TotpService } from '@/shared/services/totp.service'
 
 @Injectable()
 export class AuthService {
@@ -37,6 +42,7 @@ export class AuthService {
     private readonly authRepo: AuthRepository,
     private readonly sharedRepo: SharedRepository,
     private readonly emailService: EmailService,
+    private readonly totpService: TotpService,
   ) {}
   async register(body: RegisterBodyType) {
     try {
@@ -85,6 +91,16 @@ export class AuthService {
     const isPasswordMatch = body.password && (await this.hashingService.compare(body.password, user.password))
     if (!isPasswordMatch) {
       throw EmailOrPasswordException.Mismatch
+    }
+
+    if (user.totpSecret) {
+      if (!body.code && !body.totpCode) throw TwoFactorException.InvalidTOTP
+      await this.verifyTwoFactorCode({
+        user,
+        code: body.code,
+        totpCode: body.totpCode,
+        type: VerificationCodePurpose.LOGIN,
+      })
     }
 
     const device = await this.authRepo.createDevice({
@@ -235,5 +251,70 @@ export class AuthService {
     })
 
     return { message: 'OTP sent successfully' }
+  }
+
+  async verifyTwoFactorCode({
+    user,
+    code,
+    totpCode,
+    type,
+  }: {
+    user: UserType
+    code?: string
+    totpCode?: string
+    type: VerificationCodePurposeType
+  }) {
+    if (type === VerificationCodePurpose.DISABLE_2FA) {
+      if (!user.totpSecret) throw TwoFactorException.NotEnabled
+    }
+    if (totpCode) {
+      if (!user.totpSecret) throw TwoFactorException.NotEnabled
+      const isValidTotp = this.totpService.verify({ email: user.email, secret: user.totpSecret, totpCode })
+      if (!isValidTotp) {
+        throw TwoFactorException.InvalidTOTP
+      }
+      return
+    }
+    if (code) {
+      const isValidCode = await this.validateVerificationCode({
+        email: user.email,
+        code,
+        type,
+      })
+      if (!isValidCode) {
+        throw TwoFactorException.InvalidTOTP
+      }
+
+      await this.authRepo.deleteVerificationCode({ email: user.email, code, type })
+      return
+    }
+
+    throw TwoFactorException.InvalidTOTP
+  }
+
+  async setupTwoFactor(userId: number) {
+    const user = await this.authRepo.findUserWithRole({ id: userId })
+    if (!user) throw UserException.NotFound
+    const totpUser = user.totpSecret
+    if (totpUser) throw TwoFactorException.AlreadyEnabled
+    const secret = this.totpService.generateSecret()
+    const uri = this.totpService.getKeyUri({ email: user.email, secret })
+    await this.authRepo.updateUser({ id: userId }, { totpSecret: secret })
+    return { secret, uri }
+  }
+
+  async disableTwoFactor({ userId, body }: { userId: number; body: DisableTwoFactorBodyType }) {
+    const user = await this.authRepo.findUserWithRole({ id: userId })
+    if (!user) throw UserException.NotFound
+    if (!user.totpSecret) throw TwoFactorException.NotEnabled
+    await this.verifyTwoFactorCode({
+      user,
+      code: body.code,
+      type: VerificationCodePurpose.DISABLE_2FA,
+      totpCode: body.totpCode,
+    })
+
+    await this.authRepo.updateUser({ id: userId }, { totpSecret: null })
+    return { message: 'Two-factor authentication disabled successfully' }
   }
 }

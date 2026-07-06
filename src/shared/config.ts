@@ -19,6 +19,7 @@ const configSchema = z
     REFRESH_TOKEN_EXPIRES_IN: z.string(),
     SECRET_API_KEY: z.string(),
     PORT: z.string().optional().default('8000'),
+    APP_NAME: z.string(),
     ADMIN_NAME: z.string(),
     ADMIN_PASSWORD: z.string(),
     ADMIN_EMAIL: z.string(),

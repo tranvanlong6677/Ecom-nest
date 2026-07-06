@@ -1,6 +1,7 @@
 import { Body, Controller, HttpCode, HttpStatus, Ip, Post } from '@nestjs/common'
 import { AuthService } from '@/routes/auth/auth.service'
 import {
+  DisableTwoFactorBodyDTO,
   ForgotPasswordBodyDto,
   LoginBodyDto,
   LoginResDTO,
@@ -10,12 +11,15 @@ import {
   RegisterBodyDto,
   RegisterResDTO,
   SendOTPBodyDto,
+  TwoFactorSetupResDTO,
 } from '@/routes/auth/auth.dto'
 import { ZodSerializerDto } from 'nestjs-zod'
 import { UserAgent } from '@/shared/decorators/user-agent.decorator'
 import { MessageResDTO } from '@/shared/dtos/response.dto'
 import { IsPublic } from '@/shared/decorators/auth.decorator'
 import { Throttle } from '@nestjs/throttler'
+import { ActiveUser } from '@/shared/decorators/active-user.decorator'
+import { EmptyBodyDTO } from '@/shared/dtos/request.dto'
 
 @Controller('auth')
 export class AuthController {
@@ -67,5 +71,19 @@ export class AuthController {
   @ZodSerializerDto(MessageResDTO)
   logout(@Body() body: LogoutBodyDto) {
     return this.authService.logout(body.refreshToken)
+  }
+
+  @Post('2fa/disable')
+  @HttpCode(HttpStatus.OK)
+  @ZodSerializerDto(MessageResDTO)
+  disable2FA(@Body() body: DisableTwoFactorBodyDTO, @ActiveUser('userId') userId: number) {
+    return this.authService.disableTwoFactor({ userId, body })
+  }
+
+  @Post('2fa/setup')
+  @HttpCode(HttpStatus.OK)
+  @ZodSerializerDto(TwoFactorSetupResDTO)
+  setup2FA(@Body() _: EmptyBodyDTO, @ActiveUser('userId') userId: number) {
+    return this.authService.setupTwoFactor(userId)
   }
 }

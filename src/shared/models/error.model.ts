@@ -64,3 +64,30 @@ export const TokenException = {
     { path: 'refreshToken', code: 'ERROR.REFRESH_TOKEN_REVOKED', message: 'Refresh token is revoked' },
   ]),
 }
+
+export const TwoFactorException = {
+  AlreadyEnabled: new UnprocessableEntityException([
+    {
+      path: 'totpCode',
+      code: 'TwoFactorException.AlreadyEnabled',
+      message: '2FA is already enabled',
+    },
+  ]),
+
+  NotEnabled: new UnprocessableEntityException([
+    {
+      path: 'totpCode',
+      code: 'TwoFactorException.NotEnabled',
+      message: '2FA is not enabled',
+    },
+  ]),
+
+  InvalidTOTP: new UnprocessableEntityException([
+    { path: 'totpCode', code: 'TwoFactorException.InvalidTOTP', message: 'TOTP code is invalid' },
+  ]),
+}
+export const UserException = {
+  NotFound: new UnprocessableEntityException([
+    { path: 'userId', code: 'ERROR.USER_NOT_FOUND', message: 'User is not exist' },
+  ]),
+}

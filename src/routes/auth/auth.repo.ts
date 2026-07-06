@@ -12,12 +12,14 @@ import { UserType, UserWithRoleType } from '@/shared/models/user.model'
 import { AccessTokenCreateType } from '@/shared/types/jwt.type'
 import { RoleType } from '@/shared/models/role.model'
 import { VerificationCodePurpose } from '@/shared/constants/auth.constants'
+import { TotpService } from '@/shared/services/totp.service'
 
 @Injectable()
 export class AuthRepository {
   constructor(
     private readonly prismaService: PrismaService,
     private readonly tokenService: TokenService,
+    private readonly totpService: TotpService,
   ) {}
 
   async createUser(
