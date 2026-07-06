@@ -4,14 +4,28 @@ import { PrismaService } from '@/shared/services/prisma.service'
 import { TokenService } from '@/shared/services/token.service'
 import { RolesService } from '@/routes/auth/role.service'
 import { generateOTP, isNotFoundPrismaError, isUniqueConstraintPrismaError } from '@/shared/helper'
-import { DeviceType, LoginBodyType, RefreshTokenBodyType, RegisterBodyType, SendOTPBodyType } from './auth.model'
+import {
+  DeviceType,
+  ForgotPasswordBodyType,
+  LoginBodyType,
+  RefreshTokenBodyType,
+  RegisterBodyType,
+  SendOTPBodyType,
+  VerificationCodePurposeType,
+} from './auth.model'
 import { VerificationCodePurpose } from '@/shared/constants/auth.constants'
 import { AuthRepository } from './auth.repo'
 import { SharedRepository } from '@/shared/repository/shared-user.repo'
 import { EmailService } from '@/shared/services/email.service'
 import envConfig from '@/shared/config'
 import ms from 'ms'
-import { EmailException, EmailOrPasswordException, OtpException, TokenException } from '@/shared/models/error.model'
+import {
+  EmailException,
+  EmailOrPasswordException,
+  OtpException,
+  PasswordException,
+  TokenException,
+} from '@/shared/models/error.model'
 
 @Injectable()
 export class AuthService {
@@ -128,6 +142,49 @@ export class AuthService {
     }
   }
 
+  async validateVerificationCode({
+    email,
+    code,
+    type,
+  }: {
+    email: string
+    code: string
+    type: VerificationCodePurposeType
+  }) {
+    const vevificationCode = await this.authRepo.findVerificationCode({
+      email,
+      code,
+      type,
+    })
+    if (!vevificationCode) {
+      throw OtpException.Invalid
+    }
+    if (vevificationCode.expiresAt < new Date()) {
+      throw OtpException.Expired
+    }
+    return vevificationCode
+  }
+
+  async forgotPassword(body: ForgotPasswordBodyType) {
+    const { email, code, newPassword, confirmNewPassword } = body
+    if (newPassword !== confirmNewPassword) {
+      throw PasswordException.MismatchConfirm
+    }
+
+    await this.validateVerificationCode({ email, code, type: VerificationCodePurpose.FORGOT_PASSWORD })
+
+    const hashedPassword = await this.hashingService.hash(newPassword)
+
+    await this.authRepo.resetPassword({
+      email,
+      code,
+      type: VerificationCodePurpose.FORGOT_PASSWORD,
+      hashedPassword,
+    })
+
+    return { message: 'Password reset successfully' }
+  }
+
   async logout(refreshToken: string) {
     try {
       // 1. Kiểm tra refreshToken có hợp lệ không
@@ -148,32 +205,34 @@ export class AuthService {
   }
 
   async sendOtp(body: SendOTPBodyType) {
-    const user = await this.sharedRepo.findUser({ email: body.email })
-    const isRegister = body.type === VerificationCodePurpose.REGISTER
+    const { email, type } = body
+    const user = await this.sharedRepo.findUser({ email })
+    const isRegister = type === VerificationCodePurpose.REGISTER
     if (isRegister && user) {
       throw EmailException.Exists
     }
-    if (!isRegister && !user) {
-      throw EmailException.NotFound
+    if (!isRegister && (!user || !user.password)) {
+      throw EmailException.Invalid
     }
 
     const otpCode = generateOTP()
     const expiresAt = new Date(Date.now() + ms(envConfig.OTP_EXPIRES as ms.StringValue))
 
     await this.authRepo.createVerificationCode({
-      email: body.email,
-      type: body.type,
+      email,
+      type,
       code: otpCode,
       expiresAt,
     })
 
     const expiresInMinutes = Math.floor(ms(envConfig.OTP_EXPIRES as ms.StringValue) / 60000)
     await this.emailService.sendOtp({
-      email: body.email,
+      email,
       code: otpCode,
       expiresInMinutes,
-      type: body.type,
+      type,
     })
+
     return { message: 'OTP sent successfully' }
   }
 }

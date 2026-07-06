@@ -7,6 +7,9 @@ export const OtpException = {
   Expired: new UnprocessableEntityException([
     { path: 'code', code: 'ERROR.OTP_EXPIRED', message: 'OTP code is expired' },
   ]),
+  InvalidType: new UnprocessableEntityException([
+    { path: 'type', code: 'ERROR.OTP_INVALID_TYPE', message: 'OTP type is invalid' },
+  ]),
 }
 
 export const EmailException = {
@@ -23,11 +26,18 @@ export const EmailException = {
       message: 'This account uses social login. Please continue with Google/Facebook/GitHub.',
     },
   ]),
+  Invalid: new UnprocessableEntityException([
+    { path: 'email', code: 'ERROR.EMAIL_INVALID', message: 'Email is invalid' },
+  ]),
 }
 
 export const PasswordException = {
   Mismatch: new UnprocessableEntityException([
     { path: 'password', code: 'ERROR.PASSWORD_INCORRECT', message: 'Password is incorrect' },
+  ]),
+
+  MismatchConfirm: new UnprocessableEntityException([
+    { path: 'confirmPassword', code: 'ERROR.PASSWORD_MISMATCH', message: 'Password and confirm password must be same' },
   ]),
 }
 

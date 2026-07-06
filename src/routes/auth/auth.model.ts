@@ -65,6 +65,24 @@ export const RefreshTokenResSchema = LoginResSchema
 
 export const LogoutBodySchema = RefreshTokenBodySchema
 
+export const ForgotPasswordBodySchema = z
+  .object({
+    email: z.email(),
+    code: z.string().length(6),
+    newPassword: z.string().min(6).max(100),
+    confirmNewPassword: z.string().min(6).max(100),
+  })
+  .strict()
+  .superRefine(({ confirmNewPassword, newPassword }, ctx) => {
+    if (confirmNewPassword !== newPassword) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'Mật khẩu và mật khẩu xác nhận phải giống nhau',
+        path: ['confirmNewPassword'],
+      })
+    }
+  })
+
 export const DeviceSchema = z.object({
   id: z.number(),
   userId: z.number(),
@@ -83,6 +101,8 @@ export const RefreshTokenSchema = z.object({
   expiresAt: z.date(),
   createdAt: z.date().optional(),
 })
+
+export type ForgotPasswordBodyType = z.infer<typeof ForgotPasswordBodySchema>
 
 export type RefreshTokenType = z.infer<typeof RefreshTokenSchema>
 

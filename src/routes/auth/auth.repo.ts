@@ -1,10 +1,17 @@
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from '@/shared/services/prisma.service'
-import { DeviceType, RefreshTokenType, RegisterBodyType, VerificationCodeType } from './auth.model'
+import {
+  DeviceType,
+  RefreshTokenType,
+  RegisterBodyType,
+  VerificationCodePurposeType,
+  VerificationCodeType,
+} from './auth.model'
 import { TokenService } from '@/shared/services/token.service'
 import { UserType, UserWithRoleType } from '@/shared/models/user.model'
 import { AccessTokenCreateType } from '@/shared/types/jwt.type'
 import { RoleType } from '@/shared/models/role.model'
+import { VerificationCodePurpose } from '@/shared/constants/auth.constants'
 
 @Injectable()
 export class AuthRepository {
@@ -20,9 +27,34 @@ export class AuthRepository {
     return await this.prismaService.$transaction(async (tx) => {
       const [newUser] = await Promise.all([
         tx.user.create({ data: user, omit: { password: true, totpSecret: true } }),
-        tx.verificationCode.delete({ where: { email: verificationEmail } }),
+        tx.verificationCode.delete({
+          where: { email: verificationEmail, type: VerificationCodePurpose.REGISTER },
+        }),
       ])
       return newUser
+    })
+  }
+
+  updateUser(where: { id: number } | { email: string }, data: Partial<Omit<UserType, 'id'>>): Promise<UserType> {
+    return this.prismaService.user.update({
+      where,
+      data,
+    })
+  }
+
+  async resetPassword(payload: {
+    email: string
+    code: string
+    type: VerificationCodePurposeType
+    hashedPassword: string
+  }): Promise<UserType> {
+    const { email, code, type, hashedPassword } = payload
+    return await this.prismaService.$transaction(async (tx) => {
+      const [user] = await Promise.all([
+        tx.user.update({ where: { email }, data: { password: hashedPassword } }),
+        tx.verificationCode.delete({ where: { email, code, type } }),
+      ])
+      return user
     })
   }
 
@@ -125,6 +157,21 @@ export class AuthRepository {
           include: { role: true },
         },
       },
+    })
+  }
+
+  deleteVerificationCode(
+    uniqueValue:
+      | { email: string }
+      | { id: number }
+      | {
+          email: string
+          code: string
+          type: VerificationCodePurposeType
+        },
+  ): Promise<VerificationCodeType> {
+    return this.prismaService.verificationCode.delete({
+      where: uniqueValue,
     })
   }
 }
