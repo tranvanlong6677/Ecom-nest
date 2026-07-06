@@ -91,3 +91,12 @@ export const UserException = {
     { path: 'userId', code: 'ERROR.USER_NOT_FOUND', message: 'User is not exist' },
   ]),
 }
+
+export const LanguageException = {
+  NotFound: new UnprocessableEntityException([
+    { path: 'languageId', code: 'ERROR.LANGUAGE_NOT_FOUND', message: 'Language is not exist' },
+  ]),
+  AlreadyExists: new UnprocessableEntityException([
+    { path: 'id', code: 'ERROR.LANGUAGE_ALREADY_EXISTS', message: 'Language id already exists' },
+  ]),
+}

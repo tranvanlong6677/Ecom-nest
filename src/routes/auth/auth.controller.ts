@@ -36,7 +36,7 @@ export class AuthController {
   @IsPublic()
   @HttpCode(HttpStatus.OK)
   @ZodSerializerDto(MessageResDTO)
-  @Throttle({ default: { limit: 5, ttl: 300000 } })
+  // @Throttle({ default: { limit: 5, ttl: 300000 } })
   sendOtp(@Body() body: SendOTPBodyDto) {
     return this.authService.sendOtp(body)
   }

@@ -68,9 +68,10 @@ export class AuthService {
           roleId: clientRoleId,
         },
         body.email,
-        verificationCode,
+        verificationCode.code,
       )
     } catch (error) {
+      console.log({ error })
       if (isUniqueConstraintPrismaError(error)) {
         throw EmailException.Exists
       }
