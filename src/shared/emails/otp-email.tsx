@@ -5,6 +5,8 @@ import { VerificationCodePurposeType } from '@/routes/auth/auth.model'
 const PURPOSE_LABEL: Record<VerificationCodePurposeType, string> = {
   REGISTER: 'Xác thực đăng ký',
   FORGOT_PASSWORD: 'Đặt lại mật khẩu',
+  LOGIN: 'Đăng nhập',
+  DISABLE_2FA: 'Tắt 2FA',
 }
 
 interface OtpEmailProps {

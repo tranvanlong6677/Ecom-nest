@@ -62,6 +62,7 @@ export class AuthService {
           roleId: clientRoleId,
         },
         body.email,
+        verificationCode,
       )
     } catch (error) {
       if (isUniqueConstraintPrismaError(error)) {
@@ -81,7 +82,7 @@ export class AuthService {
       throw EmailOrPasswordException.Mismatch
     }
 
-    const isPasswordMatch = await this.hashingService.compare(body.password, user.password)
+    const isPasswordMatch = body.password && (await this.hashingService.compare(body.password, user.password))
     if (!isPasswordMatch) {
       throw EmailOrPasswordException.Mismatch
     }

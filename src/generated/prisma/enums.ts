@@ -23,7 +23,9 @@ export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus]
 
 export const VerificationCodeType = {
   REGISTER: 'REGISTER',
-  FORGOT_PASSWORD: 'FORGOT_PASSWORD'
+  FORGOT_PASSWORD: 'FORGOT_PASSWORD',
+  DISABLE_2FA: 'DISABLE_2FA',
+  LOGIN: 'LOGIN'
 } as const
 
 export type VerificationCodeType = (typeof VerificationCodeType)[keyof typeof VerificationCodeType]

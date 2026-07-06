@@ -6,7 +6,7 @@ import { PrismaService } from '@/shared/services/prisma.service'
 export class CleanupTask {
   constructor(private readonly prismaService: PrismaService) {}
 
-  @Cron(CronExpression.EVERY_5_MINUTES)
+  @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
   async deleteExpiredVerificationCodes() {
     console.log('clean up verification code')
     await this.prismaService.verificationCode.deleteMany({

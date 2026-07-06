@@ -44,9 +44,12 @@ export const SendOTPBodySchema = VerificationCodeSchema.pick({
 
 export const LoginBodySchema = UserSchema.pick({
   email: true,
+  password: true,
 })
+
   .extend({
-    password: UserSchema.shape.password.unwrap(),
+    totpCode: z.string().length(6).optional(), //2FA code
+    code: z.string().length(6).optional(), //Email otp code
   })
   .strict()
 
@@ -101,6 +104,36 @@ export const RefreshTokenSchema = z.object({
   expiresAt: z.date(),
   createdAt: z.date().optional(),
 })
+
+export const DisableTwoFactorBodySchema = z
+  .object({
+    totpCode: z.string().length(6).optional(),
+    code: z.string().length(6).optional(),
+  })
+  .strict()
+  .superRefine(({ totpCode, code }, ctx) => {
+    const message = 'Bạn phải cung cấp mã xác thực 2FA hoặc mã OTP. Không được cung cấp cả 2'
+    // Nếu cả 2 đều có hoặc không có thì sẽ nhảy vào if
+    if ((totpCode !== undefined) === (code !== undefined)) {
+      ctx.addIssue({
+        path: ['totpCode'],
+        message,
+        code: 'custom',
+      })
+      ctx.addIssue({
+        path: ['code'],
+        message,
+        code: 'custom',
+      })
+    }
+  })
+export const TwoFactorSetupResSchema = z.object({
+  secret: z.string(),
+  url: z.string(),
+})
+
+export type DisableTwoFactorBodyType = z.infer<typeof DisableTwoFactorBodySchema>
+export type TwoFactorSetupResType = z.infer<typeof TwoFactorSetupResSchema>
 
 export type ForgotPasswordBodyType = z.infer<typeof ForgotPasswordBodySchema>
 

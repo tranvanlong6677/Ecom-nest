@@ -23,12 +23,13 @@ export class AuthRepository {
   async createUser(
     user: Omit<RegisterBodyType, 'confirmPassword' | 'code'> & Pick<UserType, 'roleId'>,
     verificationEmail: string,
+    code,
   ): Promise<Omit<UserType, 'password' | 'totpSecret'>> {
     return await this.prismaService.$transaction(async (tx) => {
       const [newUser] = await Promise.all([
         tx.user.create({ data: user, omit: { password: true, totpSecret: true } }),
         tx.verificationCode.delete({
-          where: { email: verificationEmail, type: VerificationCodePurpose.REGISTER },
+          where: { email_code_type: { email: verificationEmail, code, type: VerificationCodePurpose.REGISTER } },
         }),
       ])
       return newUser
@@ -52,7 +53,7 @@ export class AuthRepository {
     return await this.prismaService.$transaction(async (tx) => {
       const [user] = await Promise.all([
         tx.user.update({ where: { email }, data: { password: hashedPassword } }),
-        tx.verificationCode.delete({ where: { email, code, type } }),
+        tx.verificationCode.delete({ where: { email_code_type: { email, code, type } } }),
       ])
       return user
     })
@@ -123,7 +124,7 @@ export class AuthRepository {
     payload: Pick<VerificationCodeType, 'email' | 'type' | 'code' | 'expiresAt'>,
   ): Promise<VerificationCodeType> {
     return await this.prismaService.verificationCode.upsert({
-      where: { email: payload.email },
+      where: { email_code_type: { email: payload.email, type: payload.type, code: payload.code } },
       create: payload,
       update: {
         code: payload.code,
@@ -162,7 +163,6 @@ export class AuthRepository {
 
   deleteVerificationCode(
     uniqueValue:
-      | { email: string }
       | { id: number }
       | {
           email: string
@@ -170,8 +170,14 @@ export class AuthRepository {
           type: VerificationCodePurposeType
         },
   ): Promise<VerificationCodeType> {
+    if ('id' in uniqueValue) {
+      return this.prismaService.verificationCode.delete({ where: { id: uniqueValue.id } })
+    }
+
     return this.prismaService.verificationCode.delete({
-      where: uniqueValue,
+      where: {
+        email_code_type: { email: uniqueValue.email, code: uniqueValue.code, type: uniqueValue.type },
+      },
     })
   }
 }
