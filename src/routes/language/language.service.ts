@@ -8,8 +8,12 @@ import { CreateLanguageBodyType, UpdateLanguageBodyType } from './language.model
 export class LanguageService {
   constructor(private readonly languageRepo: LanguageRepository) {}
 
-  findAll() {
-    return this.languageRepo.findAll()
+  async findAll() {
+    const data = await this.languageRepo.findAll()
+    return {
+      data,
+      totalItems: data.length,
+    }
   }
 
   async findById(id: string) {

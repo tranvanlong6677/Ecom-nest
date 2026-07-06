@@ -12,7 +12,10 @@ export const LanguageSchema = z.object({
 
 export type LanguageType = z.infer<typeof LanguageSchema>
 
-export const GetLanguagesResSchema = z.array(LanguageSchema)
+export const GetLanguagesResSchema = z.object({
+  data: z.array(LanguageSchema),
+  totalItems: z.number(),
+})
 
 export const GetLanguageParamsSchema = z
   .object({

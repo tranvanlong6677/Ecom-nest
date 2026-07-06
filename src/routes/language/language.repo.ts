@@ -26,7 +26,7 @@ export class LanguageRepository {
 
   update(id: string, data: UpdateLanguageBodyType, updatedById: number): Promise<LanguageType> {
     return this.prismaService.language.update({
-      where: { id },
+      where: { id, deletedAt: null },
       data: { ...data, updatedById },
     })
   }
