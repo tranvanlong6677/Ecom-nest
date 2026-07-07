@@ -43,7 +43,6 @@ export type ProductTranslationSumAggregateOutputType = {
 export type ProductTranslationMinAggregateOutputType = {
   id: number | null
   productId: number | null
-  languageId: string | null
   name: string | null
   description: string | null
   createdById: number | null
@@ -51,12 +50,12 @@ export type ProductTranslationMinAggregateOutputType = {
   deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
+  languageId: string | null
 }
 
 export type ProductTranslationMaxAggregateOutputType = {
   id: number | null
   productId: number | null
-  languageId: string | null
   name: string | null
   description: string | null
   createdById: number | null
@@ -64,12 +63,12 @@ export type ProductTranslationMaxAggregateOutputType = {
   deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
+  languageId: string | null
 }
 
 export type ProductTranslationCountAggregateOutputType = {
   id: number
   productId: number
-  languageId: number
   name: number
   description: number
   createdById: number
@@ -77,6 +76,7 @@ export type ProductTranslationCountAggregateOutputType = {
   deletedAt: number
   createdAt: number
   updatedAt: number
+  languageId: number
   _all: number
 }
 
@@ -98,7 +98,6 @@ export type ProductTranslationSumAggregateInputType = {
 export type ProductTranslationMinAggregateInputType = {
   id?: true
   productId?: true
-  languageId?: true
   name?: true
   description?: true
   createdById?: true
@@ -106,12 +105,12 @@ export type ProductTranslationMinAggregateInputType = {
   deletedAt?: true
   createdAt?: true
   updatedAt?: true
+  languageId?: true
 }
 
 export type ProductTranslationMaxAggregateInputType = {
   id?: true
   productId?: true
-  languageId?: true
   name?: true
   description?: true
   createdById?: true
@@ -119,12 +118,12 @@ export type ProductTranslationMaxAggregateInputType = {
   deletedAt?: true
   createdAt?: true
   updatedAt?: true
+  languageId?: true
 }
 
 export type ProductTranslationCountAggregateInputType = {
   id?: true
   productId?: true
-  languageId?: true
   name?: true
   description?: true
   createdById?: true
@@ -132,6 +131,7 @@ export type ProductTranslationCountAggregateInputType = {
   deletedAt?: true
   createdAt?: true
   updatedAt?: true
+  languageId?: true
   _all?: true
 }
 
@@ -224,7 +224,6 @@ export type ProductTranslationGroupByArgs<ExtArgs extends runtime.Types.Extensio
 export type ProductTranslationGroupByOutputType = {
   id: number
   productId: number
-  languageId: string
   name: string
   description: string
   createdById: number | null
@@ -232,6 +231,7 @@ export type ProductTranslationGroupByOutputType = {
   deletedAt: Date | null
   createdAt: Date
   updatedAt: Date
+  languageId: string
   _count: ProductTranslationCountAggregateOutputType | null
   _avg: ProductTranslationAvgAggregateOutputType | null
   _sum: ProductTranslationSumAggregateOutputType | null
@@ -260,7 +260,6 @@ export type ProductTranslationWhereInput = {
   NOT?: Prisma.ProductTranslationWhereInput | Prisma.ProductTranslationWhereInput[]
   id?: Prisma.IntFilter<"ProductTranslation"> | number
   productId?: Prisma.IntFilter<"ProductTranslation"> | number
-  languageId?: Prisma.StringFilter<"ProductTranslation"> | string
   name?: Prisma.StringFilter<"ProductTranslation"> | string
   description?: Prisma.StringFilter<"ProductTranslation"> | string
   createdById?: Prisma.IntNullableFilter<"ProductTranslation"> | number | null
@@ -268,16 +267,16 @@ export type ProductTranslationWhereInput = {
   deletedAt?: Prisma.DateTimeNullableFilter<"ProductTranslation"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"ProductTranslation"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ProductTranslation"> | Date | string
-  product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
-  language?: Prisma.XOR<Prisma.LanguageScalarRelationFilter, Prisma.LanguageWhereInput>
+  languageId?: Prisma.StringFilter<"ProductTranslation"> | string
   createdBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  language?: Prisma.XOR<Prisma.LanguageScalarRelationFilter, Prisma.LanguageWhereInput>
+  product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
   updatedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
 export type ProductTranslationOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   productId?: Prisma.SortOrder
-  languageId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   createdById?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -285,9 +284,10 @@ export type ProductTranslationOrderByWithRelationInput = {
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  product?: Prisma.ProductOrderByWithRelationInput
-  language?: Prisma.LanguageOrderByWithRelationInput
+  languageId?: Prisma.SortOrder
   createdBy?: Prisma.UserOrderByWithRelationInput
+  language?: Prisma.LanguageOrderByWithRelationInput
+  product?: Prisma.ProductOrderByWithRelationInput
   updatedBy?: Prisma.UserOrderByWithRelationInput
 }
 
@@ -297,7 +297,6 @@ export type ProductTranslationWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.ProductTranslationWhereInput[]
   NOT?: Prisma.ProductTranslationWhereInput | Prisma.ProductTranslationWhereInput[]
   productId?: Prisma.IntFilter<"ProductTranslation"> | number
-  languageId?: Prisma.StringFilter<"ProductTranslation"> | string
   name?: Prisma.StringFilter<"ProductTranslation"> | string
   description?: Prisma.StringFilter<"ProductTranslation"> | string
   createdById?: Prisma.IntNullableFilter<"ProductTranslation"> | number | null
@@ -305,16 +304,16 @@ export type ProductTranslationWhereUniqueInput = Prisma.AtLeast<{
   deletedAt?: Prisma.DateTimeNullableFilter<"ProductTranslation"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"ProductTranslation"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ProductTranslation"> | Date | string
-  product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
-  language?: Prisma.XOR<Prisma.LanguageScalarRelationFilter, Prisma.LanguageWhereInput>
+  languageId?: Prisma.StringFilter<"ProductTranslation"> | string
   createdBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  language?: Prisma.XOR<Prisma.LanguageScalarRelationFilter, Prisma.LanguageWhereInput>
+  product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
   updatedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "id">
 
 export type ProductTranslationOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   productId?: Prisma.SortOrder
-  languageId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   createdById?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -322,6 +321,7 @@ export type ProductTranslationOrderByWithAggregationInput = {
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  languageId?: Prisma.SortOrder
   _count?: Prisma.ProductTranslationCountOrderByAggregateInput
   _avg?: Prisma.ProductTranslationAvgOrderByAggregateInput
   _max?: Prisma.ProductTranslationMaxOrderByAggregateInput
@@ -335,7 +335,6 @@ export type ProductTranslationScalarWhereWithAggregatesInput = {
   NOT?: Prisma.ProductTranslationScalarWhereWithAggregatesInput | Prisma.ProductTranslationScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"ProductTranslation"> | number
   productId?: Prisma.IntWithAggregatesFilter<"ProductTranslation"> | number
-  languageId?: Prisma.StringWithAggregatesFilter<"ProductTranslation"> | string
   name?: Prisma.StringWithAggregatesFilter<"ProductTranslation"> | string
   description?: Prisma.StringWithAggregatesFilter<"ProductTranslation"> | string
   createdById?: Prisma.IntNullableWithAggregatesFilter<"ProductTranslation"> | number | null
@@ -343,6 +342,7 @@ export type ProductTranslationScalarWhereWithAggregatesInput = {
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ProductTranslation"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ProductTranslation"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"ProductTranslation"> | Date | string
+  languageId?: Prisma.StringWithAggregatesFilter<"ProductTranslation"> | string
 }
 
 export type ProductTranslationCreateInput = {
@@ -351,16 +351,15 @@ export type ProductTranslationCreateInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  product: Prisma.ProductCreateNestedOneWithoutProductTranslationsInput
-  language: Prisma.LanguageCreateNestedOneWithoutProductTranslationsInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedProductTranslationsInput
+  language: Prisma.LanguageCreateNestedOneWithoutProductTranslationsInput
+  product: Prisma.ProductCreateNestedOneWithoutProductTranslationsInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedProductTranslationsInput
 }
 
 export type ProductTranslationUncheckedCreateInput = {
   id?: number
   productId: number
-  languageId: string
   name: string
   description: string
   createdById?: number | null
@@ -368,6 +367,7 @@ export type ProductTranslationUncheckedCreateInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  languageId: string
 }
 
 export type ProductTranslationUpdateInput = {
@@ -376,16 +376,15 @@ export type ProductTranslationUpdateInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  product?: Prisma.ProductUpdateOneRequiredWithoutProductTranslationsNestedInput
-  language?: Prisma.LanguageUpdateOneRequiredWithoutProductTranslationsNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedProductTranslationsNestedInput
+  language?: Prisma.LanguageUpdateOneRequiredWithoutProductTranslationsNestedInput
+  product?: Prisma.ProductUpdateOneRequiredWithoutProductTranslationsNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedProductTranslationsNestedInput
 }
 
 export type ProductTranslationUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   productId?: Prisma.IntFieldUpdateOperationsInput | number
-  languageId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -393,12 +392,12 @@ export type ProductTranslationUncheckedUpdateInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  languageId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ProductTranslationCreateManyInput = {
   id?: number
   productId: number
-  languageId: string
   name: string
   description: string
   createdById?: number | null
@@ -406,6 +405,7 @@ export type ProductTranslationCreateManyInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  languageId: string
 }
 
 export type ProductTranslationUpdateManyMutationInput = {
@@ -419,7 +419,6 @@ export type ProductTranslationUpdateManyMutationInput = {
 export type ProductTranslationUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   productId?: Prisma.IntFieldUpdateOperationsInput | number
-  languageId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -427,6 +426,7 @@ export type ProductTranslationUncheckedUpdateManyInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  languageId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ProductTranslationListRelationFilter = {
@@ -442,7 +442,6 @@ export type ProductTranslationOrderByRelationAggregateInput = {
 export type ProductTranslationCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   productId?: Prisma.SortOrder
-  languageId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
@@ -450,6 +449,7 @@ export type ProductTranslationCountOrderByAggregateInput = {
   deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  languageId?: Prisma.SortOrder
 }
 
 export type ProductTranslationAvgOrderByAggregateInput = {
@@ -462,7 +462,6 @@ export type ProductTranslationAvgOrderByAggregateInput = {
 export type ProductTranslationMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   productId?: Prisma.SortOrder
-  languageId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
@@ -470,12 +469,12 @@ export type ProductTranslationMaxOrderByAggregateInput = {
   deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  languageId?: Prisma.SortOrder
 }
 
 export type ProductTranslationMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   productId?: Prisma.SortOrder
-  languageId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
@@ -483,6 +482,7 @@ export type ProductTranslationMinOrderByAggregateInput = {
   deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  languageId?: Prisma.SortOrder
 }
 
 export type ProductTranslationSumOrderByAggregateInput = {
@@ -666,8 +666,8 @@ export type ProductTranslationCreateWithoutLanguageInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  product: Prisma.ProductCreateNestedOneWithoutProductTranslationsInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedProductTranslationsInput
+  product: Prisma.ProductCreateNestedOneWithoutProductTranslationsInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedProductTranslationsInput
 }
 
@@ -715,7 +715,6 @@ export type ProductTranslationScalarWhereInput = {
   NOT?: Prisma.ProductTranslationScalarWhereInput | Prisma.ProductTranslationScalarWhereInput[]
   id?: Prisma.IntFilter<"ProductTranslation"> | number
   productId?: Prisma.IntFilter<"ProductTranslation"> | number
-  languageId?: Prisma.StringFilter<"ProductTranslation"> | string
   name?: Prisma.StringFilter<"ProductTranslation"> | string
   description?: Prisma.StringFilter<"ProductTranslation"> | string
   createdById?: Prisma.IntNullableFilter<"ProductTranslation"> | number | null
@@ -723,6 +722,7 @@ export type ProductTranslationScalarWhereInput = {
   deletedAt?: Prisma.DateTimeNullableFilter<"ProductTranslation"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"ProductTranslation"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ProductTranslation"> | Date | string
+  languageId?: Prisma.StringFilter<"ProductTranslation"> | string
 }
 
 export type ProductTranslationCreateWithoutCreatedByInput = {
@@ -731,21 +731,21 @@ export type ProductTranslationCreateWithoutCreatedByInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  product: Prisma.ProductCreateNestedOneWithoutProductTranslationsInput
   language: Prisma.LanguageCreateNestedOneWithoutProductTranslationsInput
+  product: Prisma.ProductCreateNestedOneWithoutProductTranslationsInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedProductTranslationsInput
 }
 
 export type ProductTranslationUncheckedCreateWithoutCreatedByInput = {
   id?: number
   productId: number
-  languageId: string
   name: string
   description: string
   updatedById?: number | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  languageId: string
 }
 
 export type ProductTranslationCreateOrConnectWithoutCreatedByInput = {
@@ -764,21 +764,21 @@ export type ProductTranslationCreateWithoutUpdatedByInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  product: Prisma.ProductCreateNestedOneWithoutProductTranslationsInput
-  language: Prisma.LanguageCreateNestedOneWithoutProductTranslationsInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedProductTranslationsInput
+  language: Prisma.LanguageCreateNestedOneWithoutProductTranslationsInput
+  product: Prisma.ProductCreateNestedOneWithoutProductTranslationsInput
 }
 
 export type ProductTranslationUncheckedCreateWithoutUpdatedByInput = {
   id?: number
   productId: number
-  languageId: string
   name: string
   description: string
   createdById?: number | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  languageId: string
 }
 
 export type ProductTranslationCreateOrConnectWithoutUpdatedByInput = {
@@ -829,14 +829,13 @@ export type ProductTranslationCreateWithoutProductInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  language: Prisma.LanguageCreateNestedOneWithoutProductTranslationsInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedProductTranslationsInput
+  language: Prisma.LanguageCreateNestedOneWithoutProductTranslationsInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedProductTranslationsInput
 }
 
 export type ProductTranslationUncheckedCreateWithoutProductInput = {
   id?: number
-  languageId: string
   name: string
   description: string
   createdById?: number | null
@@ -844,6 +843,7 @@ export type ProductTranslationUncheckedCreateWithoutProductInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  languageId: string
 }
 
 export type ProductTranslationCreateOrConnectWithoutProductInput = {
@@ -890,8 +890,8 @@ export type ProductTranslationUpdateWithoutLanguageInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  product?: Prisma.ProductUpdateOneRequiredWithoutProductTranslationsNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedProductTranslationsNestedInput
+  product?: Prisma.ProductUpdateOneRequiredWithoutProductTranslationsNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedProductTranslationsNestedInput
 }
 
@@ -922,25 +922,25 @@ export type ProductTranslationUncheckedUpdateManyWithoutLanguageInput = {
 export type ProductTranslationCreateManyCreatedByInput = {
   id?: number
   productId: number
-  languageId: string
   name: string
   description: string
   updatedById?: number | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  languageId: string
 }
 
 export type ProductTranslationCreateManyUpdatedByInput = {
   id?: number
   productId: number
-  languageId: string
   name: string
   description: string
   createdById?: number | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  languageId: string
 }
 
 export type ProductTranslationUpdateWithoutCreatedByInput = {
@@ -949,33 +949,33 @@ export type ProductTranslationUpdateWithoutCreatedByInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  product?: Prisma.ProductUpdateOneRequiredWithoutProductTranslationsNestedInput
   language?: Prisma.LanguageUpdateOneRequiredWithoutProductTranslationsNestedInput
+  product?: Prisma.ProductUpdateOneRequiredWithoutProductTranslationsNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedProductTranslationsNestedInput
 }
 
 export type ProductTranslationUncheckedUpdateWithoutCreatedByInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   productId?: Prisma.IntFieldUpdateOperationsInput | number
-  languageId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  languageId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ProductTranslationUncheckedUpdateManyWithoutCreatedByInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   productId?: Prisma.IntFieldUpdateOperationsInput | number
-  languageId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  languageId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ProductTranslationUpdateWithoutUpdatedByInput = {
@@ -984,38 +984,37 @@ export type ProductTranslationUpdateWithoutUpdatedByInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  product?: Prisma.ProductUpdateOneRequiredWithoutProductTranslationsNestedInput
-  language?: Prisma.LanguageUpdateOneRequiredWithoutProductTranslationsNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedProductTranslationsNestedInput
+  language?: Prisma.LanguageUpdateOneRequiredWithoutProductTranslationsNestedInput
+  product?: Prisma.ProductUpdateOneRequiredWithoutProductTranslationsNestedInput
 }
 
 export type ProductTranslationUncheckedUpdateWithoutUpdatedByInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   productId?: Prisma.IntFieldUpdateOperationsInput | number
-  languageId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  languageId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ProductTranslationUncheckedUpdateManyWithoutUpdatedByInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   productId?: Prisma.IntFieldUpdateOperationsInput | number
-  languageId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  languageId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ProductTranslationCreateManyProductInput = {
   id?: number
-  languageId: string
   name: string
   description: string
   createdById?: number | null
@@ -1023,6 +1022,7 @@ export type ProductTranslationCreateManyProductInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  languageId: string
 }
 
 export type ProductTranslationUpdateWithoutProductInput = {
@@ -1031,14 +1031,13 @@ export type ProductTranslationUpdateWithoutProductInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  language?: Prisma.LanguageUpdateOneRequiredWithoutProductTranslationsNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedProductTranslationsNestedInput
+  language?: Prisma.LanguageUpdateOneRequiredWithoutProductTranslationsNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedProductTranslationsNestedInput
 }
 
 export type ProductTranslationUncheckedUpdateWithoutProductInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  languageId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1046,11 +1045,11 @@ export type ProductTranslationUncheckedUpdateWithoutProductInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  languageId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ProductTranslationUncheckedUpdateManyWithoutProductInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  languageId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1058,6 +1057,7 @@ export type ProductTranslationUncheckedUpdateManyWithoutProductInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  languageId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 
@@ -1065,7 +1065,6 @@ export type ProductTranslationUncheckedUpdateManyWithoutProductInput = {
 export type ProductTranslationSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   productId?: boolean
-  languageId?: boolean
   name?: boolean
   description?: boolean
   createdById?: boolean
@@ -1073,16 +1072,16 @@ export type ProductTranslationSelect<ExtArgs extends runtime.Types.Extensions.In
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
-  language?: boolean | Prisma.LanguageDefaultArgs<ExtArgs>
+  languageId?: boolean
   createdBy?: boolean | Prisma.ProductTranslation$createdByArgs<ExtArgs>
+  language?: boolean | Prisma.LanguageDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
   updatedBy?: boolean | Prisma.ProductTranslation$updatedByArgs<ExtArgs>
 }, ExtArgs["result"]["productTranslation"]>
 
 export type ProductTranslationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   productId?: boolean
-  languageId?: boolean
   name?: boolean
   description?: boolean
   createdById?: boolean
@@ -1090,16 +1089,16 @@ export type ProductTranslationSelectCreateManyAndReturn<ExtArgs extends runtime.
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
-  language?: boolean | Prisma.LanguageDefaultArgs<ExtArgs>
+  languageId?: boolean
   createdBy?: boolean | Prisma.ProductTranslation$createdByArgs<ExtArgs>
+  language?: boolean | Prisma.LanguageDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
   updatedBy?: boolean | Prisma.ProductTranslation$updatedByArgs<ExtArgs>
 }, ExtArgs["result"]["productTranslation"]>
 
 export type ProductTranslationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   productId?: boolean
-  languageId?: boolean
   name?: boolean
   description?: boolean
   createdById?: boolean
@@ -1107,16 +1106,16 @@ export type ProductTranslationSelectUpdateManyAndReturn<ExtArgs extends runtime.
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
-  language?: boolean | Prisma.LanguageDefaultArgs<ExtArgs>
+  languageId?: boolean
   createdBy?: boolean | Prisma.ProductTranslation$createdByArgs<ExtArgs>
+  language?: boolean | Prisma.LanguageDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
   updatedBy?: boolean | Prisma.ProductTranslation$updatedByArgs<ExtArgs>
 }, ExtArgs["result"]["productTranslation"]>
 
 export type ProductTranslationSelectScalar = {
   id?: boolean
   productId?: boolean
-  languageId?: boolean
   name?: boolean
   description?: boolean
   createdById?: boolean
@@ -1124,40 +1123,40 @@ export type ProductTranslationSelectScalar = {
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  languageId?: boolean
 }
 
-export type ProductTranslationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "productId" | "languageId" | "name" | "description" | "createdById" | "updatedById" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["productTranslation"]>
+export type ProductTranslationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "productId" | "name" | "description" | "createdById" | "updatedById" | "deletedAt" | "createdAt" | "updatedAt" | "languageId", ExtArgs["result"]["productTranslation"]>
 export type ProductTranslationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
-  language?: boolean | Prisma.LanguageDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.ProductTranslation$createdByArgs<ExtArgs>
+  language?: boolean | Prisma.LanguageDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
   updatedBy?: boolean | Prisma.ProductTranslation$updatedByArgs<ExtArgs>
 }
 export type ProductTranslationIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
-  language?: boolean | Prisma.LanguageDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.ProductTranslation$createdByArgs<ExtArgs>
+  language?: boolean | Prisma.LanguageDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
   updatedBy?: boolean | Prisma.ProductTranslation$updatedByArgs<ExtArgs>
 }
 export type ProductTranslationIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
-  language?: boolean | Prisma.LanguageDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.ProductTranslation$createdByArgs<ExtArgs>
+  language?: boolean | Prisma.LanguageDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
   updatedBy?: boolean | Prisma.ProductTranslation$updatedByArgs<ExtArgs>
 }
 
 export type $ProductTranslationPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ProductTranslation"
   objects: {
-    product: Prisma.$ProductPayload<ExtArgs>
-    language: Prisma.$LanguagePayload<ExtArgs>
     createdBy: Prisma.$UserPayload<ExtArgs> | null
+    language: Prisma.$LanguagePayload<ExtArgs>
+    product: Prisma.$ProductPayload<ExtArgs>
     updatedBy: Prisma.$UserPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     productId: number
-    languageId: string
     name: string
     description: string
     createdById: number | null
@@ -1165,6 +1164,7 @@ export type $ProductTranslationPayload<ExtArgs extends runtime.Types.Extensions.
     deletedAt: Date | null
     createdAt: Date
     updatedAt: Date
+    languageId: string
   }, ExtArgs["result"]["productTranslation"]>
   composites: {}
 }
@@ -1559,9 +1559,9 @@ readonly fields: ProductTranslationFieldRefs;
  */
 export interface Prisma__ProductTranslationClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  product<T extends Prisma.ProductDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductDefaultArgs<ExtArgs>>): Prisma.Prisma__ProductClient<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  language<T extends Prisma.LanguageDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.LanguageDefaultArgs<ExtArgs>>): Prisma.Prisma__LanguageClient<runtime.Types.Result.GetResult<Prisma.$LanguagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   createdBy<T extends Prisma.ProductTranslation$createdByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductTranslation$createdByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  language<T extends Prisma.LanguageDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.LanguageDefaultArgs<ExtArgs>>): Prisma.Prisma__LanguageClient<runtime.Types.Result.GetResult<Prisma.$LanguagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  product<T extends Prisma.ProductDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductDefaultArgs<ExtArgs>>): Prisma.Prisma__ProductClient<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   updatedBy<T extends Prisma.ProductTranslation$updatedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductTranslation$updatedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1594,7 +1594,6 @@ export interface Prisma__ProductTranslationClient<T, Null = never, ExtArgs exten
 export interface ProductTranslationFieldRefs {
   readonly id: Prisma.FieldRef<"ProductTranslation", 'Int'>
   readonly productId: Prisma.FieldRef<"ProductTranslation", 'Int'>
-  readonly languageId: Prisma.FieldRef<"ProductTranslation", 'String'>
   readonly name: Prisma.FieldRef<"ProductTranslation", 'String'>
   readonly description: Prisma.FieldRef<"ProductTranslation", 'String'>
   readonly createdById: Prisma.FieldRef<"ProductTranslation", 'Int'>
@@ -1602,6 +1601,7 @@ export interface ProductTranslationFieldRefs {
   readonly deletedAt: Prisma.FieldRef<"ProductTranslation", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"ProductTranslation", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"ProductTranslation", 'DateTime'>
+  readonly languageId: Prisma.FieldRef<"ProductTranslation", 'String'>
 }
     
 

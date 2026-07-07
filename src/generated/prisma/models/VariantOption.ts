@@ -252,10 +252,10 @@ export type VariantOptionWhereInput = {
   deletedAt?: Prisma.DateTimeNullableFilter<"VariantOption"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"VariantOption"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"VariantOption"> | Date | string
-  variant?: Prisma.XOR<Prisma.VariantScalarRelationFilter, Prisma.VariantWhereInput>
-  skus?: Prisma.SKUListRelationFilter
   createdBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   updatedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  variant?: Prisma.XOR<Prisma.VariantScalarRelationFilter, Prisma.VariantWhereInput>
+  skus?: Prisma.SKUListRelationFilter
 }
 
 export type VariantOptionOrderByWithRelationInput = {
@@ -267,10 +267,10 @@ export type VariantOptionOrderByWithRelationInput = {
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  variant?: Prisma.VariantOrderByWithRelationInput
-  skus?: Prisma.SKUOrderByRelationAggregateInput
   createdBy?: Prisma.UserOrderByWithRelationInput
   updatedBy?: Prisma.UserOrderByWithRelationInput
+  variant?: Prisma.VariantOrderByWithRelationInput
+  skus?: Prisma.SKUOrderByRelationAggregateInput
 }
 
 export type VariantOptionWhereUniqueInput = Prisma.AtLeast<{
@@ -285,10 +285,10 @@ export type VariantOptionWhereUniqueInput = Prisma.AtLeast<{
   deletedAt?: Prisma.DateTimeNullableFilter<"VariantOption"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"VariantOption"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"VariantOption"> | Date | string
-  variant?: Prisma.XOR<Prisma.VariantScalarRelationFilter, Prisma.VariantWhereInput>
-  skus?: Prisma.SKUListRelationFilter
   createdBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   updatedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  variant?: Prisma.XOR<Prisma.VariantScalarRelationFilter, Prisma.VariantWhereInput>
+  skus?: Prisma.SKUListRelationFilter
 }, "id">
 
 export type VariantOptionOrderByWithAggregationInput = {
@@ -326,10 +326,10 @@ export type VariantOptionCreateInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  variant: Prisma.VariantCreateNestedOneWithoutVariantOptionsInput
-  skus?: Prisma.SKUCreateNestedManyWithoutVariantOptionsInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedVariantOptionsInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedVariantOptionsInput
+  variant: Prisma.VariantCreateNestedOneWithoutVariantOptionsInput
+  skus?: Prisma.SKUCreateNestedManyWithoutVariantOptionsInput
 }
 
 export type VariantOptionUncheckedCreateInput = {
@@ -349,10 +349,10 @@ export type VariantOptionUpdateInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  variant?: Prisma.VariantUpdateOneRequiredWithoutVariantOptionsNestedInput
-  skus?: Prisma.SKUUpdateManyWithoutVariantOptionsNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedVariantOptionsNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedVariantOptionsNestedInput
+  variant?: Prisma.VariantUpdateOneRequiredWithoutVariantOptionsNestedInput
+  skus?: Prisma.SKUUpdateManyWithoutVariantOptionsNestedInput
 }
 
 export type VariantOptionUncheckedUpdateInput = {
@@ -622,9 +622,9 @@ export type VariantOptionCreateWithoutCreatedByInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedVariantOptionsInput
   variant: Prisma.VariantCreateNestedOneWithoutVariantOptionsInput
   skus?: Prisma.SKUCreateNestedManyWithoutVariantOptionsInput
-  updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedVariantOptionsInput
 }
 
 export type VariantOptionUncheckedCreateWithoutCreatedByInput = {
@@ -653,9 +653,9 @@ export type VariantOptionCreateWithoutUpdatedByInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  createdBy?: Prisma.UserCreateNestedOneWithoutCreatedVariantOptionsInput
   variant: Prisma.VariantCreateNestedOneWithoutVariantOptionsInput
   skus?: Prisma.SKUCreateNestedManyWithoutVariantOptionsInput
-  createdBy?: Prisma.UserCreateNestedOneWithoutCreatedVariantOptionsInput
 }
 
 export type VariantOptionUncheckedCreateWithoutUpdatedByInput = {
@@ -730,9 +730,9 @@ export type VariantOptionCreateWithoutVariantInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  skus?: Prisma.SKUCreateNestedManyWithoutVariantOptionsInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedVariantOptionsInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedVariantOptionsInput
+  skus?: Prisma.SKUCreateNestedManyWithoutVariantOptionsInput
 }
 
 export type VariantOptionUncheckedCreateWithoutVariantInput = {
@@ -777,9 +777,9 @@ export type VariantOptionCreateWithoutSkusInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  variant: Prisma.VariantCreateNestedOneWithoutVariantOptionsInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedVariantOptionsInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedVariantOptionsInput
+  variant: Prisma.VariantCreateNestedOneWithoutVariantOptionsInput
 }
 
 export type VariantOptionUncheckedCreateWithoutSkusInput = {
@@ -839,9 +839,9 @@ export type VariantOptionUpdateWithoutCreatedByInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedBy?: Prisma.UserUpdateOneWithoutUpdatedVariantOptionsNestedInput
   variant?: Prisma.VariantUpdateOneRequiredWithoutVariantOptionsNestedInput
   skus?: Prisma.SKUUpdateManyWithoutVariantOptionsNestedInput
-  updatedBy?: Prisma.UserUpdateOneWithoutUpdatedVariantOptionsNestedInput
 }
 
 export type VariantOptionUncheckedUpdateWithoutCreatedByInput = {
@@ -870,9 +870,9 @@ export type VariantOptionUpdateWithoutUpdatedByInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdBy?: Prisma.UserUpdateOneWithoutCreatedVariantOptionsNestedInput
   variant?: Prisma.VariantUpdateOneRequiredWithoutVariantOptionsNestedInput
   skus?: Prisma.SKUUpdateManyWithoutVariantOptionsNestedInput
-  createdBy?: Prisma.UserUpdateOneWithoutCreatedVariantOptionsNestedInput
 }
 
 export type VariantOptionUncheckedUpdateWithoutUpdatedByInput = {
@@ -911,9 +911,9 @@ export type VariantOptionUpdateWithoutVariantInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  skus?: Prisma.SKUUpdateManyWithoutVariantOptionsNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedVariantOptionsNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedVariantOptionsNestedInput
+  skus?: Prisma.SKUUpdateManyWithoutVariantOptionsNestedInput
 }
 
 export type VariantOptionUncheckedUpdateWithoutVariantInput = {
@@ -942,9 +942,9 @@ export type VariantOptionUpdateWithoutSkusInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  variant?: Prisma.VariantUpdateOneRequiredWithoutVariantOptionsNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedVariantOptionsNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedVariantOptionsNestedInput
+  variant?: Prisma.VariantUpdateOneRequiredWithoutVariantOptionsNestedInput
 }
 
 export type VariantOptionUncheckedUpdateWithoutSkusInput = {
@@ -1009,10 +1009,10 @@ export type VariantOptionSelect<ExtArgs extends runtime.Types.Extensions.Interna
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  variant?: boolean | Prisma.VariantDefaultArgs<ExtArgs>
-  skus?: boolean | Prisma.VariantOption$skusArgs<ExtArgs>
   createdBy?: boolean | Prisma.VariantOption$createdByArgs<ExtArgs>
   updatedBy?: boolean | Prisma.VariantOption$updatedByArgs<ExtArgs>
+  variant?: boolean | Prisma.VariantDefaultArgs<ExtArgs>
+  skus?: boolean | Prisma.VariantOption$skusArgs<ExtArgs>
   _count?: boolean | Prisma.VariantOptionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["variantOption"]>
 
@@ -1025,9 +1025,9 @@ export type VariantOptionSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  variant?: boolean | Prisma.VariantDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.VariantOption$createdByArgs<ExtArgs>
   updatedBy?: boolean | Prisma.VariantOption$updatedByArgs<ExtArgs>
+  variant?: boolean | Prisma.VariantDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["variantOption"]>
 
 export type VariantOptionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1039,9 +1039,9 @@ export type VariantOptionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  variant?: boolean | Prisma.VariantDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.VariantOption$createdByArgs<ExtArgs>
   updatedBy?: boolean | Prisma.VariantOption$updatedByArgs<ExtArgs>
+  variant?: boolean | Prisma.VariantDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["variantOption"]>
 
 export type VariantOptionSelectScalar = {
@@ -1057,30 +1057,30 @@ export type VariantOptionSelectScalar = {
 
 export type VariantOptionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "value" | "variantId" | "createdById" | "updatedById" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["variantOption"]>
 export type VariantOptionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  variant?: boolean | Prisma.VariantDefaultArgs<ExtArgs>
-  skus?: boolean | Prisma.VariantOption$skusArgs<ExtArgs>
   createdBy?: boolean | Prisma.VariantOption$createdByArgs<ExtArgs>
   updatedBy?: boolean | Prisma.VariantOption$updatedByArgs<ExtArgs>
+  variant?: boolean | Prisma.VariantDefaultArgs<ExtArgs>
+  skus?: boolean | Prisma.VariantOption$skusArgs<ExtArgs>
   _count?: boolean | Prisma.VariantOptionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type VariantOptionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  variant?: boolean | Prisma.VariantDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.VariantOption$createdByArgs<ExtArgs>
   updatedBy?: boolean | Prisma.VariantOption$updatedByArgs<ExtArgs>
+  variant?: boolean | Prisma.VariantDefaultArgs<ExtArgs>
 }
 export type VariantOptionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  variant?: boolean | Prisma.VariantDefaultArgs<ExtArgs>
   createdBy?: boolean | Prisma.VariantOption$createdByArgs<ExtArgs>
   updatedBy?: boolean | Prisma.VariantOption$updatedByArgs<ExtArgs>
+  variant?: boolean | Prisma.VariantDefaultArgs<ExtArgs>
 }
 
 export type $VariantOptionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "VariantOption"
   objects: {
-    variant: Prisma.$VariantPayload<ExtArgs>
-    skus: Prisma.$SKUPayload<ExtArgs>[]
     createdBy: Prisma.$UserPayload<ExtArgs> | null
     updatedBy: Prisma.$UserPayload<ExtArgs> | null
+    variant: Prisma.$VariantPayload<ExtArgs>
+    skus: Prisma.$SKUPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1485,10 +1485,10 @@ readonly fields: VariantOptionFieldRefs;
  */
 export interface Prisma__VariantOptionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  variant<T extends Prisma.VariantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.VariantDefaultArgs<ExtArgs>>): Prisma.Prisma__VariantClient<runtime.Types.Result.GetResult<Prisma.$VariantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  skus<T extends Prisma.VariantOption$skusArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.VariantOption$skusArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SKUPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   createdBy<T extends Prisma.VariantOption$createdByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.VariantOption$createdByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   updatedBy<T extends Prisma.VariantOption$updatedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.VariantOption$updatedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  variant<T extends Prisma.VariantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.VariantDefaultArgs<ExtArgs>>): Prisma.Prisma__VariantClient<runtime.Types.Result.GetResult<Prisma.$VariantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  skus<T extends Prisma.VariantOption$skusArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.VariantOption$skusArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SKUPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1927,30 +1927,6 @@ export type VariantOptionDeleteManyArgs<ExtArgs extends runtime.Types.Extensions
 }
 
 /**
- * VariantOption.skus
- */
-export type VariantOption$skusArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the SKU
-   */
-  select?: Prisma.SKUSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the SKU
-   */
-  omit?: Prisma.SKUOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.SKUInclude<ExtArgs> | null
-  where?: Prisma.SKUWhereInput
-  orderBy?: Prisma.SKUOrderByWithRelationInput | Prisma.SKUOrderByWithRelationInput[]
-  cursor?: Prisma.SKUWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.SKUScalarFieldEnum | Prisma.SKUScalarFieldEnum[]
-}
-
-/**
  * VariantOption.createdBy
  */
 export type VariantOption$createdByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1986,6 +1962,30 @@ export type VariantOption$updatedByArgs<ExtArgs extends runtime.Types.Extensions
    */
   include?: Prisma.UserInclude<ExtArgs> | null
   where?: Prisma.UserWhereInput
+}
+
+/**
+ * VariantOption.skus
+ */
+export type VariantOption$skusArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SKU
+   */
+  select?: Prisma.SKUSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SKU
+   */
+  omit?: Prisma.SKUOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SKUInclude<ExtArgs> | null
+  where?: Prisma.SKUWhereInput
+  orderBy?: Prisma.SKUOrderByWithRelationInput | Prisma.SKUOrderByWithRelationInput[]
+  cursor?: Prisma.SKUWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SKUScalarFieldEnum | Prisma.SKUScalarFieldEnum[]
 }
 
 /**

@@ -28,94 +28,94 @@ export type AggregateProductSKUSnapshot = {
 
 export type ProductSKUSnapshotAvgAggregateOutputType = {
   id: number | null
-  price: number | null
   skuId: number | null
   orderId: number | null
+  price: number | null
 }
 
 export type ProductSKUSnapshotSumAggregateOutputType = {
   id: number | null
-  price: number | null
   skuId: number | null
   orderId: number | null
+  price: number | null
 }
 
 export type ProductSKUSnapshotMinAggregateOutputType = {
   id: number | null
   productName: string | null
-  price: number | null
   skuValue: string | null
   skuId: number | null
   orderId: number | null
   createdAt: Date | null
+  price: number | null
 }
 
 export type ProductSKUSnapshotMaxAggregateOutputType = {
   id: number | null
   productName: string | null
-  price: number | null
   skuValue: string | null
   skuId: number | null
   orderId: number | null
   createdAt: Date | null
+  price: number | null
 }
 
 export type ProductSKUSnapshotCountAggregateOutputType = {
   id: number
   productName: number
-  price: number
-  images: number
   skuValue: number
   skuId: number
   orderId: number
   createdAt: number
+  images: number
+  price: number
   _all: number
 }
 
 
 export type ProductSKUSnapshotAvgAggregateInputType = {
   id?: true
-  price?: true
   skuId?: true
   orderId?: true
+  price?: true
 }
 
 export type ProductSKUSnapshotSumAggregateInputType = {
   id?: true
-  price?: true
   skuId?: true
   orderId?: true
+  price?: true
 }
 
 export type ProductSKUSnapshotMinAggregateInputType = {
   id?: true
   productName?: true
-  price?: true
   skuValue?: true
   skuId?: true
   orderId?: true
   createdAt?: true
+  price?: true
 }
 
 export type ProductSKUSnapshotMaxAggregateInputType = {
   id?: true
   productName?: true
-  price?: true
   skuValue?: true
   skuId?: true
   orderId?: true
   createdAt?: true
+  price?: true
 }
 
 export type ProductSKUSnapshotCountAggregateInputType = {
   id?: true
   productName?: true
-  price?: true
-  images?: true
   skuValue?: true
   skuId?: true
   orderId?: true
   createdAt?: true
+  images?: true
+  price?: true
   _all?: true
 }
 
@@ -208,12 +208,12 @@ export type ProductSKUSnapshotGroupByArgs<ExtArgs extends runtime.Types.Extensio
 export type ProductSKUSnapshotGroupByOutputType = {
   id: number
   productName: string
-  price: number
-  images: string[]
   skuValue: string
   skuId: number | null
   orderId: number | null
   createdAt: Date
+  images: string[]
+  price: number
   _count: ProductSKUSnapshotCountAggregateOutputType | null
   _avg: ProductSKUSnapshotAvgAggregateOutputType | null
   _sum: ProductSKUSnapshotSumAggregateOutputType | null
@@ -242,27 +242,27 @@ export type ProductSKUSnapshotWhereInput = {
   NOT?: Prisma.ProductSKUSnapshotWhereInput | Prisma.ProductSKUSnapshotWhereInput[]
   id?: Prisma.IntFilter<"ProductSKUSnapshot"> | number
   productName?: Prisma.StringFilter<"ProductSKUSnapshot"> | string
-  price?: Prisma.FloatFilter<"ProductSKUSnapshot"> | number
-  images?: Prisma.StringNullableListFilter<"ProductSKUSnapshot">
   skuValue?: Prisma.StringFilter<"ProductSKUSnapshot"> | string
   skuId?: Prisma.IntNullableFilter<"ProductSKUSnapshot"> | number | null
   orderId?: Prisma.IntNullableFilter<"ProductSKUSnapshot"> | number | null
   createdAt?: Prisma.DateTimeFilter<"ProductSKUSnapshot"> | Date | string
-  sku?: Prisma.XOR<Prisma.SKUNullableScalarRelationFilter, Prisma.SKUWhereInput> | null
+  images?: Prisma.StringNullableListFilter<"ProductSKUSnapshot">
+  price?: Prisma.FloatFilter<"ProductSKUSnapshot"> | number
   order?: Prisma.XOR<Prisma.OrderNullableScalarRelationFilter, Prisma.OrderWhereInput> | null
+  sku?: Prisma.XOR<Prisma.SKUNullableScalarRelationFilter, Prisma.SKUWhereInput> | null
 }
 
 export type ProductSKUSnapshotOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   productName?: Prisma.SortOrder
-  price?: Prisma.SortOrder
-  images?: Prisma.SortOrder
   skuValue?: Prisma.SortOrder
   skuId?: Prisma.SortOrderInput | Prisma.SortOrder
   orderId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  sku?: Prisma.SKUOrderByWithRelationInput
+  images?: Prisma.SortOrder
+  price?: Prisma.SortOrder
   order?: Prisma.OrderOrderByWithRelationInput
+  sku?: Prisma.SKUOrderByWithRelationInput
 }
 
 export type ProductSKUSnapshotWhereUniqueInput = Prisma.AtLeast<{
@@ -271,25 +271,25 @@ export type ProductSKUSnapshotWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.ProductSKUSnapshotWhereInput[]
   NOT?: Prisma.ProductSKUSnapshotWhereInput | Prisma.ProductSKUSnapshotWhereInput[]
   productName?: Prisma.StringFilter<"ProductSKUSnapshot"> | string
-  price?: Prisma.FloatFilter<"ProductSKUSnapshot"> | number
-  images?: Prisma.StringNullableListFilter<"ProductSKUSnapshot">
   skuValue?: Prisma.StringFilter<"ProductSKUSnapshot"> | string
   skuId?: Prisma.IntNullableFilter<"ProductSKUSnapshot"> | number | null
   orderId?: Prisma.IntNullableFilter<"ProductSKUSnapshot"> | number | null
   createdAt?: Prisma.DateTimeFilter<"ProductSKUSnapshot"> | Date | string
-  sku?: Prisma.XOR<Prisma.SKUNullableScalarRelationFilter, Prisma.SKUWhereInput> | null
+  images?: Prisma.StringNullableListFilter<"ProductSKUSnapshot">
+  price?: Prisma.FloatFilter<"ProductSKUSnapshot"> | number
   order?: Prisma.XOR<Prisma.OrderNullableScalarRelationFilter, Prisma.OrderWhereInput> | null
+  sku?: Prisma.XOR<Prisma.SKUNullableScalarRelationFilter, Prisma.SKUWhereInput> | null
 }, "id">
 
 export type ProductSKUSnapshotOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   productName?: Prisma.SortOrder
-  price?: Prisma.SortOrder
-  images?: Prisma.SortOrder
   skuValue?: Prisma.SortOrder
   skuId?: Prisma.SortOrderInput | Prisma.SortOrder
   orderId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  images?: Prisma.SortOrder
+  price?: Prisma.SortOrder
   _count?: Prisma.ProductSKUSnapshotCountOrderByAggregateInput
   _avg?: Prisma.ProductSKUSnapshotAvgOrderByAggregateInput
   _max?: Prisma.ProductSKUSnapshotMaxOrderByAggregateInput
@@ -303,84 +303,84 @@ export type ProductSKUSnapshotScalarWhereWithAggregatesInput = {
   NOT?: Prisma.ProductSKUSnapshotScalarWhereWithAggregatesInput | Prisma.ProductSKUSnapshotScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"ProductSKUSnapshot"> | number
   productName?: Prisma.StringWithAggregatesFilter<"ProductSKUSnapshot"> | string
-  price?: Prisma.FloatWithAggregatesFilter<"ProductSKUSnapshot"> | number
-  images?: Prisma.StringNullableListFilter<"ProductSKUSnapshot">
   skuValue?: Prisma.StringWithAggregatesFilter<"ProductSKUSnapshot"> | string
   skuId?: Prisma.IntNullableWithAggregatesFilter<"ProductSKUSnapshot"> | number | null
   orderId?: Prisma.IntNullableWithAggregatesFilter<"ProductSKUSnapshot"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ProductSKUSnapshot"> | Date | string
+  images?: Prisma.StringNullableListFilter<"ProductSKUSnapshot">
+  price?: Prisma.FloatWithAggregatesFilter<"ProductSKUSnapshot"> | number
 }
 
 export type ProductSKUSnapshotCreateInput = {
   productName: string
-  price: number
-  images?: Prisma.ProductSKUSnapshotCreateimagesInput | string[]
   skuValue: string
   createdAt?: Date | string
-  sku?: Prisma.SKUCreateNestedOneWithoutProductSKUSnapshotsInput
+  images?: Prisma.ProductSKUSnapshotCreateimagesInput | string[]
+  price: number
   order?: Prisma.OrderCreateNestedOneWithoutItemsInput
+  sku?: Prisma.SKUCreateNestedOneWithoutProductSKUSnapshotsInput
 }
 
 export type ProductSKUSnapshotUncheckedCreateInput = {
   id?: number
   productName: string
-  price: number
-  images?: Prisma.ProductSKUSnapshotCreateimagesInput | string[]
   skuValue: string
   skuId?: number | null
   orderId?: number | null
   createdAt?: Date | string
+  images?: Prisma.ProductSKUSnapshotCreateimagesInput | string[]
+  price: number
 }
 
 export type ProductSKUSnapshotUpdateInput = {
   productName?: Prisma.StringFieldUpdateOperationsInput | string
-  price?: Prisma.FloatFieldUpdateOperationsInput | number
-  images?: Prisma.ProductSKUSnapshotUpdateimagesInput | string[]
   skuValue?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  sku?: Prisma.SKUUpdateOneWithoutProductSKUSnapshotsNestedInput
+  images?: Prisma.ProductSKUSnapshotUpdateimagesInput | string[]
+  price?: Prisma.FloatFieldUpdateOperationsInput | number
   order?: Prisma.OrderUpdateOneWithoutItemsNestedInput
+  sku?: Prisma.SKUUpdateOneWithoutProductSKUSnapshotsNestedInput
 }
 
 export type ProductSKUSnapshotUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   productName?: Prisma.StringFieldUpdateOperationsInput | string
-  price?: Prisma.FloatFieldUpdateOperationsInput | number
-  images?: Prisma.ProductSKUSnapshotUpdateimagesInput | string[]
   skuValue?: Prisma.StringFieldUpdateOperationsInput | string
   skuId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   orderId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  images?: Prisma.ProductSKUSnapshotUpdateimagesInput | string[]
+  price?: Prisma.FloatFieldUpdateOperationsInput | number
 }
 
 export type ProductSKUSnapshotCreateManyInput = {
   id?: number
   productName: string
-  price: number
-  images?: Prisma.ProductSKUSnapshotCreateimagesInput | string[]
   skuValue: string
   skuId?: number | null
   orderId?: number | null
   createdAt?: Date | string
+  images?: Prisma.ProductSKUSnapshotCreateimagesInput | string[]
+  price: number
 }
 
 export type ProductSKUSnapshotUpdateManyMutationInput = {
   productName?: Prisma.StringFieldUpdateOperationsInput | string
-  price?: Prisma.FloatFieldUpdateOperationsInput | number
-  images?: Prisma.ProductSKUSnapshotUpdateimagesInput | string[]
   skuValue?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  images?: Prisma.ProductSKUSnapshotUpdateimagesInput | string[]
+  price?: Prisma.FloatFieldUpdateOperationsInput | number
 }
 
 export type ProductSKUSnapshotUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   productName?: Prisma.StringFieldUpdateOperationsInput | string
-  price?: Prisma.FloatFieldUpdateOperationsInput | number
-  images?: Prisma.ProductSKUSnapshotUpdateimagesInput | string[]
   skuValue?: Prisma.StringFieldUpdateOperationsInput | string
   skuId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   orderId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  images?: Prisma.ProductSKUSnapshotUpdateimagesInput | string[]
+  price?: Prisma.FloatFieldUpdateOperationsInput | number
 }
 
 export type ProductSKUSnapshotListRelationFilter = {
@@ -396,46 +396,46 @@ export type ProductSKUSnapshotOrderByRelationAggregateInput = {
 export type ProductSKUSnapshotCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   productName?: Prisma.SortOrder
-  price?: Prisma.SortOrder
-  images?: Prisma.SortOrder
   skuValue?: Prisma.SortOrder
   skuId?: Prisma.SortOrder
   orderId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  images?: Prisma.SortOrder
+  price?: Prisma.SortOrder
 }
 
 export type ProductSKUSnapshotAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  price?: Prisma.SortOrder
   skuId?: Prisma.SortOrder
   orderId?: Prisma.SortOrder
+  price?: Prisma.SortOrder
 }
 
 export type ProductSKUSnapshotMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   productName?: Prisma.SortOrder
-  price?: Prisma.SortOrder
   skuValue?: Prisma.SortOrder
   skuId?: Prisma.SortOrder
   orderId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  price?: Prisma.SortOrder
 }
 
 export type ProductSKUSnapshotMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   productName?: Prisma.SortOrder
-  price?: Prisma.SortOrder
   skuValue?: Prisma.SortOrder
   skuId?: Prisma.SortOrder
   orderId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  price?: Prisma.SortOrder
 }
 
 export type ProductSKUSnapshotSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  price?: Prisma.SortOrder
   skuId?: Prisma.SortOrder
   orderId?: Prisma.SortOrder
+  price?: Prisma.SortOrder
 }
 
 export type ProductSKUSnapshotCreateNestedManyWithoutSkuInput = {
@@ -533,21 +533,21 @@ export type ProductSKUSnapshotUncheckedUpdateManyWithoutOrderNestedInput = {
 
 export type ProductSKUSnapshotCreateWithoutSkuInput = {
   productName: string
-  price: number
-  images?: Prisma.ProductSKUSnapshotCreateimagesInput | string[]
   skuValue: string
   createdAt?: Date | string
+  images?: Prisma.ProductSKUSnapshotCreateimagesInput | string[]
+  price: number
   order?: Prisma.OrderCreateNestedOneWithoutItemsInput
 }
 
 export type ProductSKUSnapshotUncheckedCreateWithoutSkuInput = {
   id?: number
   productName: string
-  price: number
-  images?: Prisma.ProductSKUSnapshotCreateimagesInput | string[]
   skuValue: string
   orderId?: number | null
   createdAt?: Date | string
+  images?: Prisma.ProductSKUSnapshotCreateimagesInput | string[]
+  price: number
 }
 
 export type ProductSKUSnapshotCreateOrConnectWithoutSkuInput = {
@@ -582,31 +582,31 @@ export type ProductSKUSnapshotScalarWhereInput = {
   NOT?: Prisma.ProductSKUSnapshotScalarWhereInput | Prisma.ProductSKUSnapshotScalarWhereInput[]
   id?: Prisma.IntFilter<"ProductSKUSnapshot"> | number
   productName?: Prisma.StringFilter<"ProductSKUSnapshot"> | string
-  price?: Prisma.FloatFilter<"ProductSKUSnapshot"> | number
-  images?: Prisma.StringNullableListFilter<"ProductSKUSnapshot">
   skuValue?: Prisma.StringFilter<"ProductSKUSnapshot"> | string
   skuId?: Prisma.IntNullableFilter<"ProductSKUSnapshot"> | number | null
   orderId?: Prisma.IntNullableFilter<"ProductSKUSnapshot"> | number | null
   createdAt?: Prisma.DateTimeFilter<"ProductSKUSnapshot"> | Date | string
+  images?: Prisma.StringNullableListFilter<"ProductSKUSnapshot">
+  price?: Prisma.FloatFilter<"ProductSKUSnapshot"> | number
 }
 
 export type ProductSKUSnapshotCreateWithoutOrderInput = {
   productName: string
-  price: number
-  images?: Prisma.ProductSKUSnapshotCreateimagesInput | string[]
   skuValue: string
   createdAt?: Date | string
+  images?: Prisma.ProductSKUSnapshotCreateimagesInput | string[]
+  price: number
   sku?: Prisma.SKUCreateNestedOneWithoutProductSKUSnapshotsInput
 }
 
 export type ProductSKUSnapshotUncheckedCreateWithoutOrderInput = {
   id?: number
   productName: string
-  price: number
-  images?: Prisma.ProductSKUSnapshotCreateimagesInput | string[]
   skuValue: string
   skuId?: number | null
   createdAt?: Date | string
+  images?: Prisma.ProductSKUSnapshotCreateimagesInput | string[]
+  price: number
 }
 
 export type ProductSKUSnapshotCreateOrConnectWithoutOrderInput = {
@@ -638,79 +638,79 @@ export type ProductSKUSnapshotUpdateManyWithWhereWithoutOrderInput = {
 export type ProductSKUSnapshotCreateManySkuInput = {
   id?: number
   productName: string
-  price: number
-  images?: Prisma.ProductSKUSnapshotCreateimagesInput | string[]
   skuValue: string
   orderId?: number | null
   createdAt?: Date | string
+  images?: Prisma.ProductSKUSnapshotCreateimagesInput | string[]
+  price: number
 }
 
 export type ProductSKUSnapshotUpdateWithoutSkuInput = {
   productName?: Prisma.StringFieldUpdateOperationsInput | string
-  price?: Prisma.FloatFieldUpdateOperationsInput | number
-  images?: Prisma.ProductSKUSnapshotUpdateimagesInput | string[]
   skuValue?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  images?: Prisma.ProductSKUSnapshotUpdateimagesInput | string[]
+  price?: Prisma.FloatFieldUpdateOperationsInput | number
   order?: Prisma.OrderUpdateOneWithoutItemsNestedInput
 }
 
 export type ProductSKUSnapshotUncheckedUpdateWithoutSkuInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   productName?: Prisma.StringFieldUpdateOperationsInput | string
-  price?: Prisma.FloatFieldUpdateOperationsInput | number
-  images?: Prisma.ProductSKUSnapshotUpdateimagesInput | string[]
   skuValue?: Prisma.StringFieldUpdateOperationsInput | string
   orderId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  images?: Prisma.ProductSKUSnapshotUpdateimagesInput | string[]
+  price?: Prisma.FloatFieldUpdateOperationsInput | number
 }
 
 export type ProductSKUSnapshotUncheckedUpdateManyWithoutSkuInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   productName?: Prisma.StringFieldUpdateOperationsInput | string
-  price?: Prisma.FloatFieldUpdateOperationsInput | number
-  images?: Prisma.ProductSKUSnapshotUpdateimagesInput | string[]
   skuValue?: Prisma.StringFieldUpdateOperationsInput | string
   orderId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  images?: Prisma.ProductSKUSnapshotUpdateimagesInput | string[]
+  price?: Prisma.FloatFieldUpdateOperationsInput | number
 }
 
 export type ProductSKUSnapshotCreateManyOrderInput = {
   id?: number
   productName: string
-  price: number
-  images?: Prisma.ProductSKUSnapshotCreateimagesInput | string[]
   skuValue: string
   skuId?: number | null
   createdAt?: Date | string
+  images?: Prisma.ProductSKUSnapshotCreateimagesInput | string[]
+  price: number
 }
 
 export type ProductSKUSnapshotUpdateWithoutOrderInput = {
   productName?: Prisma.StringFieldUpdateOperationsInput | string
-  price?: Prisma.FloatFieldUpdateOperationsInput | number
-  images?: Prisma.ProductSKUSnapshotUpdateimagesInput | string[]
   skuValue?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  images?: Prisma.ProductSKUSnapshotUpdateimagesInput | string[]
+  price?: Prisma.FloatFieldUpdateOperationsInput | number
   sku?: Prisma.SKUUpdateOneWithoutProductSKUSnapshotsNestedInput
 }
 
 export type ProductSKUSnapshotUncheckedUpdateWithoutOrderInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   productName?: Prisma.StringFieldUpdateOperationsInput | string
-  price?: Prisma.FloatFieldUpdateOperationsInput | number
-  images?: Prisma.ProductSKUSnapshotUpdateimagesInput | string[]
   skuValue?: Prisma.StringFieldUpdateOperationsInput | string
   skuId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  images?: Prisma.ProductSKUSnapshotUpdateimagesInput | string[]
+  price?: Prisma.FloatFieldUpdateOperationsInput | number
 }
 
 export type ProductSKUSnapshotUncheckedUpdateManyWithoutOrderInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   productName?: Prisma.StringFieldUpdateOperationsInput | string
-  price?: Prisma.FloatFieldUpdateOperationsInput | number
-  images?: Prisma.ProductSKUSnapshotUpdateimagesInput | string[]
   skuValue?: Prisma.StringFieldUpdateOperationsInput | string
   skuId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  images?: Prisma.ProductSKUSnapshotUpdateimagesInput | string[]
+  price?: Prisma.FloatFieldUpdateOperationsInput | number
 }
 
 
@@ -718,82 +718,82 @@ export type ProductSKUSnapshotUncheckedUpdateManyWithoutOrderInput = {
 export type ProductSKUSnapshotSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   productName?: boolean
-  price?: boolean
-  images?: boolean
   skuValue?: boolean
   skuId?: boolean
   orderId?: boolean
   createdAt?: boolean
-  sku?: boolean | Prisma.ProductSKUSnapshot$skuArgs<ExtArgs>
+  images?: boolean
+  price?: boolean
   order?: boolean | Prisma.ProductSKUSnapshot$orderArgs<ExtArgs>
+  sku?: boolean | Prisma.ProductSKUSnapshot$skuArgs<ExtArgs>
 }, ExtArgs["result"]["productSKUSnapshot"]>
 
 export type ProductSKUSnapshotSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   productName?: boolean
-  price?: boolean
-  images?: boolean
   skuValue?: boolean
   skuId?: boolean
   orderId?: boolean
   createdAt?: boolean
-  sku?: boolean | Prisma.ProductSKUSnapshot$skuArgs<ExtArgs>
+  images?: boolean
+  price?: boolean
   order?: boolean | Prisma.ProductSKUSnapshot$orderArgs<ExtArgs>
+  sku?: boolean | Prisma.ProductSKUSnapshot$skuArgs<ExtArgs>
 }, ExtArgs["result"]["productSKUSnapshot"]>
 
 export type ProductSKUSnapshotSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   productName?: boolean
-  price?: boolean
-  images?: boolean
   skuValue?: boolean
   skuId?: boolean
   orderId?: boolean
   createdAt?: boolean
-  sku?: boolean | Prisma.ProductSKUSnapshot$skuArgs<ExtArgs>
+  images?: boolean
+  price?: boolean
   order?: boolean | Prisma.ProductSKUSnapshot$orderArgs<ExtArgs>
+  sku?: boolean | Prisma.ProductSKUSnapshot$skuArgs<ExtArgs>
 }, ExtArgs["result"]["productSKUSnapshot"]>
 
 export type ProductSKUSnapshotSelectScalar = {
   id?: boolean
   productName?: boolean
-  price?: boolean
-  images?: boolean
   skuValue?: boolean
   skuId?: boolean
   orderId?: boolean
   createdAt?: boolean
+  images?: boolean
+  price?: boolean
 }
 
-export type ProductSKUSnapshotOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "productName" | "price" | "images" | "skuValue" | "skuId" | "orderId" | "createdAt", ExtArgs["result"]["productSKUSnapshot"]>
+export type ProductSKUSnapshotOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "productName" | "skuValue" | "skuId" | "orderId" | "createdAt" | "images" | "price", ExtArgs["result"]["productSKUSnapshot"]>
 export type ProductSKUSnapshotInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  sku?: boolean | Prisma.ProductSKUSnapshot$skuArgs<ExtArgs>
   order?: boolean | Prisma.ProductSKUSnapshot$orderArgs<ExtArgs>
+  sku?: boolean | Prisma.ProductSKUSnapshot$skuArgs<ExtArgs>
 }
 export type ProductSKUSnapshotIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  sku?: boolean | Prisma.ProductSKUSnapshot$skuArgs<ExtArgs>
   order?: boolean | Prisma.ProductSKUSnapshot$orderArgs<ExtArgs>
+  sku?: boolean | Prisma.ProductSKUSnapshot$skuArgs<ExtArgs>
 }
 export type ProductSKUSnapshotIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  sku?: boolean | Prisma.ProductSKUSnapshot$skuArgs<ExtArgs>
   order?: boolean | Prisma.ProductSKUSnapshot$orderArgs<ExtArgs>
+  sku?: boolean | Prisma.ProductSKUSnapshot$skuArgs<ExtArgs>
 }
 
 export type $ProductSKUSnapshotPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ProductSKUSnapshot"
   objects: {
-    sku: Prisma.$SKUPayload<ExtArgs> | null
     order: Prisma.$OrderPayload<ExtArgs> | null
+    sku: Prisma.$SKUPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     productName: string
-    price: number
-    images: string[]
     skuValue: string
     skuId: number | null
     orderId: number | null
     createdAt: Date
+    images: string[]
+    price: number
   }, ExtArgs["result"]["productSKUSnapshot"]>
   composites: {}
 }
@@ -1188,8 +1188,8 @@ readonly fields: ProductSKUSnapshotFieldRefs;
  */
 export interface Prisma__ProductSKUSnapshotClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  sku<T extends Prisma.ProductSKUSnapshot$skuArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductSKUSnapshot$skuArgs<ExtArgs>>): Prisma.Prisma__SKUClient<runtime.Types.Result.GetResult<Prisma.$SKUPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   order<T extends Prisma.ProductSKUSnapshot$orderArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductSKUSnapshot$orderArgs<ExtArgs>>): Prisma.Prisma__OrderClient<runtime.Types.Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  sku<T extends Prisma.ProductSKUSnapshot$skuArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductSKUSnapshot$skuArgs<ExtArgs>>): Prisma.Prisma__SKUClient<runtime.Types.Result.GetResult<Prisma.$SKUPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1221,12 +1221,12 @@ export interface Prisma__ProductSKUSnapshotClient<T, Null = never, ExtArgs exten
 export interface ProductSKUSnapshotFieldRefs {
   readonly id: Prisma.FieldRef<"ProductSKUSnapshot", 'Int'>
   readonly productName: Prisma.FieldRef<"ProductSKUSnapshot", 'String'>
-  readonly price: Prisma.FieldRef<"ProductSKUSnapshot", 'Float'>
-  readonly images: Prisma.FieldRef<"ProductSKUSnapshot", 'String[]'>
   readonly skuValue: Prisma.FieldRef<"ProductSKUSnapshot", 'String'>
   readonly skuId: Prisma.FieldRef<"ProductSKUSnapshot", 'Int'>
   readonly orderId: Prisma.FieldRef<"ProductSKUSnapshot", 'Int'>
   readonly createdAt: Prisma.FieldRef<"ProductSKUSnapshot", 'DateTime'>
+  readonly images: Prisma.FieldRef<"ProductSKUSnapshot", 'String[]'>
+  readonly price: Prisma.FieldRef<"ProductSKUSnapshot", 'Float'>
 }
     
 
@@ -1628,25 +1628,6 @@ export type ProductSKUSnapshotDeleteManyArgs<ExtArgs extends runtime.Types.Exten
 }
 
 /**
- * ProductSKUSnapshot.sku
- */
-export type ProductSKUSnapshot$skuArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the SKU
-   */
-  select?: Prisma.SKUSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the SKU
-   */
-  omit?: Prisma.SKUOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.SKUInclude<ExtArgs> | null
-  where?: Prisma.SKUWhereInput
-}
-
-/**
  * ProductSKUSnapshot.order
  */
 export type ProductSKUSnapshot$orderArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1663,6 +1644,25 @@ export type ProductSKUSnapshot$orderArgs<ExtArgs extends runtime.Types.Extension
    */
   include?: Prisma.OrderInclude<ExtArgs> | null
   where?: Prisma.OrderWhereInput
+}
+
+/**
+ * ProductSKUSnapshot.sku
+ */
+export type ProductSKUSnapshot$skuArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SKU
+   */
+  select?: Prisma.SKUSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SKU
+   */
+  omit?: Prisma.SKUOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SKUInclude<ExtArgs> | null
+  where?: Prisma.SKUWhereInput
 }
 
 /**

@@ -94,13 +94,13 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 
 export const LanguageScalarFieldEnum = {
-  id: 'id',
   name: 'name',
   createdById: 'createdById',
   updatedById: 'updatedById',
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  id: 'id'
 } as const
 
 export type LanguageScalarFieldEnum = (typeof LanguageScalarFieldEnum)[keyof typeof LanguageScalarFieldEnum]
@@ -129,14 +129,14 @@ export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof User
 export const UserTranslationScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  languageId: 'languageId',
   address: 'address',
   description: 'description',
   createdById: 'createdById',
   updatedById: 'updatedById',
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  languageId: 'languageId'
 } as const
 
 export type UserTranslationScalarFieldEnum = (typeof UserTranslationScalarFieldEnum)[keyof typeof UserTranslationScalarFieldEnum]
@@ -146,9 +146,9 @@ export const VerificationCodeScalarFieldEnum = {
   id: 'id',
   email: 'email',
   code: 'code',
-  type: 'type',
   expiresAt: 'expiresAt',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  type: 'type'
 } as const
 
 export type VerificationCodeScalarFieldEnum = (typeof VerificationCodeScalarFieldEnum)[keyof typeof VerificationCodeScalarFieldEnum]
@@ -170,9 +170,9 @@ export type DeviceScalarFieldEnum = (typeof DeviceScalarFieldEnum)[keyof typeof 
 export const RefreshTokenScalarFieldEnum = {
   token: 'token',
   userId: 'userId',
-  deviceId: 'deviceId',
   expiresAt: 'expiresAt',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  deviceId: 'deviceId'
 } as const
 
 export type RefreshTokenScalarFieldEnum = (typeof RefreshTokenScalarFieldEnum)[keyof typeof RefreshTokenScalarFieldEnum]
@@ -211,15 +211,15 @@ export type RoleScalarFieldEnum = (typeof RoleScalarFieldEnum)[keyof typeof Role
 
 export const ProductScalarFieldEnum = {
   id: 'id',
-  base_price: 'base_price',
-  virtual_price: 'virtual_price',
   brandId: 'brandId',
   images: 'images',
   createdById: 'createdById',
   updatedById: 'updatedById',
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  base_price: 'base_price',
+  virtual_price: 'virtual_price'
 } as const
 
 export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
@@ -228,14 +228,14 @@ export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeo
 export const ProductTranslationScalarFieldEnum = {
   id: 'id',
   productId: 'productId',
-  languageId: 'languageId',
   name: 'name',
   description: 'description',
   createdById: 'createdById',
   updatedById: 'updatedById',
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  languageId: 'languageId'
 } as const
 
 export type ProductTranslationScalarFieldEnum = (typeof ProductTranslationScalarFieldEnum)[keyof typeof ProductTranslationScalarFieldEnum]
@@ -257,14 +257,14 @@ export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typ
 export const CategoryTranslationScalarFieldEnum = {
   id: 'id',
   categoryId: 'categoryId',
-  languageId: 'languageId',
   name: 'name',
   description: 'description',
   createdById: 'createdById',
   updatedById: 'updatedById',
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  languageId: 'languageId'
 } as const
 
 export type CategoryTranslationScalarFieldEnum = (typeof CategoryTranslationScalarFieldEnum)[keyof typeof CategoryTranslationScalarFieldEnum]
@@ -303,13 +303,13 @@ export const SKUScalarFieldEnum = {
   value: 'value',
   price: 'price',
   stock: 'stock',
-  images: 'images',
   productId: 'productId',
   createdById: 'createdById',
   updatedById: 'updatedById',
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  images: 'images'
 } as const
 
 export type SKUScalarFieldEnum = (typeof SKUScalarFieldEnum)[keyof typeof SKUScalarFieldEnum]
@@ -331,14 +331,14 @@ export type BrandScalarFieldEnum = (typeof BrandScalarFieldEnum)[keyof typeof Br
 export const BrandTranslationScalarFieldEnum = {
   id: 'id',
   brandId: 'brandId',
-  languageId: 'languageId',
   name: 'name',
   description: 'description',
   createdById: 'createdById',
   updatedById: 'updatedById',
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  languageId: 'languageId'
 } as const
 
 export type BrandTranslationScalarFieldEnum = (typeof BrandTranslationScalarFieldEnum)[keyof typeof BrandTranslationScalarFieldEnum]
@@ -359,12 +359,12 @@ export type CartItemScalarFieldEnum = (typeof CartItemScalarFieldEnum)[keyof typ
 export const ProductSKUSnapshotScalarFieldEnum = {
   id: 'id',
   productName: 'productName',
-  price: 'price',
-  images: 'images',
   skuValue: 'skuValue',
   skuId: 'skuId',
   orderId: 'orderId',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  images: 'images',
+  price: 'price'
 } as const
 
 export type ProductSKUSnapshotScalarFieldEnum = (typeof ProductSKUSnapshotScalarFieldEnum)[keyof typeof ProductSKUSnapshotScalarFieldEnum]

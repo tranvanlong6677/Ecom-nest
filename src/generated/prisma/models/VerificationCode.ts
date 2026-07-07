@@ -38,27 +38,27 @@ export type VerificationCodeMinAggregateOutputType = {
   id: number | null
   email: string | null
   code: string | null
-  type: $Enums.VerificationCodeType | null
   expiresAt: Date | null
   createdAt: Date | null
+  type: $Enums.VerificationCodeType | null
 }
 
 export type VerificationCodeMaxAggregateOutputType = {
   id: number | null
   email: string | null
   code: string | null
-  type: $Enums.VerificationCodeType | null
   expiresAt: Date | null
   createdAt: Date | null
+  type: $Enums.VerificationCodeType | null
 }
 
 export type VerificationCodeCountAggregateOutputType = {
   id: number
   email: number
   code: number
-  type: number
   expiresAt: number
   createdAt: number
+  type: number
   _all: number
 }
 
@@ -75,27 +75,27 @@ export type VerificationCodeMinAggregateInputType = {
   id?: true
   email?: true
   code?: true
-  type?: true
   expiresAt?: true
   createdAt?: true
+  type?: true
 }
 
 export type VerificationCodeMaxAggregateInputType = {
   id?: true
   email?: true
   code?: true
-  type?: true
   expiresAt?: true
   createdAt?: true
+  type?: true
 }
 
 export type VerificationCodeCountAggregateInputType = {
   id?: true
   email?: true
   code?: true
-  type?: true
   expiresAt?: true
   createdAt?: true
+  type?: true
   _all?: true
 }
 
@@ -189,9 +189,9 @@ export type VerificationCodeGroupByOutputType = {
   id: number
   email: string
   code: string
-  type: $Enums.VerificationCodeType
   expiresAt: Date
   createdAt: Date
+  type: $Enums.VerificationCodeType
   _count: VerificationCodeCountAggregateOutputType | null
   _avg: VerificationCodeAvgAggregateOutputType | null
   _sum: VerificationCodeSumAggregateOutputType | null
@@ -221,18 +221,18 @@ export type VerificationCodeWhereInput = {
   id?: Prisma.IntFilter<"VerificationCode"> | number
   email?: Prisma.StringFilter<"VerificationCode"> | string
   code?: Prisma.StringFilter<"VerificationCode"> | string
-  type?: Prisma.EnumVerificationCodeTypeFilter<"VerificationCode"> | $Enums.VerificationCodeType
   expiresAt?: Prisma.DateTimeFilter<"VerificationCode"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"VerificationCode"> | Date | string
+  type?: Prisma.EnumVerificationCodeTypeFilter<"VerificationCode"> | $Enums.VerificationCodeType
 }
 
 export type VerificationCodeOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
   code?: Prisma.SortOrder
-  type?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  type?: Prisma.SortOrder
 }
 
 export type VerificationCodeWhereUniqueInput = Prisma.AtLeast<{
@@ -243,18 +243,18 @@ export type VerificationCodeWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.VerificationCodeWhereInput | Prisma.VerificationCodeWhereInput[]
   email?: Prisma.StringFilter<"VerificationCode"> | string
   code?: Prisma.StringFilter<"VerificationCode"> | string
-  type?: Prisma.EnumVerificationCodeTypeFilter<"VerificationCode"> | $Enums.VerificationCodeType
   expiresAt?: Prisma.DateTimeFilter<"VerificationCode"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"VerificationCode"> | Date | string
+  type?: Prisma.EnumVerificationCodeTypeFilter<"VerificationCode"> | $Enums.VerificationCodeType
 }, "id" | "email_code_type">
 
 export type VerificationCodeOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
   code?: Prisma.SortOrder
-  type?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  type?: Prisma.SortOrder
   _count?: Prisma.VerificationCodeCountOrderByAggregateInput
   _avg?: Prisma.VerificationCodeAvgOrderByAggregateInput
   _max?: Prisma.VerificationCodeMaxOrderByAggregateInput
@@ -269,69 +269,69 @@ export type VerificationCodeScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"VerificationCode"> | number
   email?: Prisma.StringWithAggregatesFilter<"VerificationCode"> | string
   code?: Prisma.StringWithAggregatesFilter<"VerificationCode"> | string
-  type?: Prisma.EnumVerificationCodeTypeWithAggregatesFilter<"VerificationCode"> | $Enums.VerificationCodeType
   expiresAt?: Prisma.DateTimeWithAggregatesFilter<"VerificationCode"> | Date | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"VerificationCode"> | Date | string
+  type?: Prisma.EnumVerificationCodeTypeWithAggregatesFilter<"VerificationCode"> | $Enums.VerificationCodeType
 }
 
 export type VerificationCodeCreateInput = {
   email: string
   code: string
-  type: $Enums.VerificationCodeType
   expiresAt: Date | string
   createdAt?: Date | string
+  type: $Enums.VerificationCodeType
 }
 
 export type VerificationCodeUncheckedCreateInput = {
   id?: number
   email: string
   code: string
-  type: $Enums.VerificationCodeType
   expiresAt: Date | string
   createdAt?: Date | string
+  type: $Enums.VerificationCodeType
 }
 
 export type VerificationCodeUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumVerificationCodeTypeFieldUpdateOperationsInput | $Enums.VerificationCodeType
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  type?: Prisma.EnumVerificationCodeTypeFieldUpdateOperationsInput | $Enums.VerificationCodeType
 }
 
 export type VerificationCodeUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumVerificationCodeTypeFieldUpdateOperationsInput | $Enums.VerificationCodeType
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  type?: Prisma.EnumVerificationCodeTypeFieldUpdateOperationsInput | $Enums.VerificationCodeType
 }
 
 export type VerificationCodeCreateManyInput = {
   id?: number
   email: string
   code: string
-  type: $Enums.VerificationCodeType
   expiresAt: Date | string
   createdAt?: Date | string
+  type: $Enums.VerificationCodeType
 }
 
 export type VerificationCodeUpdateManyMutationInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumVerificationCodeTypeFieldUpdateOperationsInput | $Enums.VerificationCodeType
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  type?: Prisma.EnumVerificationCodeTypeFieldUpdateOperationsInput | $Enums.VerificationCodeType
 }
 
 export type VerificationCodeUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumVerificationCodeTypeFieldUpdateOperationsInput | $Enums.VerificationCodeType
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  type?: Prisma.EnumVerificationCodeTypeFieldUpdateOperationsInput | $Enums.VerificationCodeType
 }
 
 export type VerificationCodeEmailCodeTypeCompoundUniqueInput = {
@@ -344,9 +344,9 @@ export type VerificationCodeCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
   code?: Prisma.SortOrder
-  type?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  type?: Prisma.SortOrder
 }
 
 export type VerificationCodeAvgOrderByAggregateInput = {
@@ -357,18 +357,18 @@ export type VerificationCodeMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
   code?: Prisma.SortOrder
-  type?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  type?: Prisma.SortOrder
 }
 
 export type VerificationCodeMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
   code?: Prisma.SortOrder
-  type?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  type?: Prisma.SortOrder
 }
 
 export type VerificationCodeSumOrderByAggregateInput = {
@@ -385,39 +385,39 @@ export type VerificationCodeSelect<ExtArgs extends runtime.Types.Extensions.Inte
   id?: boolean
   email?: boolean
   code?: boolean
-  type?: boolean
   expiresAt?: boolean
   createdAt?: boolean
+  type?: boolean
 }, ExtArgs["result"]["verificationCode"]>
 
 export type VerificationCodeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   email?: boolean
   code?: boolean
-  type?: boolean
   expiresAt?: boolean
   createdAt?: boolean
+  type?: boolean
 }, ExtArgs["result"]["verificationCode"]>
 
 export type VerificationCodeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   email?: boolean
   code?: boolean
-  type?: boolean
   expiresAt?: boolean
   createdAt?: boolean
+  type?: boolean
 }, ExtArgs["result"]["verificationCode"]>
 
 export type VerificationCodeSelectScalar = {
   id?: boolean
   email?: boolean
   code?: boolean
-  type?: boolean
   expiresAt?: boolean
   createdAt?: boolean
+  type?: boolean
 }
 
-export type VerificationCodeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "code" | "type" | "expiresAt" | "createdAt", ExtArgs["result"]["verificationCode"]>
+export type VerificationCodeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "code" | "expiresAt" | "createdAt" | "type", ExtArgs["result"]["verificationCode"]>
 
 export type $VerificationCodePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "VerificationCode"
@@ -426,9 +426,9 @@ export type $VerificationCodePayload<ExtArgs extends runtime.Types.Extensions.In
     id: number
     email: string
     code: string
-    type: $Enums.VerificationCodeType
     expiresAt: Date
     createdAt: Date
+    type: $Enums.VerificationCodeType
   }, ExtArgs["result"]["verificationCode"]>
   composites: {}
 }
@@ -855,9 +855,9 @@ export interface VerificationCodeFieldRefs {
   readonly id: Prisma.FieldRef<"VerificationCode", 'Int'>
   readonly email: Prisma.FieldRef<"VerificationCode", 'String'>
   readonly code: Prisma.FieldRef<"VerificationCode", 'String'>
-  readonly type: Prisma.FieldRef<"VerificationCode", 'VerificationCodeType'>
   readonly expiresAt: Prisma.FieldRef<"VerificationCode", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"VerificationCode", 'DateTime'>
+  readonly type: Prisma.FieldRef<"VerificationCode", 'VerificationCodeType'>
 }
     
 
