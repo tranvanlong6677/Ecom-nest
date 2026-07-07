@@ -100,3 +100,16 @@ export const LanguageException = {
     { path: 'id', code: 'ERROR.LANGUAGE_ALREADY_EXISTS', message: 'Language id already exists' },
   ]),
 }
+
+export const PermissionException = {
+  NotFound: new UnprocessableEntityException([
+    { path: 'permissionId', code: 'ERROR.PERMISSION_NOT_FOUND', message: 'Permission is not exist' },
+  ]),
+  AlreadyExists: new UnprocessableEntityException([
+    {
+      path: 'path',
+      code: 'ERROR.PERMISSION_ALREADY_EXISTS',
+      message: 'Permission with this path and method already exists',
+    },
+  ]),
+}
