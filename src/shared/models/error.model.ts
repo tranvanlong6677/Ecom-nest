@@ -113,3 +113,9 @@ export const PermissionException = {
     },
   ]),
 }
+
+export const RoleException = {
+  NotFound: new UnprocessableEntityException([
+    { path: 'roleId', code: 'ERROR.ROLE_NOT_FOUND', message: 'Role is not exist' },
+  ]),
+}

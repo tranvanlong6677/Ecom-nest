@@ -350,7 +350,7 @@ export type RoleScalarWhereWithAggregatesInput = {
 
 export type RoleCreateInput = {
   name: string
-  description: string
+  description?: string
   isActive?: boolean
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -365,7 +365,7 @@ export type RoleCreateInput = {
 export type RoleUncheckedCreateInput = {
   id?: number
   name: string
-  description: string
+  description?: string
   isActive?: boolean
   createdById?: number | null
   updatedById?: number | null
@@ -409,7 +409,7 @@ export type RoleUncheckedUpdateInput = {
 export type RoleCreateManyInput = {
   id?: number
   name: string
-  description: string
+  description?: string
   isActive?: boolean
   createdById?: number | null
   updatedById?: number | null
@@ -689,7 +689,7 @@ export type RoleUncheckedUpdateManyWithoutPermissionsNestedInput = {
 
 export type RoleCreateWithoutCreatedByInput = {
   name: string
-  description: string
+  description?: string
   isActive?: boolean
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -703,7 +703,7 @@ export type RoleCreateWithoutCreatedByInput = {
 export type RoleUncheckedCreateWithoutCreatedByInput = {
   id?: number
   name: string
-  description: string
+  description?: string
   isActive?: boolean
   updatedById?: number | null
   deletedById?: number | null
@@ -726,7 +726,7 @@ export type RoleCreateManyCreatedByInputEnvelope = {
 
 export type RoleCreateWithoutUpdatedByInput = {
   name: string
-  description: string
+  description?: string
   isActive?: boolean
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -740,7 +740,7 @@ export type RoleCreateWithoutUpdatedByInput = {
 export type RoleUncheckedCreateWithoutUpdatedByInput = {
   id?: number
   name: string
-  description: string
+  description?: string
   isActive?: boolean
   createdById?: number | null
   deletedById?: number | null
@@ -763,7 +763,7 @@ export type RoleCreateManyUpdatedByInputEnvelope = {
 
 export type RoleCreateWithoutDeletedByInput = {
   name: string
-  description: string
+  description?: string
   isActive?: boolean
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -777,7 +777,7 @@ export type RoleCreateWithoutDeletedByInput = {
 export type RoleUncheckedCreateWithoutDeletedByInput = {
   id?: number
   name: string
-  description: string
+  description?: string
   isActive?: boolean
   createdById?: number | null
   updatedById?: number | null
@@ -800,7 +800,7 @@ export type RoleCreateManyDeletedByInputEnvelope = {
 
 export type RoleCreateWithoutUsersInput = {
   name: string
-  description: string
+  description?: string
   isActive?: boolean
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -814,7 +814,7 @@ export type RoleCreateWithoutUsersInput = {
 export type RoleUncheckedCreateWithoutUsersInput = {
   id?: number
   name: string
-  description: string
+  description?: string
   isActive?: boolean
   createdById?: number | null
   updatedById?: number | null
@@ -934,7 +934,7 @@ export type RoleUncheckedUpdateWithoutUsersInput = {
 
 export type RoleCreateWithoutPermissionsInput = {
   name: string
-  description: string
+  description?: string
   isActive?: boolean
   deletedAt?: Date | string | null
   createdAt?: Date | string
@@ -948,7 +948,7 @@ export type RoleCreateWithoutPermissionsInput = {
 export type RoleUncheckedCreateWithoutPermissionsInput = {
   id?: number
   name: string
-  description: string
+  description?: string
   isActive?: boolean
   createdById?: number | null
   updatedById?: number | null
@@ -983,7 +983,7 @@ export type RoleUpdateManyWithWhereWithoutPermissionsInput = {
 export type RoleCreateManyCreatedByInput = {
   id?: number
   name: string
-  description: string
+  description?: string
   isActive?: boolean
   updatedById?: number | null
   deletedById?: number | null
@@ -995,7 +995,7 @@ export type RoleCreateManyCreatedByInput = {
 export type RoleCreateManyUpdatedByInput = {
   id?: number
   name: string
-  description: string
+  description?: string
   isActive?: boolean
   createdById?: number | null
   deletedById?: number | null
@@ -1007,7 +1007,7 @@ export type RoleCreateManyUpdatedByInput = {
 export type RoleCreateManyDeletedByInput = {
   id?: number
   name: string
-  description: string
+  description?: string
   isActive?: boolean
   createdById?: number | null
   updatedById?: number | null

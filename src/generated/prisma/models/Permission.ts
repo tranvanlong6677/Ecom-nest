@@ -359,7 +359,7 @@ export type PermissionScalarWhereWithAggregatesInput = {
 
 export type PermissionCreateInput = {
   name: string
-  description: string
+  description?: string
   path: string
   method: $Enums.HTTPMethod
   deletedAt?: Date | string | null
@@ -374,7 +374,7 @@ export type PermissionCreateInput = {
 export type PermissionUncheckedCreateInput = {
   id?: number
   name: string
-  description: string
+  description?: string
   path: string
   method: $Enums.HTTPMethod
   createdById?: number | null
@@ -418,7 +418,7 @@ export type PermissionUncheckedUpdateInput = {
 export type PermissionCreateManyInput = {
   id?: number
   name: string
-  description: string
+  description?: string
   path: string
   method: $Enums.HTTPMethod
   createdById?: number | null
@@ -689,7 +689,7 @@ export type PermissionUncheckedUpdateManyWithoutRolesNestedInput = {
 
 export type PermissionCreateWithoutCreatedByInput = {
   name: string
-  description: string
+  description?: string
   path: string
   method: $Enums.HTTPMethod
   deletedAt?: Date | string | null
@@ -703,7 +703,7 @@ export type PermissionCreateWithoutCreatedByInput = {
 export type PermissionUncheckedCreateWithoutCreatedByInput = {
   id?: number
   name: string
-  description: string
+  description?: string
   path: string
   method: $Enums.HTTPMethod
   updatedById?: number | null
@@ -726,7 +726,7 @@ export type PermissionCreateManyCreatedByInputEnvelope = {
 
 export type PermissionCreateWithoutUpdatedByInput = {
   name: string
-  description: string
+  description?: string
   path: string
   method: $Enums.HTTPMethod
   deletedAt?: Date | string | null
@@ -740,7 +740,7 @@ export type PermissionCreateWithoutUpdatedByInput = {
 export type PermissionUncheckedCreateWithoutUpdatedByInput = {
   id?: number
   name: string
-  description: string
+  description?: string
   path: string
   method: $Enums.HTTPMethod
   createdById?: number | null
@@ -763,7 +763,7 @@ export type PermissionCreateManyUpdatedByInputEnvelope = {
 
 export type PermissionCreateWithoutDeletedByInput = {
   name: string
-  description: string
+  description?: string
   path: string
   method: $Enums.HTTPMethod
   deletedAt?: Date | string | null
@@ -777,7 +777,7 @@ export type PermissionCreateWithoutDeletedByInput = {
 export type PermissionUncheckedCreateWithoutDeletedByInput = {
   id?: number
   name: string
-  description: string
+  description?: string
   path: string
   method: $Enums.HTTPMethod
   createdById?: number | null
@@ -865,7 +865,7 @@ export type PermissionUpdateManyWithWhereWithoutDeletedByInput = {
 
 export type PermissionCreateWithoutRolesInput = {
   name: string
-  description: string
+  description?: string
   path: string
   method: $Enums.HTTPMethod
   deletedAt?: Date | string | null
@@ -879,7 +879,7 @@ export type PermissionCreateWithoutRolesInput = {
 export type PermissionUncheckedCreateWithoutRolesInput = {
   id?: number
   name: string
-  description: string
+  description?: string
   path: string
   method: $Enums.HTTPMethod
   createdById?: number | null
@@ -914,7 +914,7 @@ export type PermissionUpdateManyWithWhereWithoutRolesInput = {
 export type PermissionCreateManyCreatedByInput = {
   id?: number
   name: string
-  description: string
+  description?: string
   path: string
   method: $Enums.HTTPMethod
   updatedById?: number | null
@@ -927,7 +927,7 @@ export type PermissionCreateManyCreatedByInput = {
 export type PermissionCreateManyUpdatedByInput = {
   id?: number
   name: string
-  description: string
+  description?: string
   path: string
   method: $Enums.HTTPMethod
   createdById?: number | null
@@ -940,7 +940,7 @@ export type PermissionCreateManyUpdatedByInput = {
 export type PermissionCreateManyDeletedByInput = {
   id?: number
   name: string
-  description: string
+  description?: string
   path: string
   method: $Enums.HTTPMethod
   createdById?: number | null

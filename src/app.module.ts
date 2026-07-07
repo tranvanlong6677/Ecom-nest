@@ -5,6 +5,7 @@ import { SharedModule } from '@/shared/shared.module'
 import { AuthModule } from '@/routes/auth/auth.module'
 import { LanguageModule } from '@/routes/language/language.module'
 import { PermissionModule } from '@/routes/permission/permission.module'
+import { RoleModule } from '@/routes/role/role.module'
 import { RolesService } from '@/routes/auth/role.service'
 import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core'
 import CustomZodValidationPipe from '@/shared/pipes/custom-zod-validation.pipe'
@@ -27,6 +28,7 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler'
     AuthModule,
     LanguageModule,
     PermissionModule,
+    RoleModule,
   ],
   controllers: [AppController],
   providers: [

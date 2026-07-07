@@ -1,4 +1,4 @@
-import { HTTPMethod } from '@/generated/prisma/enums'
+import { HTTPMethod } from '@/shared/constants/role.constant'
 import { NestFactory } from '@nestjs/core'
 import { AppModule } from 'src/app.module'
 import { PrismaService } from 'src/shared/services/prisma.service'
