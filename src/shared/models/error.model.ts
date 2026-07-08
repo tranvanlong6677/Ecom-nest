@@ -1,4 +1,4 @@
-import { UnprocessableEntityException } from '@nestjs/common'
+import { ForbiddenException, UnauthorizedException, UnprocessableEntityException } from '@nestjs/common'
 
 export const OtpException = {
   Invalid: new UnprocessableEntityException([
@@ -63,13 +63,38 @@ export const TokenException = {
   Revoked: new UnprocessableEntityException([
     { path: 'refreshToken', code: 'ERROR.REFRESH_TOKEN_REVOKED', message: 'Refresh token is revoked' },
   ]),
+  Forbidden: new UnprocessableEntityException([
+    { path: 'refreshToken', code: 'ERROR.REFRESH_TOKEN_FORBIDDEN', message: 'Refresh token is not authorized' },
+  ]),
+  AccessDenied: new UnprocessableEntityException([
+    { path: 'refreshToken', code: 'ERROR.REFRESH_TOKEN_ACCESS_DENIED', message: 'Refresh token is not allowed' },
+  ]),
+  Expired: new UnprocessableEntityException([
+    { path: 'refreshToken', code: 'ERROR.REFRESH_TOKEN_EXPIRED', message: 'Refresh token is expired' },
+  ]),
+  AccessTokenMissing: new UnauthorizedException([
+    { path: 'authorization', code: 'ERROR.ACCESS_TOKEN_MISSING', message: 'Access token is missing' },
+  ]),
+  AccessTokenInvalid: new UnauthorizedException([
+    { path: 'authorization', code: 'ERROR.ACCESS_TOKEN_INVALID', message: 'Access token is invalid' },
+  ]),
+  AccessTokenExpired: new UnauthorizedException([
+    { path: 'authorization', code: 'ERROR.ACCESS_TOKEN_EXPIRED', message: 'Access token is expired' },
+  ]),
+  AccessTokenAccessDenied: new ForbiddenException([
+    {
+      path: 'authorization',
+      code: 'ERROR.ACCESS_TOKEN_ACCESS_DENIED',
+      message: 'You do not have permission to access this resource',
+    },
+  ]),
 }
 
 export const TwoFactorException = {
   AlreadyEnabled: new UnprocessableEntityException([
     {
       path: 'totpCode',
-      code: 'TwoFactorException.AlreadyEnabled',
+      code: 'ERROR.TWO_FACTOR_ALREADY_ENABLED',
       message: '2FA is already enabled',
     },
   ]),
@@ -77,13 +102,13 @@ export const TwoFactorException = {
   NotEnabled: new UnprocessableEntityException([
     {
       path: 'totpCode',
-      code: 'TwoFactorException.NotEnabled',
+      code: 'ERROR.TWO_FACTOR_NOT_ENABLED',
       message: '2FA is not enabled',
     },
   ]),
 
   InvalidTOTP: new UnprocessableEntityException([
-    { path: 'totpCode', code: 'TwoFactorException.InvalidTOTP', message: 'TOTP code is invalid' },
+    { path: 'totpCode', code: 'ERROR.TWO_FACTOR_INVALID_TOTP', message: 'TOTP code is invalid' },
   ]),
 }
 export const UserException = {
