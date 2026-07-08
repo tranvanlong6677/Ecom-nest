@@ -3,6 +3,7 @@ import { isNotFoundPrismaError } from '@/shared/helper'
 import { RoleException } from '@/shared/models/error.model'
 import { RoleRepository } from './role.repo'
 import { CreateRoleBodyType, GetRolesQueryType, UpdateRoleBodyType } from './role.model'
+import { RoleName } from '@/shared/constants/role.constant'
 
 @Injectable()
 export class RoleService {
@@ -49,6 +50,13 @@ export class RoleService {
 
   async update(id: number, body: UpdateRoleBodyType, updatedById: number) {
     try {
+      const role = await this.findById(id)
+      if (!role) {
+        throw RoleException.NotFound
+      }
+      if (role.name === RoleName.Admin) {
+        throw RoleException.AdminCannotBeUpdated
+      }
       return await this.roleRepo.update(id, body, updatedById)
     } catch (error) {
       if (isNotFoundPrismaError(error)) {
@@ -58,9 +66,14 @@ export class RoleService {
     }
   }
 
-  async delete(id: number, deletedById: number, isHard = false) {
+  async delete(roleId: number, deletedById: number, isHard = false) {
     try {
-      await this.roleRepo.delete(id, deletedById, isHard)
+      const baseRoles = [...Object.values(RoleName)] as string[]
+      const role = await this.findById(roleId)
+      if (baseRoles.includes(role.name)) {
+        throw RoleException.BaseRoleCannotBeDeleted
+      }
+      await this.roleRepo.delete(roleId, deletedById, isHard)
       return { message: 'Role deleted successfully' }
     } catch (error) {
       if (isNotFoundPrismaError(error)) {

@@ -155,4 +155,12 @@ export const RoleException = {
   AlreadyExists: new UnprocessableEntityException([
     { path: 'id', code: 'ERROR.ROLE_ALREADY_EXISTS', message: 'Role id already exists' },
   ]),
+
+  BaseRoleCannotBeDeleted: new UnprocessableEntityException([
+    { path: 'id', code: 'ERROR.ROLE_BASE_ROLE_CANNOT_BE_DELETED', message: 'Base role cannot be deleted' },
+  ]),
+
+  AdminCannotBeUpdated: new UnprocessableEntityException([
+    { path: 'id', code: 'ERROR.ROLE_ADMIN_CANNOT_BE_UPDATED', message: 'Admin role cannot be updated' },
+  ]),
 }

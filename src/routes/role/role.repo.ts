@@ -92,14 +92,14 @@ export class RoleRepository {
     })
   }
 
-  delete(id: number, deletedById: number, isHard = false): Promise<RoleType> {
+  delete(roleId: number, deletedById: number, isHard = false): Promise<RoleType> {
     if (isHard) {
       return this.prismaService.role.delete({
-        where: { id },
+        where: { id: roleId },
       })
     }
     return this.prismaService.role.update({
-      where: { id, deletedAt: null },
+      where: { id: roleId, deletedAt: null },
       data: { deletedAt: new Date(), deletedById },
     })
   }
