@@ -118,4 +118,16 @@ export const RoleException = {
   NotFound: new UnprocessableEntityException([
     { path: 'roleId', code: 'ERROR.ROLE_NOT_FOUND', message: 'Role is not exist' },
   ]),
+  InvalidPermissionIds: (invalidPermissionIds?: number[]) =>
+    new UnprocessableEntityException([
+      {
+        path: 'permissionIds',
+        code: 'ERROR.ROLE_INVALID_PERMISSION_IDS',
+        message: `Permission ids ${invalidPermissionIds?.join(', ') || ''} is invalid`,
+        ...(invalidPermissionIds ? { invalidPermissionIds } : {}),
+      },
+    ]),
+  AlreadyExists: new UnprocessableEntityException([
+    { path: 'id', code: 'ERROR.ROLE_ALREADY_EXISTS', message: 'Role id already exists' },
+  ]),
 }

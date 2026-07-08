@@ -7,6 +7,7 @@ import {
   RoleWithPermissionsType,
   UpdateRoleBodyType,
 } from './role.model'
+import { RoleException } from '@/shared/models/error.model'
 
 @Injectable()
 export class RoleRepository {
@@ -36,14 +37,39 @@ export class RoleRepository {
     })
   }
 
-  create(data: CreateRoleBodyType, createdById: number): Promise<RoleType> {
+  create(data: CreateRoleBodyType, createdById: number): Promise<RoleWithPermissionsType> {
     return this.prismaService.role.create({
       data: { ...data, createdById },
+      include: {
+        permissions: {
+          where: { deletedAt: null },
+          select: {
+            id: true,
+            name: true,
+            description: true,
+            path: true,
+            method: true,
+          },
+        },
+      },
     })
   }
 
-  update(id: number, data: UpdateRoleBodyType, updatedById: number): Promise<RoleWithPermissionsType> {
+  async update(id: number, data: UpdateRoleBodyType, updatedById: number): Promise<RoleWithPermissionsType> {
     const { permissionIds, ...rest } = data
+    if (permissionIds.length > 0) {
+      const validPermission = await this.prismaService.permission.findMany({
+        where: { id: { in: permissionIds }, deletedAt: null },
+      })
+      if (validPermission.length !== permissionIds.length) {
+        const invalidPermissionIds = permissionIds.filter(
+          (permissionId) => !validPermission.some((permission) => permission.id === permissionId),
+        )
+
+        throw RoleException.InvalidPermissionIds(invalidPermissionIds)
+      }
+    }
+
     return this.prismaService.role.update({
       where: { id, deletedAt: null },
       data: {

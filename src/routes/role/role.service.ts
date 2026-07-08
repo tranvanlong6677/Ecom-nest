@@ -9,26 +9,42 @@ export class RoleService {
   constructor(private readonly roleRepo: RoleRepository) {}
 
   async findAll(query: GetRolesQueryType) {
-    const { data, totalItems } = await this.roleRepo.findAll(query)
-    return {
-      data,
-      totalItems,
-      page: query.page,
-      limit: query.limit,
-      totalPages: Math.ceil(totalItems / query.limit),
+    try {
+      const { data, totalItems } = await this.roleRepo.findAll(query)
+      return {
+        data,
+        totalItems,
+        page: query.page,
+        limit: query.limit,
+        totalPages: Math.ceil(totalItems / query.limit),
+      }
+    } catch (error) {
+      throw error
     }
   }
 
   async findById(id: number) {
-    const role = await this.roleRepo.findById(id)
-    if (!role) {
-      throw RoleException.NotFound
+    try {
+      const role = await this.roleRepo.findById(id)
+      if (!role) {
+        throw RoleException.NotFound
+      }
+      return role
+    } catch (error) {
+      if (isNotFoundPrismaError(error)) {
+        throw RoleException.NotFound
+      }
+      throw error
     }
-    return role
   }
 
   async create(body: CreateRoleBodyType, createdById: number) {
-    return this.roleRepo.create(body, createdById)
+    try {
+      return await this.roleRepo.create(body, createdById)
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
   }
 
   async update(id: number, body: UpdateRoleBodyType, updatedById: number) {

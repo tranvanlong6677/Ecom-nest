@@ -37,6 +37,7 @@ export default tseslint.config(
       '@typescript-eslint/no-unsafe-declaration-merging': 'off',
       'prefer-const': 'warn',
       '@typescript-eslint/require-await': 'warn',
+      'no-useless-catch': 'off',
     },
   },
 )
