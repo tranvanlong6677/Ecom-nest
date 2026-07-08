@@ -5,9 +5,9 @@ import {
   GetPermissionParamsSchema,
   GetPermissionsQuerySchema,
   GetPermissionsResSchema,
-  PermissionSchema,
   UpdatePermissionBodySchema,
 } from './permission.model'
+import { PermissionSchema } from '@/shared/models/permission.model'
 
 export class GetPermissionsResDTO extends createZodDto(GetPermissionsResSchema) {}
 

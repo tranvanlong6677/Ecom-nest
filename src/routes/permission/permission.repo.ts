@@ -1,17 +1,15 @@
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from '@/shared/services/prisma.service'
-import {
-  CreatePermissionBodyType,
-  GetPermissionsQueryType,
-  PermissionType,
-  UpdatePermissionBodyType,
-} from './permission.model'
+import { CreatePermissionBodyType, GetPermissionsQueryType, UpdatePermissionBodyType } from './permission.model'
+import { PermissionType } from '@/shared/models/permission.model'
 
 @Injectable()
 export class PermissionRepository {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async findAll(query: GetPermissionsQueryType): Promise<{ data: PermissionType[]; totalItems: number }> {
+  async findAll(
+    query: GetPermissionsQueryType,
+  ): Promise<{ data: Record<string, PermissionType[]>; totalItems: number }> {
     const { page, limit } = query
     const skip = (page - 1) * limit
     const [totalItems, data] = await Promise.all([
@@ -23,7 +21,16 @@ export class PermissionRepository {
         orderBy: { updatedAt: 'desc' },
       }),
     ])
-    return { data, totalItems }
+    //Divide permissions by module
+    let permissionDivideByModule: Record<string, PermissionType[]> = {}
+    data.forEach((item) => {
+      if (!permissionDivideByModule[item.module]) {
+        permissionDivideByModule[item.module] = [item]
+      } else {
+        permissionDivideByModule[item.module] = [...permissionDivideByModule[item.module], item]
+      }
+    })
+    return { data: permissionDivideByModule, totalItems }
   }
 
   findById(id: number): Promise<PermissionType | null> {

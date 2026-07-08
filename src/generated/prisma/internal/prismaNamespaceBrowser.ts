@@ -186,6 +186,7 @@ export const PermissionScalarFieldEnum = {
   name: 'name',
   description: 'description',
   path: 'path',
+  module: 'module',
   method: 'method',
   createdById: 'createdById',
   updatedById: 'updatedById',

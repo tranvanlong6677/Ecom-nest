@@ -28,6 +28,7 @@ async function bootstrap() {
             method,
             name: method + ' ' + path,
             description: 'Description for ' + method + ' ' + path,
+            module: path.split('/')[1].toUpperCase(),
           }
         }
       })
