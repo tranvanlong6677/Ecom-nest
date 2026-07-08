@@ -42,7 +42,7 @@ export class AccessTokenGuard implements CanActivate {
     let isAccess: boolean
     try {
       const role = await this.prisma.role.findUniqueOrThrow({
-        where: { id: payload.roleId, deletedAt: null },
+        where: { id: payload.roleId, deletedAt: null, isActive: true },
         include: {
           permissions: {
             where: {
@@ -58,6 +58,10 @@ export class AccessTokenGuard implements CanActivate {
           },
         },
       })
+
+      if (!role) {
+        throw TokenException.AccessTokenInvalid
+      }
       const permissions = role.permissions.map((permission) => `${permission.method}-${permission.path}`)
       isAccess = permissions.includes(`${method}-${path}`)
     } catch (error) {
