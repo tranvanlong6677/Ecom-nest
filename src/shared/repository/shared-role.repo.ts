@@ -24,4 +24,8 @@ export class SharedRolesRepository {
     this.clientRoleId = role.id
     return role.id
   }
+
+  async findRoleById(id: number): Promise<RoleType | null> {
+    return await this.prismaService.role.findUnique({ where: { id, deletedAt: null } })
+  }
 }

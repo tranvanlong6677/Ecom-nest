@@ -122,6 +122,26 @@ export const UserException = {
   NotFound: new UnprocessableEntityException([
     { path: 'userId', code: 'ERROR.USER_NOT_FOUND', message: 'User is not exist' },
   ]),
+  NotBeDeleted: new UnprocessableEntityException([
+    { path: 'userId', code: 'ERROR.USER_NOT_BE_DELETED', message: 'User cannot be deleted' },
+  ]),
+  CannotUpdateOrDeleteYourself: new ForbiddenException([
+    {
+      path: 'userId',
+      code: 'ERROR.USER_CANNOT_UPDATE_OR_DELETE_YOURSELF',
+      message: 'You cannot update or delete yourself',
+    },
+  ]),
+  CannotSetAdminRole: new ForbiddenException([
+    { path: 'roleId', code: 'ERROR.USER_CANNOT_SET_ADMIN_ROLE', message: 'Only Admin can assign the Admin role' },
+  ]),
+  CannotUpdateOrDeleteAdmin: new ForbiddenException([
+    {
+      path: 'userId',
+      code: 'ERROR.USER_CANNOT_UPDATE_OR_DELETE_ADMIN',
+      message: 'Only Admin can update or delete an Admin user',
+    },
+  ]),
 }
 
 export const LanguageException = {

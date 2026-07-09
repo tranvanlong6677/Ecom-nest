@@ -10,11 +10,13 @@ import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core'
 import CustomZodValidationPipe from '@/shared/pipes/custom-zod-validation.pipe'
 import { ZodSerializerInterceptor } from 'nestjs-zod'
 import { HttpExceptionFilter } from '@/shared/filters/http-exception.filter'
+import { TransformInterceptor } from '@/shared/interceptors/transform.interceptor'
 import { CatchEverythingFilter } from '@/shared/filters/catch-everything.filter'
 import { ScheduleModule } from '@nestjs/schedule'
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler'
 import { ProfileModule } from './routes/profile/profile.module'
 import { SharedRolesRepository } from './shared/repository/shared-role.repo'
+import { UsersModule } from './routes/users/users.module'
 
 @Module({
   imports: [
@@ -31,6 +33,7 @@ import { SharedRolesRepository } from './shared/repository/shared-role.repo'
     PermissionModule,
     RoleModule,
     ProfileModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [
@@ -40,6 +43,7 @@ import { SharedRolesRepository } from './shared/repository/shared-role.repo'
       provide: APP_PIPE,
       useClass: CustomZodValidationPipe,
     },
+    { provide: APP_INTERCEPTOR, useClass: TransformInterceptor },
     { provide: APP_INTERCEPTOR, useClass: ZodSerializerInterceptor },
     {
       provide: APP_GUARD,

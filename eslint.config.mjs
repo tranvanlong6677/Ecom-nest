@@ -38,6 +38,7 @@ export default tseslint.config(
       'prefer-const': 'warn',
       '@typescript-eslint/require-await': 'warn',
       'no-useless-catch': 'off',
+      '@typescript-eslint/no-unused-vars': 'warn',
     },
   },
 )
