@@ -3,7 +3,7 @@ import { ProfileRepository } from './profile.repo'
 import { ChangePasswordBodyType, UpdateProfileBodyType } from './profile.model'
 import { PasswordException, UserException } from '@/shared/models/error.model'
 import { HashingService } from '@/shared/services/hashing.service'
-import { SharedRepository } from '@/shared/repository/shared-user.repo'
+import { SharedUserRepository } from '@/shared/repository/shared-user.repo'
 import { isNotFoundPrismaError } from '@/shared/helper'
 
 @Injectable()
@@ -11,7 +11,7 @@ export class ProfileService {
   constructor(
     private readonly profileRepo: ProfileRepository,
     private readonly hashingService: HashingService,
-    private readonly sharedRepo: SharedRepository,
+    private readonly sharedUserRepo: SharedUserRepository,
   ) {}
 
   async getProfile(id: number) {
@@ -40,7 +40,7 @@ export class ProfileService {
 
   async changePassword(userId: number, data: ChangePasswordBodyType) {
     try {
-      const user = await this.sharedRepo.findUser({ id: userId })
+      const user = await this.sharedUserRepo.findUser({ id: userId })
       if (!user) {
         throw UserException.NotFound
       }

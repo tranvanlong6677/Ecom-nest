@@ -4,7 +4,7 @@ import { RoleName } from '@/shared/constants/role.constant'
 import { RoleType } from '@/shared/models/role.model'
 
 @Injectable()
-export class RolesService {
+export class SharedRolesRepository {
   private clientRoleId: number | null = null
 
   constructor(private readonly prismaService: PrismaService) {}

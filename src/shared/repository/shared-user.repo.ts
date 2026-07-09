@@ -5,7 +5,7 @@ import { UserType } from '../models/user.model'
 export type WhereUniqueUserType = { email: string } | { id: number }
 
 @Injectable()
-export class SharedRepository {
+export class SharedUserRepository {
   constructor(private readonly prismaService: PrismaService) {}
 
   async findUser(condition: WhereUniqueUserType): Promise<UserType | null> {
@@ -14,8 +14,8 @@ export class SharedRepository {
     })
   }
 
-  update(where: WhereUniqueUserType, data: Partial<Omit<UserType, 'id'>>): Promise<UserType> {
-    return this.prismaService.user.update({
+  async update(where: WhereUniqueUserType, data: Partial<Omit<UserType, 'id'>>): Promise<UserType> {
+    return await this.prismaService.user.update({
       where: { ...where, deletedAt: null },
       data,
     })

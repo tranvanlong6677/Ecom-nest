@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common'
 import { AuthService } from '@/routes/auth/auth.service'
 import { AuthController } from '@/routes/auth/auth.controller'
-import { RolesService } from '@/routes/auth/role.service'
 import { AuthRepository } from './auth.repo'
 import { OAuthCleanupTask } from './oauth/oauth-cleanup.task'
 import { OAuthExchangeService } from './oauth/oauth-exchange.service'
@@ -13,12 +12,13 @@ import { FacebookOAuthProvider } from './oauth/providers/facebook.provider'
 import { GithubOAuthProvider } from './oauth/providers/github.provider'
 import { GoogleOAuthProvider } from './oauth/providers/google.provider'
 import { OAuthProviderRegistry } from './oauth/providers/oauth-provider.registry'
+import { SharedRolesRepository } from '@/shared/repository/shared-role.repo'
 
 @Module({
   controllers: [AuthController, OAuthController],
   providers: [
     AuthService,
-    RolesService,
+    SharedRolesRepository,
     AuthRepository,
     OAuthService,
     OAuthRepository,

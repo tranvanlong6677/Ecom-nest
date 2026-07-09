@@ -1,9 +1,8 @@
 import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common'
 import { OAuthProvider } from '@/generated/prisma/client'
 import { AuthRepository } from '@/routes/auth/auth.repo'
-import { RolesService } from '@/routes/auth/role.service'
 import envConfig from '@/shared/config'
-import { SharedRepository } from '@/shared/repository/shared-user.repo'
+import { SharedUserRepository } from '@/shared/repository/shared-user.repo'
 import { LoginResType } from '@/routes/auth/auth.model'
 import { OAuthExchangeService } from './oauth-exchange.service'
 import { OAuthFlowError } from './oauth-flow.error'
@@ -13,6 +12,7 @@ import { OAuthProviderParamType } from './oauth.model'
 import { OAuthRepository } from './oauth.repo'
 import { NormalizedOAuthProfile } from './providers/oauth-provider.interface'
 import { OAuthProviderRegistry } from './providers/oauth-provider.registry'
+import { SharedRolesRepository } from '@/shared/repository/shared-role.repo'
 
 interface HandleCallbackInput {
   provider: OAuthProviderParamType['provider']
@@ -28,8 +28,8 @@ export class OAuthService {
   constructor(
     private readonly authRepo: AuthRepository,
     private readonly oauthRepo: OAuthRepository,
-    private readonly sharedRepo: SharedRepository,
-    private readonly rolesService: RolesService,
+    private readonly sharedUserRepo: SharedUserRepository,
+    private readonly rolesService: SharedRolesRepository,
     private readonly providerRegistry: OAuthProviderRegistry,
     private readonly oauthStateService: OAuthStateService,
     private readonly oauthExchangeService: OAuthExchangeService,
@@ -113,7 +113,7 @@ export class OAuthService {
       throw new OAuthFlowError('email_not_available')
     }
 
-    const existingUser = await this.sharedRepo.findUser({ email: profile.email })
+    const existingUser = await this.sharedUserRepo.findUser({ email: profile.email })
     if (existingUser) {
       await this.oauthRepo.createUserProvider({
         userId: existingUser.id,

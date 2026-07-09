@@ -1,7 +1,6 @@
 import { HttpException, Injectable, UnauthorizedException } from '@nestjs/common'
 import { HashingService } from '@/shared/services/hashing.service'
 import { TokenService } from '@/shared/services/token.service'
-import { RolesService } from '@/routes/auth/role.service'
 import { generateOTP, isNotFoundPrismaError, isUniqueConstraintPrismaError } from '@/shared/helper'
 import {
   DeviceType,
@@ -15,7 +14,7 @@ import {
 } from './auth.model'
 import { VerificationCodePurpose } from '@/shared/constants/auth.constants'
 import { AuthRepository } from './auth.repo'
-import { SharedRepository } from '@/shared/repository/shared-user.repo'
+import { SharedUserRepository } from '@/shared/repository/shared-user.repo'
 import { EmailService } from '@/shared/services/email.service'
 import envConfig from '@/shared/config'
 import ms from 'ms'
@@ -30,15 +29,16 @@ import {
 } from '@/shared/models/error.model'
 import { UserType } from '@/shared/models/user.model'
 import { TotpService } from '@/shared/services/totp.service'
+import { SharedRolesRepository } from '@/shared/repository/shared-role.repo'
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly hashingService: HashingService,
     private readonly tokenService: TokenService,
-    private readonly rolesService: RolesService,
+    private readonly rolesService: SharedRolesRepository,
     private readonly authRepo: AuthRepository,
-    private readonly sharedRepo: SharedRepository,
+    private readonly sharedUserRepo: SharedUserRepository,
     private readonly emailService: EmailService,
     private readonly totpService: TotpService,
   ) {}
@@ -224,7 +224,7 @@ export class AuthService {
 
   async sendOtp(body: SendOTPBodyType) {
     const { email, type } = body
-    const user = await this.sharedRepo.findUser({ email })
+    const user = await this.sharedUserRepo.findUser({ email })
     const isRegister = type === VerificationCodePurpose.REGISTER
     if (isRegister && user) {
       throw EmailException.Exists
@@ -300,7 +300,7 @@ export class AuthService {
     if (totpUser) throw TwoFactorException.AlreadyEnabled
     const secret = this.totpService.generateSecret()
     const uri = this.totpService.getKeyUri({ email: user.email, secret })
-    await this.sharedRepo.update({ id: userId }, { totpSecret: secret, updatedById: userId })
+    await this.sharedUserRepo.update({ id: userId }, { totpSecret: secret, updatedById: userId })
     return { secret, uri }
   }
 
@@ -315,7 +315,7 @@ export class AuthService {
       totpCode: body.totpCode,
     })
 
-    await this.sharedRepo.update({ id: userId }, { totpSecret: null, updatedById: userId })
+    await this.sharedUserRepo.update({ id: userId }, { totpSecret: null, updatedById: userId })
     return { message: 'Two-factor authentication disabled successfully' }
   }
 }

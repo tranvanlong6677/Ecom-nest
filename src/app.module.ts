@@ -6,7 +6,6 @@ import { AuthModule } from '@/routes/auth/auth.module'
 import { LanguageModule } from '@/routes/language/language.module'
 import { PermissionModule } from '@/routes/permission/permission.module'
 import { RoleModule } from '@/routes/role/role.module'
-import { RolesService } from '@/routes/auth/role.service'
 import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core'
 import CustomZodValidationPipe from '@/shared/pipes/custom-zod-validation.pipe'
 import { ZodSerializerInterceptor } from 'nestjs-zod'
@@ -14,7 +13,8 @@ import { HttpExceptionFilter } from '@/shared/filters/http-exception.filter'
 import { CatchEverythingFilter } from '@/shared/filters/catch-everything.filter'
 import { ScheduleModule } from '@nestjs/schedule'
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler'
-import { ProfileModule } from './routes/profile/profile.module';
+import { ProfileModule } from './routes/profile/profile.module'
+import { SharedRolesRepository } from './shared/repository/shared-role.repo'
 
 @Module({
   imports: [
@@ -35,7 +35,7 @@ import { ProfileModule } from './routes/profile/profile.module';
   controllers: [AppController],
   providers: [
     AppService,
-    RolesService,
+    SharedRolesRepository,
     {
       provide: APP_PIPE,
       useClass: CustomZodValidationPipe,
