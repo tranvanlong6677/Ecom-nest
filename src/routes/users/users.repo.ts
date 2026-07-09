@@ -22,7 +22,7 @@ export class UsersRepository {
   }
 
   async findUserByEmail(email: string) {
-    return await this.prisma.user.findUnique({
+    return await this.prisma.user.findFirst({
       where: { email },
     })
   }

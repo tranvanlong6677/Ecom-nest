@@ -14,6 +14,7 @@ import { RoleType } from '@/shared/models/role.model'
 import { VerificationCodePurpose } from '@/shared/constants/auth.constants'
 import { TotpService } from '@/shared/services/totp.service'
 import { WhereUniqueUserType } from '@/shared/repository/shared-user.repo'
+import { UserException } from '@/shared/models/error.model'
 
 @Injectable()
 export class AuthRepository {
@@ -47,8 +48,12 @@ export class AuthRepository {
   }): Promise<UserType> {
     const { email, code, type, hashedPassword } = payload
     return await this.prismaService.$transaction(async (tx) => {
+      const existingUser = await tx.user.findFirst({ where: { email, deletedAt: null } })
+      if (!existingUser) {
+        throw UserException.NotFound
+      }
       const [user] = await Promise.all([
-        tx.user.update({ where: { email, deletedAt: null }, data: { password: hashedPassword } }),
+        tx.user.update({ where: { id: existingUser.id }, data: { password: hashedPassword } }),
         tx.verificationCode.delete({ where: { email_code_type: { email, code, type } } }),
       ])
       return user
@@ -130,7 +135,7 @@ export class AuthRepository {
   }
 
   async findUserWithRole(condition: WhereUniqueUserType): Promise<UserWithRoleType | null> {
-    return await this.prismaService.user.findUnique({
+    return await this.prismaService.user.findFirst({
       where: { ...condition, deletedAt: null },
       include: { role: true },
     })
