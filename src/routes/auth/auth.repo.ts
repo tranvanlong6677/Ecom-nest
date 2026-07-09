@@ -13,6 +13,7 @@ import { AccessTokenCreateType } from '@/shared/types/jwt.type'
 import { RoleType } from '@/shared/models/role.model'
 import { VerificationCodePurpose } from '@/shared/constants/auth.constants'
 import { TotpService } from '@/shared/services/totp.service'
+import { WhereUniqueUserType } from '@/shared/repository/shared-user.repo'
 
 @Injectable()
 export class AuthRepository {
@@ -38,13 +39,6 @@ export class AuthRepository {
     })
   }
 
-  updateUser(where: { id: number } | { email: string }, data: Partial<Omit<UserType, 'id'>>): Promise<UserType> {
-    return this.prismaService.user.update({
-      where,
-      data,
-    })
-  }
-
   async resetPassword(payload: {
     email: string
     code: string
@@ -54,7 +48,7 @@ export class AuthRepository {
     const { email, code, type, hashedPassword } = payload
     return await this.prismaService.$transaction(async (tx) => {
       const [user] = await Promise.all([
-        tx.user.update({ where: { email }, data: { password: hashedPassword } }),
+        tx.user.update({ where: { email, deletedAt: null }, data: { password: hashedPassword } }),
         tx.verificationCode.delete({ where: { email_code_type: { email, code, type } } }),
       ])
       return user
@@ -98,15 +92,7 @@ export class AuthRepository {
   async createDevice(
     data: Pick<DeviceType, 'userId' | 'userAgent' | 'ip'> & Partial<Pick<DeviceType, 'lastActive' | 'isActive'>>,
   ): Promise<DeviceType> {
-    const res = await this.prismaService.device
-      .create({
-        data,
-      })
-      .catch((error) => {
-        console.log(error)
-        throw error
-      })
-    return res
+    return this.prismaService.device.create({ data })
   }
 
   async updateDevice(data: Partial<DeviceType>) {
@@ -143,9 +129,9 @@ export class AuthRepository {
     })
   }
 
-  async findUserWithRole(condition: { email: string } | { id: number }): Promise<UserWithRoleType | null> {
+  async findUserWithRole(condition: WhereUniqueUserType): Promise<UserWithRoleType | null> {
     return await this.prismaService.user.findUnique({
-      where: condition,
+      where: { ...condition, deletedAt: null },
       include: { role: true },
     })
   }

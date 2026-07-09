@@ -1,10 +1,9 @@
 import { Injectable } from '@nestjs/common'
-import { isNotFoundPrismaError } from '@/shared/helper'
+import { isNotFoundPrismaError, isUniqueConstraintPrismaError } from '@/shared/helper'
 import { RoleException } from '@/shared/models/error.model'
 import { RoleRepository } from './role.repo'
 import { CreateRoleBodyType, GetRolesQueryType, UpdateRoleBodyType } from './role.model'
 import { RoleName } from '@/shared/constants/role.constant'
-import { RoleType } from '@/shared/models/role.model'
 
 @Injectable()
 export class RoleService {
@@ -44,7 +43,9 @@ export class RoleService {
     try {
       return await this.roleRepo.create(body, createdById)
     } catch (error) {
-      console.log(error)
+      if (isUniqueConstraintPrismaError(error)) {
+        throw RoleException.AlreadyExists
+      }
       throw error
     }
   }

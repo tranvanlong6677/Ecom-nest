@@ -1,6 +1,5 @@
 import { HttpException, Injectable, UnauthorizedException } from '@nestjs/common'
 import { HashingService } from '@/shared/services/hashing.service'
-import { PrismaService } from '@/shared/services/prisma.service'
 import { TokenService } from '@/shared/services/token.service'
 import { RolesService } from '@/routes/auth/role.service'
 import { generateOTP, isNotFoundPrismaError, isUniqueConstraintPrismaError } from '@/shared/helper'
@@ -36,7 +35,6 @@ import { TotpService } from '@/shared/services/totp.service'
 export class AuthService {
   constructor(
     private readonly hashingService: HashingService,
-    private readonly prismaService: PrismaService,
     private readonly tokenService: TokenService,
     private readonly rolesService: RolesService,
     private readonly authRepo: AuthRepository,
@@ -71,7 +69,6 @@ export class AuthService {
         verificationCode.code,
       )
     } catch (error) {
-      console.log({ error })
       if (isUniqueConstraintPrismaError(error)) {
         throw EmailException.Exists
       }
@@ -127,6 +124,9 @@ export class AuthService {
         token: refreshToken,
       })
       if (!tokenWithUserAndRole) {
+        throw TokenException.Revoked
+      }
+      if (tokenWithUserAndRole.user.deletedAt) {
         throw TokenException.Revoked
       }
 
@@ -300,7 +300,7 @@ export class AuthService {
     if (totpUser) throw TwoFactorException.AlreadyEnabled
     const secret = this.totpService.generateSecret()
     const uri = this.totpService.getKeyUri({ email: user.email, secret })
-    await this.authRepo.updateUser({ id: userId }, { totpSecret: secret })
+    await this.sharedRepo.update({ id: userId }, { totpSecret: secret, updatedById: userId })
     return { secret, uri }
   }
 
@@ -315,7 +315,7 @@ export class AuthService {
       totpCode: body.totpCode,
     })
 
-    await this.authRepo.updateUser({ id: userId }, { totpSecret: null })
+    await this.sharedRepo.update({ id: userId }, { totpSecret: null, updatedById: userId })
     return { message: 'Two-factor authentication disabled successfully' }
   }
 }

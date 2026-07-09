@@ -39,6 +39,13 @@ export const PasswordException = {
   MismatchConfirm: new UnprocessableEntityException([
     { path: 'confirmPassword', code: 'ERROR.PASSWORD_MISMATCH', message: 'Password and confirm password must be same' },
   ]),
+  NewPasswordAndCurrentPasswordAreTheSame: new UnprocessableEntityException([
+    {
+      path: 'newPassword',
+      code: 'ERROR.NEW_PASSWORD_AND_CURRENT_PASSWORD_ARE_THE_SAME',
+      message: 'New password and current password must be different',
+    },
+  ]),
 }
 
 export const EmailOrPasswordException = {

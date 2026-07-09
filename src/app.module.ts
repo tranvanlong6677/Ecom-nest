@@ -14,6 +14,7 @@ import { HttpExceptionFilter } from '@/shared/filters/http-exception.filter'
 import { CatchEverythingFilter } from '@/shared/filters/catch-everything.filter'
 import { ScheduleModule } from '@nestjs/schedule'
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler'
+import { ProfileModule } from './routes/profile/profile.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler'
     LanguageModule,
     PermissionModule,
     RoleModule,
+    ProfileModule,
   ],
   controllers: [AppController],
   providers: [
