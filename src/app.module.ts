@@ -17,6 +17,7 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler'
 import { ProfileModule } from './routes/profile/profile.module'
 import { SharedRolesRepository } from './shared/repository/shared-role.repo'
 import { UsersModule } from './routes/users/users.module'
+import { MediaModule } from './routes/media/media.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { UsersModule } from './routes/users/users.module'
     RoleModule,
     ProfileModule,
     UsersModule,
+    MediaModule,
   ],
   controllers: [AppController],
   providers: [

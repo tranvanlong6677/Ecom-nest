@@ -20,6 +20,7 @@ const configSchema = z
     SECRET_API_KEY: z.string(),
     PORT: z.string().optional().default('8000'),
     APP_NAME: z.string(),
+    APP_URL: z.string(),
     ADMIN_NAME: z.string(),
     ADMIN_PASSWORD: z.string(),
     ADMIN_EMAIL: z.string(),
