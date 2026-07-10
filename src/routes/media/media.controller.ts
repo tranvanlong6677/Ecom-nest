@@ -8,14 +8,19 @@ import {
   Delete,
   UseInterceptors,
   UploadedFile,
+  UploadedFiles,
   ParseFilePipe,
   MaxFileSizeValidator,
   FileTypeValidator,
 } from '@nestjs/common'
 import { MediaService } from './media.service'
-import { FileInterceptor } from '@nestjs/platform-express'
+import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express'
 import { memoryStorage } from 'multer'
-import { ALLOWED_IMAGE_MIME_TYPES_REGEX, MAX_UPLOAD_FILE_SIZE_IN_BYTES } from '@/shared/constants/media.constant'
+import {
+  ALLOWED_IMAGE_MIME_TYPES_REGEX,
+  MAX_UPLOAD_FILE_SIZE_IN_BYTES,
+  MAX_UPLOAD_FILES_COUNT,
+} from '@/shared/constants/media.constant'
 
 @Controller('media')
 export class MediaController {
@@ -45,9 +50,28 @@ export class MediaController {
     return this.mediaService.uploadImage(image)
   }
 
-  @Get()
-  findAll() {
-    return this.mediaService.findAll()
+  @Post('images/upload-multiple')
+  @UseInterceptors(
+    FilesInterceptor('files', MAX_UPLOAD_FILES_COUNT, {
+      storage: memoryStorage(),
+      // Hard ceiling enforced while Multer streams the upload, before it is
+      // fully buffered into memory. Without this, an oversized upload would
+      // be buffered entirely into RAM before ParseFilePipe gets a chance to reject it.
+      limits: { fileSize: MAX_UPLOAD_FILE_SIZE_IN_BYTES },
+    }),
+  )
+  uploadMultipleImages(
+    @UploadedFiles(
+      new ParseFilePipe({
+        validators: [
+          new MaxFileSizeValidator({ maxSize: MAX_UPLOAD_FILE_SIZE_IN_BYTES }),
+          new FileTypeValidator({ fileType: ALLOWED_IMAGE_MIME_TYPES_REGEX }),
+        ],
+      }),
+    )
+    files: Array<Express.Multer.File>,
+  ) {
+    return this.mediaService.uploadMultipleImages(files)
   }
 
   @Get(':id')
