@@ -1,13 +1,13 @@
-import { Injectable, Logger, UnprocessableEntityException } from '@nestjs/common'
-import { mkdir, unlink, writeFile } from 'fs/promises'
-import { join } from 'path'
+import { Injectable, UnprocessableEntityException } from '@nestjs/common'
+import { lookup } from 'mime-types'
 import { v4 as uuidv4 } from 'uuid'
-import { IMAGE_MIME_TYPE_TO_EXTENSION, UPLOAD_DIR_NAME, UPLOAD_DIR_PATH } from '@/shared/constants/media.constant'
-import envConfig from '@/shared/config'
+import { ALLOWED_IMAGE_MIME_TYPES_REGEX, IMAGE_MIME_TYPE_TO_EXTENSION } from '@/shared/constants/media.constant'
+import { PresignedUploadFileBodyType } from '@/routes/media/media.model'
+import { S3Service } from '@/shared/services/s3.service'
 
 @Injectable()
 export class MediaService {
-  private readonly logger = new Logger(MediaService.name)
+  constructor(private readonly s3Service: S3Service) {}
 
   async uploadImage(image: Express.Multer.File) {
     const extension = IMAGE_MIME_TYPE_TO_EXTENSION[image.mimetype]
@@ -15,14 +15,12 @@ export class MediaService {
       throw new UnprocessableEntityException('Unsupported image type')
     }
 
-    await mkdir(UPLOAD_DIR_PATH, { recursive: true })
-
-    const filename = `${uuidv4()}${extension}`
-    await writeFile(join(UPLOAD_DIR_PATH, filename), image.buffer)
+    const key = `${uuidv4()}${extension}`
+    const url = await this.s3Service.uploadFile({ key, body: image.buffer, contentType: image.mimetype })
 
     return {
-      filename,
-      url: `${envConfig.APP_URL}/${UPLOAD_DIR_NAME}/${filename}`,
+      key,
+      url,
       size: image.size,
       mimetype: image.mimetype,
     }
@@ -38,7 +36,7 @@ export class MediaService {
     const failed = results.filter((result): result is PromiseRejectedResult => result.status === 'rejected')
 
     if (failed.length > 0) {
-      await this.rollbackUploadedFiles(succeeded.map((result) => result.value.filename))
+      await this.s3Service.deleteFiles(succeeded.map((result) => result.value.key))
 
       const firstError = failed[0].reason
       throw firstError instanceof Error
@@ -49,17 +47,18 @@ export class MediaService {
     return succeeded.map((result) => result.value)
   }
 
-  private async rollbackUploadedFiles(filenames: string[]) {
-    await Promise.all(
-      filenames.map((filename) =>
-        unlink(join(UPLOAD_DIR_PATH, filename)).catch((error: unknown) => {
-          this.logger.error(
-            `Failed to roll back uploaded file "${filename}" after a batch upload failure`,
-            error instanceof Error ? error.stack : String(error),
-          )
-        }),
-      ),
-    )
+  getPresignedUploadUrl(body: PresignedUploadFileBodyType) {
+    const contentType = lookup(body.filename)
+    if (!contentType || !ALLOWED_IMAGE_MIME_TYPES_REGEX.test(contentType)) {
+      throw new UnprocessableEntityException('Unsupported image type')
+    }
+
+    // Extension is derived from the detected content type, never from the
+    // client-supplied filename, so the client cannot control the stored key's extension.
+    const extension = IMAGE_MIME_TYPE_TO_EXTENSION[contentType]
+    const key = `${uuidv4()}${extension}`
+
+    return this.s3Service.createPresignedUploadUrl({ key, contentType })
   }
 
   findAll() {

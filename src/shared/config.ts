@@ -39,6 +39,10 @@ const configSchema = z
     GITHUB_REDIRECT_URI: z.string(),
     OAUTH_ALLOWED_REDIRECT_URIS: z.string(),
     OAUTH_DEFAULT_REDIRECT_URI: z.string(),
+    S3_REGION: z.string(),
+    S3_ACCESS_KEY_ID: z.string(),
+    S3_SECRET_ACCESS_KEY: z.string(),
+    S3_BUCKET_NAME: z.string(),
   })
   .superRefine((data, ctx) => {
     const allowedRedirectUris = data.OAUTH_ALLOWED_REDIRECT_URIS.split(',').map((uri) => uri.trim())

@@ -1,12 +1,8 @@
-import { join } from 'path'
-
-export const UPLOAD_DIR_NAME = 'upload'
-
-export const UPLOAD_DIR_PATH = join(process.cwd(), UPLOAD_DIR_NAME)
-
 export const MAX_UPLOAD_FILE_SIZE_IN_BYTES = 5 * 1024 * 1024 // 5MB
 
 export const MAX_UPLOAD_FILES_COUNT = 10
+
+export const PRESIGNED_URL_EXPIRES_IN_SECONDS = 60
 
 export const ALLOWED_IMAGE_MIME_TYPES_REGEX = /^image\/(jpeg|png|gif|webp)$/
 

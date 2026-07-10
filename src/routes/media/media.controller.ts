@@ -13,7 +13,9 @@ import {
   MaxFileSizeValidator,
   FileTypeValidator,
 } from '@nestjs/common'
+import { ZodSerializerDto } from 'nestjs-zod'
 import { MediaService } from './media.service'
+import { PresignedUploadFileBodyDto, PresignedUploadFileResDto } from './media.dto'
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express'
 import { memoryStorage } from 'multer'
 import {
@@ -72,6 +74,12 @@ export class MediaController {
     files: Array<Express.Multer.File>,
   ) {
     return this.mediaService.uploadMultipleImages(files)
+  }
+
+  @Post('images/upload/presigned-url')
+  @ZodSerializerDto(PresignedUploadFileResDto)
+  getPresignedUploadUrl(@Body() body: PresignedUploadFileBodyDto) {
+    return this.mediaService.getPresignedUploadUrl(body)
   }
 
   @Get(':id')
