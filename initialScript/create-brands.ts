@@ -7,6 +7,7 @@ const addBrands = async () => {
     .fill(0)
     .map((_, index) => ({
       logo: `Logo ${index}`,
+      name: `Brand ${index}`,
     }))
   try {
     const { count } = await prisma.brand.createMany({

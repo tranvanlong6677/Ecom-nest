@@ -331,6 +331,7 @@ export type SKUScalarFieldEnum = (typeof SKUScalarFieldEnum)[keyof typeof SKUSca
 export const BrandScalarFieldEnum = {
   id: 'id',
   logo: 'logo',
+  name: 'name',
   createdById: 'createdById',
   updatedById: 'updatedById',
   deletedById: 'deletedById',

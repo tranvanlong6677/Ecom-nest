@@ -153,6 +153,36 @@ export const LanguageException = {
   ]),
 }
 
+export const BrandException = {
+  NotFound: new UnprocessableEntityException([
+    { path: 'brandId', code: 'ERROR.BRAND_NOT_FOUND', message: 'Brand is not exist' },
+  ]),
+}
+
+export const BrandTranslationException = {
+  NotFound: new UnprocessableEntityException([
+    {
+      path: 'brandTranslationId',
+      code: 'ERROR.BRAND_TRANSLATION_NOT_FOUND',
+      message: 'Brand translation is not exist',
+    },
+  ]),
+  AlreadyExists: new UnprocessableEntityException([
+    {
+      path: 'languageId',
+      code: 'ERROR.BRAND_TRANSLATION_ALREADY_EXISTS',
+      message: 'Brand translation for this language already exists',
+    },
+  ]),
+  InvalidBrandOrLanguage: new UnprocessableEntityException([
+    {
+      path: 'brandId',
+      code: 'ERROR.BRAND_TRANSLATION_INVALID_BRAND_OR_LANGUAGE',
+      message: 'Brand or language is not exist',
+    },
+  ]),
+}
+
 export const PermissionException = {
   NotFound: new UnprocessableEntityException([
     { path: 'permissionId', code: 'ERROR.PERMISSION_NOT_FOUND', message: 'Permission is not exist' },

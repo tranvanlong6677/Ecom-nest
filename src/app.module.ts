@@ -3,6 +3,8 @@ import { AppController } from '@/app.controller'
 import { AppService } from '@/app.service'
 import { SharedModule } from '@/shared/shared.module'
 import { AuthModule } from '@/routes/auth/auth.module'
+import { BrandModule } from '@/routes/brand/brand.module'
+import { BrandTranslationModule } from '@/routes/brand-translation/brand-translation.module'
 import { LanguageModule } from '@/routes/language/language.module'
 import { PermissionModule } from '@/routes/permission/permission.module'
 import { RoleModule } from '@/routes/role/role.module'
@@ -30,6 +32,8 @@ import { MediaModule } from './routes/media/media.module';
     ]),
     SharedModule,
     AuthModule,
+    BrandModule,
+    BrandTranslationModule,
     LanguageModule,
     PermissionModule,
     RoleModule,

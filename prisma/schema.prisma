@@ -359,6 +359,7 @@ model SKU {
 model Brand {
   id                Int                @id @default(autoincrement())
   logo              String             @db.VarChar(1000)
+  name              String             @db.VarChar(500)
   createdById       Int?
   updatedById       Int?
   deletedById       Int?
