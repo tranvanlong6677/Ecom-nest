@@ -5,6 +5,8 @@ import { SharedModule } from '@/shared/shared.module'
 import { AuthModule } from '@/routes/auth/auth.module'
 import { BrandModule } from '@/routes/brand/brand.module'
 import { BrandTranslationModule } from '@/routes/brand-translation/brand-translation.module'
+import { CategoryModule } from '@/routes/category/category.module'
+import { CategoryTranslationModule } from '@/routes/category-translation/category-translation.module'
 import { LanguageModule } from '@/routes/language/language.module'
 import { PermissionModule } from '@/routes/permission/permission.module'
 import { RoleModule } from '@/routes/role/role.module'
@@ -34,6 +36,8 @@ import { MediaModule } from './routes/media/media.module';
     AuthModule,
     BrandModule,
     BrandTranslationModule,
+    CategoryModule,
+    CategoryTranslationModule,
     LanguageModule,
     PermissionModule,
     RoleModule,

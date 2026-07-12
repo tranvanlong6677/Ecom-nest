@@ -97,12 +97,6 @@ model User {
   updatedUserTranslations     UserTranslation[]     @relation("UserTranslationUpdatedBy")
   deletedUserTranslations     UserTranslation[]     @relation("UserTranslationDeletedBy")
   userTranslations            UserTranslation[]     @relation("User")
-  createdVariants             Variant[]             @relation("VariantCreatedBy")
-  updatedVariants             Variant[]             @relation("VariantUpdatedBy")
-  deletedVariants             Variant[]             @relation("VariantDeletedBy")
-  createdVariantOptions       VariantOption[]       @relation("VariantOptionCreatedBy")
-  updatedVariantOptions       VariantOption[]       @relation("VariantOptionUpdatedBy")
-  deletedVariantOptions       VariantOption[]       @relation("VariantOptionDeletedBy")
 
   @@index([deletedAt])
 }
@@ -210,15 +204,18 @@ model Role {
 model Product {
   id                  Int                  @id @default(autoincrement())
   brandId             Int
+  name                String               @db.VarChar(500)
   images              String[]
+  basePrice           Float
+  virtualPrice        Float
+  variants            Json
+  publishedAt         DateTime?
   createdById         Int?
   updatedById         Int?
   deletedById         Int?
   deletedAt           DateTime?
   createdAt           DateTime             @default(now())
   updatedAt           DateTime             @updatedAt
-  base_price          Float
-  virtual_price       Float
   brand               Brand                @relation(fields: [brandId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   createdBy           User?                @relation("ProductCreatedBy", fields: [createdById], references: [id], onUpdate: NoAction)
   updatedBy           User?                @relation("ProductUpdatedBy", fields: [updatedById], references: [id], onUpdate: NoAction)
@@ -226,7 +223,6 @@ model Product {
   productTranslations ProductTranslation[]
   reviews             Review[]
   skus                SKU[]
-  variants            Variant[]
   categories          Category[]           @relation("CategoryToProduct")
 
   @@index([deletedAt])
@@ -250,12 +246,16 @@ model ProductTranslation {
   updatedBy   User?     @relation("ProductTranslationUpdatedBy", fields: [updatedById], references: [id], onUpdate: NoAction)
   deletedBy   User?     @relation("ProductTranslationDeletedBy", fields: [deletedById], references: [id], onUpdate: NoAction)
 
+  // Unique thật sự là partial index (productId, languageId) WHERE deletedAt IS NULL,
+  // được tạo bằng raw SQL trong migration vì Prisma schema không hỗ trợ WHERE trên @@unique.
   @@index([deletedAt])
 }
 
 model Category {
   id                   Int                   @id @default(autoincrement())
   parentCategoryId     Int?
+  name                 String                @db.VarChar(500)
+  logo                 String?               @db.VarChar(1000)
   createdById          Int?
   updatedById          Int?
   deletedById          Int?
@@ -291,44 +291,8 @@ model CategoryTranslation {
   updatedBy   User?     @relation("CategoryTranslationUpdatedBy", fields: [updatedById], references: [id], onUpdate: NoAction)
   deletedBy   User?     @relation("CategoryTranslationDeletedBy", fields: [deletedById], references: [id], onUpdate: NoAction)
 
-  @@index([deletedAt])
-}
-
-model Variant {
-  id             Int             @id @default(autoincrement())
-  name           String          @db.VarChar(500)
-  productId      Int
-  createdById    Int?
-  updatedById    Int?
-  deletedById    Int?
-  deletedAt      DateTime?
-  createdAt      DateTime        @default(now())
-  updatedAt      DateTime        @updatedAt
-  createdBy      User?           @relation("VariantCreatedBy", fields: [createdById], references: [id], onUpdate: NoAction)
-  product        Product         @relation(fields: [productId], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  updatedBy      User?           @relation("VariantUpdatedBy", fields: [updatedById], references: [id], onUpdate: NoAction)
-  deletedBy      User?           @relation("VariantDeletedBy", fields: [deletedById], references: [id], onUpdate: NoAction)
-  variantOptions VariantOption[]
-
-  @@index([deletedAt])
-}
-
-model VariantOption {
-  id          Int       @id @default(autoincrement())
-  value       String    @db.VarChar(500)
-  variantId   Int
-  createdById Int?
-  updatedById Int?
-  deletedById Int?
-  deletedAt   DateTime?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  createdBy   User?     @relation("VariantOptionCreatedBy", fields: [createdById], references: [id], onUpdate: NoAction)
-  updatedBy   User?     @relation("VariantOptionUpdatedBy", fields: [updatedById], references: [id], onUpdate: NoAction)
-  deletedBy   User?     @relation("VariantOptionDeletedBy", fields: [deletedById], references: [id], onUpdate: NoAction)
-  variant     Variant   @relation(fields: [variantId], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  skus        SKU[]     @relation("SKUToVariantOption")
-
+  // Unique thật sự là partial index (categoryId, languageId) WHERE deletedAt IS NULL,
+  // được tạo bằng raw SQL trong migration vì Prisma schema không hỗ trợ WHERE trên @@unique.
   @@index([deletedAt])
 }
 
@@ -344,15 +308,16 @@ model SKU {
   deletedAt           DateTime?
   createdAt           DateTime             @default(now())
   updatedAt           DateTime             @updatedAt
-  images              String[]
+  image               String
   cartItems           CartItem[]
   productSKUSnapshots ProductSKUSnapshot[]
   createdBy           User?                @relation("SKUCreatedBy", fields: [createdById], references: [id], onUpdate: NoAction)
   product             Product              @relation(fields: [productId], references: [id], onDelete: Cascade, onUpdate: NoAction)
   updatedBy           User?                @relation("SKUUpdatedBy", fields: [updatedById], references: [id], onUpdate: NoAction)
   deletedBy           User?                @relation("SKUDeletedBy", fields: [deletedById], references: [id], onUpdate: NoAction)
-  variantOptions      VariantOption[]      @relation("SKUToVariantOption")
 
+  // Unique thật sự là partial index (productId, value) WHERE deletedAt IS NULL,
+  // được tạo bằng raw SQL trong migration vì Prisma schema không hỗ trợ WHERE trên @@unique.
   @@index([deletedAt])
 }
 

@@ -183,6 +183,43 @@ export const BrandTranslationException = {
   ]),
 }
 
+export const CategoryException = {
+  NotFound: new UnprocessableEntityException([
+    { path: 'categoryId', code: 'ERROR.CATEGORY_NOT_FOUND', message: 'Category is not exist' },
+  ]),
+  ParentCategoryNotFound: new UnprocessableEntityException([
+    {
+      path: 'parentCategoryId',
+      code: 'ERROR.PARENT_CATEGORY_NOT_FOUND',
+      message: 'Parent category is not exist',
+    },
+  ]),
+}
+
+export const CategoryTranslationException = {
+  NotFound: new UnprocessableEntityException([
+    {
+      path: 'categoryTranslationId',
+      code: 'ERROR.CATEGORY_TRANSLATION_NOT_FOUND',
+      message: 'Category translation is not exist',
+    },
+  ]),
+  AlreadyExists: new UnprocessableEntityException([
+    {
+      path: 'languageId',
+      code: 'ERROR.CATEGORY_TRANSLATION_ALREADY_EXISTS',
+      message: 'Category translation for this language already exists',
+    },
+  ]),
+  InvalidCategoryOrLanguage: new UnprocessableEntityException([
+    {
+      path: 'categoryId',
+      code: 'ERROR.CATEGORY_TRANSLATION_INVALID_CATEGORY_OR_LANGUAGE',
+      message: 'Category or language is not exist',
+    },
+  ]),
+}
+
 export const PermissionException = {
   NotFound: new UnprocessableEntityException([
     { path: 'permissionId', code: 'ERROR.PERMISSION_NOT_FOUND', message: 'Permission is not exist' },
