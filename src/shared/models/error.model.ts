@@ -233,6 +233,46 @@ export const PermissionException = {
   ]),
 }
 
+export const ProductException = {
+  NotFound: new UnprocessableEntityException([
+    { path: 'productId', code: 'ERROR.PRODUCT_NOT_FOUND', message: 'Product is not exist' },
+  ]),
+  InvalidBrand: new UnprocessableEntityException([
+    { path: 'brandId', code: 'ERROR.PRODUCT_INVALID_BRAND', message: 'Brand is not exist' },
+  ]),
+  InvalidCategory: new UnprocessableEntityException([
+    {
+      path: 'categories',
+      code: 'ERROR.PRODUCT_INVALID_CATEGORY',
+      message: 'One or more categories are not exist',
+    },
+  ]),
+}
+
+export const ProductTranslationException = {
+  NotFound: new UnprocessableEntityException([
+    {
+      path: 'productTranslationId',
+      code: 'ERROR.PRODUCT_TRANSLATION_NOT_FOUND',
+      message: 'Product translation is not exist',
+    },
+  ]),
+  AlreadyExists: new UnprocessableEntityException([
+    {
+      path: 'languageId',
+      code: 'ERROR.PRODUCT_TRANSLATION_ALREADY_EXISTS',
+      message: 'Product translation for this language already exists',
+    },
+  ]),
+  InvalidProductOrLanguage: new UnprocessableEntityException([
+    {
+      path: 'productId',
+      code: 'ERROR.PRODUCT_TRANSLATION_INVALID_PRODUCT_OR_LANGUAGE',
+      message: 'Product or language is not exist',
+    },
+  ]),
+}
+
 export const RoleException = {
   NotFound: new UnprocessableEntityException([
     { path: 'roleId', code: 'ERROR.ROLE_NOT_FOUND', message: 'Role is not exist' },

@@ -9,6 +9,8 @@ import { CategoryModule } from '@/routes/category/category.module'
 import { CategoryTranslationModule } from '@/routes/category-translation/category-translation.module'
 import { LanguageModule } from '@/routes/language/language.module'
 import { PermissionModule } from '@/routes/permission/permission.module'
+import { ProductModule } from '@/routes/product/product.module'
+import { ProductTranslationModule } from '@/routes/product/product-translation/product-translation.module'
 import { RoleModule } from '@/routes/role/role.module'
 import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core'
 import CustomZodValidationPipe from '@/shared/pipes/custom-zod-validation.pipe'
@@ -21,7 +23,7 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler'
 import { ProfileModule } from './routes/profile/profile.module'
 import { SharedRolesRepository } from './shared/repository/shared-role.repo'
 import { UsersModule } from './routes/users/users.module'
-import { MediaModule } from './routes/media/media.module';
+import { MediaModule } from './routes/media/media.module'
 
 @Module({
   imports: [
@@ -40,6 +42,8 @@ import { MediaModule } from './routes/media/media.module';
     CategoryTranslationModule,
     LanguageModule,
     PermissionModule,
+    ProductModule,
+    ProductTranslationModule,
     RoleModule,
     ProfileModule,
     UsersModule,

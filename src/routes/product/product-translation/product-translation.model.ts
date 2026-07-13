@@ -3,7 +3,7 @@ import { z } from 'zod'
 export const ProductTranslationSchema = z.object({
   id: z.number(),
   productId: z.number(),
-  name: z.string().min(1, 'Name is required').max(500, 'Name must be at most 500 characters long'),
+  name: z.string().trim().min(1, 'Name is required').max(500, 'Name must be at most 500 characters long'),
   description: z.string(),
   languageId: z.string(),
   createdById: z.number().nullable(),
@@ -22,6 +22,12 @@ export const GetProductTranslationParamsSchema = z
   })
   .strict()
 
+export const DeleteProductTranslationQuerySchema = z
+  .object({
+    hardDelete: z.coerce.boolean().optional().default(false),
+  })
+  .strict()
+
 export const CreateProductTranslationBodySchema = ProductTranslationSchema.pick({
   productId: true,
   name: true,
@@ -29,11 +35,12 @@ export const CreateProductTranslationBodySchema = ProductTranslationSchema.pick(
   languageId: true,
 }).strict()
 
-export const UpdateProductTranslationBodySchema = CreateProductTranslationBodySchema
-
-export const DeleteProductTranslationParamsSchema = GetProductTranslationParamsSchema
+export const UpdateProductTranslationBodySchema = ProductTranslationSchema.pick({
+  name: true,
+  description: true,
+}).strict()
 
 export type GetProductTranslationParamsType = z.infer<typeof GetProductTranslationParamsSchema>
+export type DeleteProductTranslationQueryType = z.infer<typeof DeleteProductTranslationQuerySchema>
 export type CreateProductTranslationBodyType = z.infer<typeof CreateProductTranslationBodySchema>
 export type UpdateProductTranslationBodyType = z.infer<typeof UpdateProductTranslationBodySchema>
-export type DeleteProductTranslationParamsType = z.infer<typeof DeleteProductTranslationParamsSchema>

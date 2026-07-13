@@ -1,7 +1,7 @@
 import { BrandIncludeTranslationSchema } from '@/shared/models/brand.model'
 import { CategoryIncludeTranslationSchema } from '@/shared/models/category.model'
 import { z } from 'zod'
-import { ProductTranslationSchema } from './product-translation.model'
+import { ProductTranslationSchema } from './product-translation/product-translation.model'
 import { SKUSchema, SKUType, UpsertSKUBodySchema } from './sku.model'
 
 export const VariantSchema = z.object({
@@ -41,19 +41,12 @@ export const VariantsSchema = z.array(VariantSchema).superRefine((variants, ctx)
 export type VariantsType = z.infer<typeof VariantsSchema>
 
 export const generateSKUs = (variants: VariantsType): Pick<SKUType, 'value' | 'price' | 'stock' | 'image'>[] => {
-  console.log('variants', variants)
-  console.log(
-    '1',
-    variants.map((variant) => variant.options),
-  )
-
   const combinations = variants
     .map((variant) => variant.options)
     .reduce<string[]>(
       (acc, options) => acc.flatMap((prefix) => options.map((option) => `${prefix}${prefix ? '-' : ''}${option}`)),
       [''],
     )
-  console.log('2', combinations)
 
   return combinations.map((value) => ({
     value,
@@ -66,9 +59,9 @@ export const generateSKUs = (variants: VariantsType): Pick<SKUType, 'value' | 'p
 export const ProductSchema = z.object({
   id: z.number(),
   publishedAt: z.date().nullable(),
-  name: z.string().min(1, 'Name is required').max(500, 'Name must be at most 500 characters long'),
-  basePrice: z.number().positive('Base price must be a positive number'),
-  virtualPrice: z.number().positive('Virtual price must be a positive number'),
+  name: z.string().trim().min(1, 'Name is required').max(500, 'Name must be at most 500 characters long'),
+  basePrice: z.number().min(0, 'Base price must be zero or a positive number'),
+  virtualPrice: z.number().min(0, 'Virtual price must be zero or a positive number'),
   brandId: z.number(),
   images: z.array(z.string()),
   variants: VariantsSchema,

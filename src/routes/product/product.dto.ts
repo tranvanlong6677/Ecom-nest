@@ -6,6 +6,7 @@ import {
   GetProductParamsSchema,
   GetProductsQuerySchema,
   GetProductsResSchema,
+  ProductSchema,
   UpdateProductBodySchema,
 } from './product.model'
 
@@ -22,3 +23,5 @@ export class DeleteProductQueryDTO extends createZodDto(DeleteProductQuerySchema
 export class CreateProductBodyDTO extends createZodDto(CreateProductBodySchema) {}
 
 export class UpdateProductBodyDTO extends createZodDto(UpdateProductBodySchema) {}
+
+export class ProductDTO extends createZodDto(ProductSchema) {}
