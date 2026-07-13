@@ -1,6 +1,6 @@
+import { CategoryIncludeTranslationSchema } from '@/shared/models/category.model'
 import { createZodDto } from 'nestjs-zod'
 import {
-  CategoryWithTranslationsSchema,
   CreateCategoryBodySchema,
   DeleteCategoryQuerySchema,
   GetCategoriesQuerySchema,
@@ -24,4 +24,4 @@ export class CreateCategoryBodyDTO extends createZodDto(CreateCategoryBodySchema
 
 export class UpdateCategoryBodyDTO extends createZodDto(UpdateCategoryBodySchema) {}
 
-export class CategoryResDTO extends createZodDto(CategoryWithTranslationsSchema) {}
+export class CategoryResDTO extends createZodDto(CategoryIncludeTranslationSchema) {}

@@ -1,0 +1,175 @@
+{
+  "info": {
+    "name": "Product API",
+    "description": "Product, Product Translation endpoints. NOTE: controller/service for Product chưa được implement (mới có model/dto) nên các request này sẽ 404 cho tới khi route được wire vào app.module.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{access_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "Product",
+      "item": [
+        {
+          "name": "Get Products",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{host}}/products?page=1&limit=10&name=&brandIds=&categories=&minPrice=&maxPrice=",
+              "host": ["{{host}}"],
+              "path": ["products"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "10" },
+                { "key": "name", "value": "", "disabled": true },
+                { "key": "brandIds", "value": "", "disabled": true, "description": "vd: 1,2,3" },
+                { "key": "categories", "value": "", "disabled": true, "description": "vd: 3,7" },
+                { "key": "minPrice", "value": "", "disabled": true },
+                { "key": "maxPrice", "value": "", "disabled": true }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Product By Id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{host}}/products/1",
+              "host": ["{{host}}"],
+              "path": ["products", "1"]
+            }
+          }
+        },
+        {
+          "name": "Create Product",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Áo thun cotton nam\",\n  \"basePrice\": 150000,\n  \"virtualPrice\": 200000,\n  \"brandId\": 1,\n  \"images\": [\"{{presignedUrl}}\"],\n  \"variants\": [\n    {\n      \"value\": \"Màu sắc\",\n      \"options\": [\"Đỏ\", \"Xanh\"]\n    },\n    {\n      \"value\": \"Kích cỡ\",\n      \"options\": [\"S\", \"M\", \"L\"]\n    }\n  ],\n  \"categories\": [3, 7],\n  \"skus\": [\n    { \"value\": \"Đỏ-S\", \"price\": 150000, \"stock\": 20, \"image\": \"{{presignedUrl}}\" },\n    { \"value\": \"Đỏ-M\", \"price\": 150000, \"stock\": 15, \"image\": \"{{presignedUrl}}\" },\n    { \"value\": \"Đỏ-L\", \"price\": 160000, \"stock\": 10, \"image\": \"{{presignedUrl}}\" },\n    { \"value\": \"Xanh-S\", \"price\": 150000, \"stock\": 1, \"image\": \"{{presignedUrl}}\" },\n    { \"value\": \"Xanh-M\", \"price\": 150000, \"stock\": 30, \"image\": \"{{presignedUrl}}\" },\n    { \"value\": \"Xanh-L\", \"price\": 160000, \"stock\": 5, \"image\": \"{{presignedUrl}}\" }\n  ]\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{host}}/products",
+              "host": ["{{host}}"],
+              "path": ["products"]
+            }
+          }
+        },
+        {
+          "name": "Update Product",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Áo thun cotton nam (updated)\",\n  \"basePrice\": 155000,\n  \"virtualPrice\": 205000,\n  \"brandId\": 1,\n  \"images\": [\"{{presignedUrl}}\"],\n  \"variants\": [\n    {\n      \"value\": \"Màu sắc\",\n      \"options\": [\"Đỏ\", \"Xanh\"]\n    },\n    {\n      \"value\": \"Kích cỡ\",\n      \"options\": [\"S\", \"M\", \"L\"]\n    }\n  ],\n  \"categories\": [3, 7],\n  \"skus\": [\n    { \"value\": \"Đỏ-S\", \"price\": 150000, \"stock\": 20, \"image\": \"{{presignedUrl}}\" },\n    { \"value\": \"Đỏ-M\", \"price\": 150000, \"stock\": 15, \"image\": \"{{presignedUrl}}\" },\n    { \"value\": \"Đỏ-L\", \"price\": 160000, \"stock\": 10, \"image\": \"{{presignedUrl}}\" },\n    { \"value\": \"Xanh-S\", \"price\": 150000, \"stock\": 1, \"image\": \"{{presignedUrl}}\" },\n    { \"value\": \"Xanh-M\", \"price\": 150000, \"stock\": 30, \"image\": \"{{presignedUrl}}\" },\n    { \"value\": \"Xanh-L\", \"price\": 160000, \"stock\": 5, \"image\": \"{{presignedUrl}}\" }\n  ]\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{host}}/products/1",
+              "host": ["{{host}}"],
+              "path": ["products", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Product",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{host}}/products/1?hardDelete=false",
+              "host": ["{{host}}"],
+              "path": ["products", "1"],
+              "query": [{ "key": "hardDelete", "value": "false" }]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Product Translation",
+      "item": [
+        {
+          "name": "Get Product Translation By Id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{host}}/product-translations/1",
+              "host": ["{{host}}"],
+              "path": ["product-translations", "1"]
+            }
+          }
+        },
+        {
+          "name": "Create Product Translation",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"productId\": 1,\n  \"languageId\": \"vi\",\n  \"name\": \"Áo thun cotton nam\",\n  \"description\": \"Áo thun cotton 100%, thoáng mát, form regular fit\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{host}}/product-translations",
+              "host": ["{{host}}"],
+              "path": ["product-translations"]
+            }
+          }
+        },
+        {
+          "name": "Update Product Translation",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"productId\": 1,\n  \"languageId\": \"vi\",\n  \"name\": \"Áo thun cotton nam (updated)\",\n  \"description\": \"Áo thun cotton 100%, thoáng mát, form regular fit, bản cập nhật\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{host}}/product-translations/1",
+              "host": ["{{host}}"],
+              "path": ["product-translations", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Product Translation",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{host}}/product-translations/1",
+              "host": ["{{host}}"],
+              "path": ["product-translations", "1"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

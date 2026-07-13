@@ -1,3 +1,4 @@
+import { CategoryTranslationSchema } from '@/shared/models/category-translation.model'
 import { z } from 'zod'
 
 export const CategorySchema = z.object({
@@ -14,3 +15,9 @@ export const CategorySchema = z.object({
 })
 
 export type CategoryType = z.infer<typeof CategorySchema>
+
+export const CategoryIncludeTranslationSchema = CategorySchema.extend({
+  categoryTranslations: z.array(CategoryTranslationSchema),
+})
+
+export type CategoryIncludeTranslationType = z.infer<typeof CategoryIncludeTranslationSchema>

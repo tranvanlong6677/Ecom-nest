@@ -1,23 +1,20 @@
-import { CategorySchema } from '@/shared/models/category.model'
-import { CategoryTranslationSchema } from '@/shared/models/category-translation.model'
+import {
+  CategoryIncludeTranslationSchema,
+  CategoryIncludeTranslationType,
+  CategorySchema,
+} from '@/shared/models/category.model'
 import { z } from 'zod'
 
-export const CategoryWithTranslationsSchema = CategorySchema.extend({
-  categoryTranslations: z.array(CategoryTranslationSchema),
-})
-
-export type CategoryWithTranslationsType = z.infer<typeof CategoryWithTranslationsSchema>
-
 export const GetCategoriesResSchema = z.object({
-  data: z.array(CategoryWithTranslationsSchema),
+  data: z.array(CategoryIncludeTranslationSchema),
   totalItems: z.number(),
 })
 
-export type CategoryTreeNodeType = CategoryWithTranslationsType & {
+export type CategoryTreeNodeType = CategoryIncludeTranslationType & {
   childrenCategories: CategoryTreeNodeType[]
 }
 
-export const CategoryTreeNodeSchema: z.ZodType<CategoryTreeNodeType> = CategoryWithTranslationsSchema.extend({
+export const CategoryTreeNodeSchema: z.ZodType<CategoryTreeNodeType> = CategoryIncludeTranslationSchema.extend({
   childrenCategories: z.lazy(() => z.array(CategoryTreeNodeSchema)),
 })
 

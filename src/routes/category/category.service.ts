@@ -1,15 +1,11 @@
 import { Injectable } from '@nestjs/common'
 import { isForeignKeyConstraintPrismaError, isNotFoundPrismaError } from '@/shared/helper'
 import { CategoryException } from '@/shared/models/error.model'
+import { CategoryIncludeTranslationType } from '@/shared/models/category.model'
 import { CategoryRepository } from './category.repo'
-import {
-  CategoryTreeNodeType,
-  CategoryWithTranslationsType,
-  CreateCategoryBodyType,
-  UpdateCategoryBodyType,
-} from './category.model'
+import { CategoryTreeNodeType, CreateCategoryBodyType, UpdateCategoryBodyType } from './category.model'
 
-function buildCategoryTree(categories: CategoryWithTranslationsType[]): CategoryTreeNodeType[] {
+function buildCategoryTree(categories: CategoryIncludeTranslationType[]): CategoryTreeNodeType[] {
   const nodeById = new Map<number, CategoryTreeNodeType>()
   categories.forEach((category) => {
     nodeById.set(category.id, { ...category, childrenCategories: [] })

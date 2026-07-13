@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from '@/shared/services/prisma.service'
-import { CategoryWithTranslationsType, CreateCategoryBodyType, UpdateCategoryBodyType } from './category.model'
-import { CategoryType } from '@/shared/models/category.model'
+import { CreateCategoryBodyType, UpdateCategoryBodyType } from './category.model'
+import { CategoryIncludeTranslationType, CategoryType } from '@/shared/models/category.model'
 
 @Injectable()
 export class CategoryRepository {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async findAll(parentCategoryId?: number): Promise<{ data: CategoryWithTranslationsType[]; totalItems: number }> {
+  async findAll(parentCategoryId?: number): Promise<{ data: CategoryIncludeTranslationType[]; totalItems: number }> {
     const where = { deletedAt: null, parentCategoryId: parentCategoryId ?? null }
     const [totalItems, data] = await Promise.all([
       this.prismaService.category.count({ where }),
@@ -22,7 +22,7 @@ export class CategoryRepository {
     return { data, totalItems }
   }
 
-  findAllForTree(): Promise<CategoryWithTranslationsType[]> {
+  findAllForTree(): Promise<CategoryIncludeTranslationType[]> {
     return this.prismaService.category.findMany({
       where: { deletedAt: null },
       include: {
@@ -32,7 +32,7 @@ export class CategoryRepository {
     })
   }
 
-  findById(id: number): Promise<CategoryWithTranslationsType | null> {
+  findById(id: number): Promise<CategoryIncludeTranslationType | null> {
     return this.prismaService.category.findFirst({
       where: { id, deletedAt: null },
       include: {
@@ -41,7 +41,7 @@ export class CategoryRepository {
     })
   }
 
-  create(data: CreateCategoryBodyType, createdById: number): Promise<CategoryWithTranslationsType> {
+  create(data: CreateCategoryBodyType, createdById: number): Promise<CategoryIncludeTranslationType> {
     return this.prismaService.category.create({
       data: { ...data, createdById },
       include: {
@@ -50,7 +50,7 @@ export class CategoryRepository {
     })
   }
 
-  update(id: number, data: UpdateCategoryBodyType, updatedById: number): Promise<CategoryWithTranslationsType> {
+  update(id: number, data: UpdateCategoryBodyType, updatedById: number): Promise<CategoryIncludeTranslationType> {
     return this.prismaService.category.update({
       where: { id, deletedAt: null },
       data: { ...data, updatedById },

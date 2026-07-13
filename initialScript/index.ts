@@ -59,3 +59,35 @@ main()
     console.log(`Created admin user: ${adminUser.email}`)
   })
   .catch(console.error)
+
+// const body = {
+//   name: 'Áo thun cotton nam',
+//   basePrice: 150000,
+//   virtualPrice: 200000,
+//   brandId: 1,
+//   images: ['https://cdn.shop.com/aothun-1.jpg'],
+//   publishedAt: null,
+//   categories: [3, 7],
+
+//   // 2 variant: Màu sắc và Kích cỡ
+//   variants: [
+//     {
+//       value: 'Màu sắc',
+//       options: ['Đỏ', 'Xanh'],
+//     },
+//     {
+//       value: 'Kích cỡ',
+//       options: ['S', 'M', 'L'],
+//     },
+//   ],
+
+//   // 2 × 3 = 6 SKU, đúng theo tổ hợp generateSKUs sinh ra
+//   skus: [
+//     { value: 'Đỏ-S', price: 150000, stock: 20, images: ['https://cdn.shop.com/do-s.jpg'] },
+//     { value: 'Đỏ-M', price: 150000, stock: 15, images: ['https://cdn.shop.com/do-m.jpg'] },
+//     { value: 'Đỏ-L', price: 160000, stock: 10, images: ['https://cdn.shop.com/do-l.jpg'] },
+//     { value: 'Xanh-S', price: 150000, stock: 0, images: ['https://cdn.shop.com/xanh-s.jpg'] },
+//     { value: 'Xanh-M', price: 150000, stock: 30, images: ['https://cdn.shop.com/xanh-m.jpg'] },
+//     { value: 'Xanh-L', price: 160000, stock: 5, images: ['https://cdn.shop.com/xanh-l.jpg'] },
+//   ],
+// }

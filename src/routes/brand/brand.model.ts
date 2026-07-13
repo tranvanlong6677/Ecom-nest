@@ -1,12 +1,5 @@
 import { BrandSchema } from '@/shared/models/brand.model'
-import { BrandTranslationSchema } from '@/shared/models/brand-translation.model'
 import { z } from 'zod'
-
-export const BrandWithTranslationsSchema = BrandSchema.extend({
-  brandTranslations: z.array(BrandTranslationSchema),
-})
-
-export type BrandWithTranslationsType = z.infer<typeof BrandWithTranslationsSchema>
 
 export const GetBrandsResSchema = z.object({
   data: z.array(BrandSchema),

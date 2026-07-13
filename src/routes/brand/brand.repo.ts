@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from '@/shared/services/prisma.service'
-import { BrandWithTranslationsType, CreateBrandBodyType, GetBrandsQueryType, UpdateBrandBodyType } from './brand.model'
-import { BrandType } from '@/shared/models/brand.model'
+import { CreateBrandBodyType, GetBrandsQueryType, UpdateBrandBodyType } from './brand.model'
+import { BrandIncludeTranslationType, BrandType } from '@/shared/models/brand.model'
 
 @Injectable()
 export class BrandRepository {
@@ -22,7 +22,7 @@ export class BrandRepository {
     return { data, totalItems }
   }
 
-  findById(id: number): Promise<BrandWithTranslationsType | null> {
+  findById(id: number): Promise<BrandIncludeTranslationType | null> {
     return this.prismaService.brand.findFirst({
       where: { id, deletedAt: null },
       include: {
@@ -31,7 +31,7 @@ export class BrandRepository {
     })
   }
 
-  create(data: CreateBrandBodyType, createdById: number): Promise<BrandWithTranslationsType> {
+  create(data: CreateBrandBodyType, createdById: number): Promise<BrandIncludeTranslationType> {
     return this.prismaService.brand.create({
       data: { ...data, createdById },
       include: {
@@ -40,7 +40,7 @@ export class BrandRepository {
     })
   }
 
-  update(id: number, data: UpdateBrandBodyType, updatedById: number): Promise<BrandWithTranslationsType> {
+  update(id: number, data: UpdateBrandBodyType, updatedById: number): Promise<BrandIncludeTranslationType> {
     return this.prismaService.brand.update({
       where: { id, deletedAt: null },
       data: { ...data, updatedById },

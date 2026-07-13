@@ -1,6 +1,6 @@
+import { BrandIncludeTranslationSchema } from '@/shared/models/brand.model'
 import { createZodDto } from 'nestjs-zod'
 import {
-  BrandWithTranslationsSchema,
   CreateBrandBodySchema,
   DeleteBrandQuerySchema,
   GetBrandParamsSchema,
@@ -21,4 +21,4 @@ export class CreateBrandBodyDTO extends createZodDto(CreateBrandBodySchema) {}
 
 export class UpdateBrandBodyDTO extends createZodDto(UpdateBrandBodySchema) {}
 
-export class BrandResDTO extends createZodDto(BrandWithTranslationsSchema) {}
+export class BrandResDTO extends createZodDto(BrandIncludeTranslationSchema) {}
