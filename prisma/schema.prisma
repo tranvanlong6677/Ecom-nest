@@ -4,6 +4,10 @@ generator client {
   moduleFormat = "cjs"
 }
 
+generator json {
+  provider = "prisma-json-types-generator"
+}
+
 datasource db {
   provider = "postgresql"
 }
@@ -208,6 +212,7 @@ model Product {
   images              String[]
   basePrice           Float
   virtualPrice        Float
+  /// [Variants]
   variants            Json
   publishedAt         DateTime?
   createdById         Int?
