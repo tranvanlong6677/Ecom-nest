@@ -247,6 +247,13 @@ export const ProductException = {
       message: 'One or more categories are not exist',
     },
   ]),
+  Forbidden: new ForbiddenException([
+    {
+      path: 'productId',
+      code: 'ERROR.PRODUCT_FORBIDDEN',
+      message: 'You do not have permission to manage this product',
+    },
+  ]),
 }
 
 export const ProductTranslationException = {

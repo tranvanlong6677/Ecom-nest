@@ -1,5 +1,6 @@
 import { BrandIncludeTranslationSchema } from '@/shared/models/brand.model'
 import { CategoryIncludeTranslationSchema } from '@/shared/models/category.model'
+import { OrderBy, SortBy } from '@/shared/constants/other.constants'
 import { z } from 'zod'
 import { ProductTranslationSchema } from './product-translation/product-translation.model'
 import { SKUSchema, SKUType, UpsertSKUBodySchema } from './sku.model'
@@ -91,8 +92,15 @@ export const GetProductsQuerySchema = z
     categories: arrayQueryParamSchema.optional(),
     minPrice: z.coerce.number().positive().optional(),
     maxPrice: z.coerce.number().positive().optional(),
+    orderBy: z.enum([OrderBy.Asc, OrderBy.Desc]).default(OrderBy.Desc),
+    sortBy: z.enum([SortBy.CreatedAt, SortBy.Price, SortBy.Sale]).default(SortBy.CreatedAt),
   })
   .strict()
+
+export const GetManageProductsQuerySchema = GetProductsQuerySchema.extend({
+  isPublic: z.preprocess((value) => value === 'true', z.boolean()).optional(),
+  createdById: z.coerce.number().int().positive(),
+})
 
 export const GetProductsResSchema = z.object({
   data: z.array(
@@ -164,6 +172,7 @@ export const CreateProductBodySchema = ProductSchema.pick({
 export const UpdateProductBodySchema = CreateProductBodySchema
 
 export type GetProductsQueryType = z.infer<typeof GetProductsQuerySchema>
+export type GetManageProductsQueryType = z.infer<typeof GetManageProductsQuerySchema>
 export type GetProductsResType = z.infer<typeof GetProductsResSchema>
 export type GetProductParamsType = z.infer<typeof GetProductParamsSchema>
 export type GetProductDetailResType = z.infer<typeof GetProductDetailResSchema>

@@ -229,6 +229,7 @@ model Product {
   reviews             Review[]
   skus                SKU[]
   categories          Category[]           @relation("CategoryToProduct")
+  orders              Order[]              @relation("OrderToProduct")
 
   @@index([deletedAt])
 }
@@ -254,6 +255,7 @@ model ProductTranslation {
   // Unique thật sự là partial index (productId, languageId) WHERE deletedAt IS NULL,
   // được tạo bằng raw SQL trong migration vì Prisma schema không hỗ trợ WHERE trên @@unique.
   @@index([deletedAt])
+  @@index([productId])
 }
 
 model Category {
@@ -405,8 +407,10 @@ model Order {
   deletedBy   User?                @relation("OrderDeletedBy", fields: [deletedById], references: [id], onUpdate: NoAction)
   user        User                 @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   items       ProductSKUSnapshot[]
+  products    Product[]            @relation("OrderToProduct")
 
   @@index([deletedAt])
+  @@index([status, deletedAt])
 }
 
 model Review {

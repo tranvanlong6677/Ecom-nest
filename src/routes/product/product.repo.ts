@@ -1,4 +1,5 @@
-import { ALL_LANGUAGE_CODE } from '@/shared/constants/other.constants'
+import { ALL_LANGUAGE_CODE, SortBy } from '@/shared/constants/other.constants'
+import { Prisma } from '@/generated/prisma/client'
 import { PrismaService } from '@/shared/services/prisma.service'
 import { Injectable } from '@nestjs/common'
 import {
@@ -10,31 +11,73 @@ import {
   UpdateProductBodyType,
 } from './product.model'
 
+const buildPublishedAtCondition = (isPublic?: boolean): Prisma.ProductWhereInput => {
+  if (isPublic === true) {
+    return { publishedAt: { lte: new Date(), not: null } }
+  }
+  if (isPublic === false) {
+    return { OR: [{ publishedAt: null }, { publishedAt: { gt: new Date() } }] }
+  }
+  return {}
+}
+
+const buildOrderBy = (
+  orderBy: GetProductsQueryType['orderBy'],
+  sortBy: GetProductsQueryType['sortBy'],
+): Prisma.ProductOrderByWithRelationInput => {
+  if (sortBy === SortBy.Price) {
+    return { basePrice: orderBy }
+  }
+  if (sortBy === SortBy.Sale) {
+    return { orders: { _count: orderBy } }
+  }
+  return { createdAt: orderBy }
+}
+
 @Injectable()
 export class ProductRepo {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async list(query: GetProductsQueryType, languageId: string): Promise<GetProductsResType> {
+  async list({
+    query,
+    languageId,
+    isPublic,
+    createdById,
+  }: {
+    query: GetProductsQueryType
+    languageId: string
+    isPublic?: boolean
+    createdById?: number
+  }): Promise<GetProductsResType> {
     const skip = (query.page - 1) * query.limit
     const take = query.limit
+    const { name, brandIds, categories, minPrice, maxPrice } = query
+    const where: Prisma.ProductWhereInput = {
+      deletedAt: null,
+      ...buildPublishedAtCondition(isPublic),
+      ...(createdById ? { createdById } : {}),
+      ...(name ? { name: { contains: name, mode: 'insensitive' } } : {}),
+      ...(brandIds && brandIds.length > 0 ? { brandId: { in: brandIds } } : {}),
+      ...(categories && categories.length > 0 ? { categories: { some: { id: { in: categories } } } } : {}),
+      ...(minPrice !== undefined || maxPrice !== undefined
+        ? {
+            basePrice: {
+              ...(minPrice !== undefined ? { gte: minPrice } : {}),
+              ...(maxPrice !== undefined ? { lte: maxPrice } : {}),
+            },
+          }
+        : {}),
+    }
     const [totalItems, data] = await Promise.all([
-      this.prismaService.product.count({
-        where: {
-          deletedAt: null,
-        },
-      }),
+      this.prismaService.product.count({ where }),
       this.prismaService.product.findMany({
-        where: {
-          deletedAt: null,
-        },
+        where,
         include: {
           productTranslations: {
             where: languageId === ALL_LANGUAGE_CODE ? { deletedAt: null } : { languageId, deletedAt: null },
           },
         },
-        orderBy: {
-          createdAt: 'desc',
-        },
+        orderBy: buildOrderBy(query.orderBy, query.sortBy),
         skip,
         take,
       }),
@@ -48,11 +91,29 @@ export class ProductRepo {
     }
   }
 
-  findById(id: number, languageId: string): Promise<GetProductDetailResType | null> {
+  findById(id: number): Promise<ProductType | null> {
     return this.prismaService.product.findUnique({
       where: {
         id,
         deletedAt: null,
+      },
+    })
+  }
+
+  getDetail({
+    productId,
+    languageId,
+    isPublic,
+  }: {
+    productId: number
+    languageId: string
+    isPublic?: boolean
+  }): Promise<GetProductDetailResType | null> {
+    return this.prismaService.product.findFirst({
+      where: {
+        id: productId,
+        deletedAt: null,
+        ...buildPublishedAtCondition(isPublic),
       },
       include: {
         productTranslations: {
