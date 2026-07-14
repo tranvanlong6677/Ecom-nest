@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { CreateUserBodyType, UpdateUserBodyType } from './users.model'
 import { PrismaService } from '@/shared/services/prisma.service'
-import { QueryParamsType } from '@/shared/models/request.model'
+import { PaginationParamsType } from '@/shared/models/request.model'
 
 @Injectable()
 export class UsersRepository {
@@ -27,7 +27,7 @@ export class UsersRepository {
     })
   }
 
-  async getList({ page, limit, sort }: QueryParamsType) {
+  async getList({ page, limit, sort }: PaginationParamsType) {
     const skip = (page - 1) * limit
     const take = limit
 
@@ -36,9 +36,7 @@ export class UsersRepository {
         where: { deletedAt: null },
         skip,
         take,
-        orderBy: {
-          updatedAt: sort,
-        },
+        ...(sort ? { orderBy: { updatedAt: sort } } : {}),
         include: {
           role: {
             select: { id: true, name: true },

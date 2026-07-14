@@ -1,4 +1,10 @@
-import { ForbiddenException, UnauthorizedException, UnprocessableEntityException } from '@nestjs/common'
+import {
+  BadRequestException,
+  ForbiddenException,
+  NotFoundException,
+  UnauthorizedException,
+  UnprocessableEntityException,
+} from '@nestjs/common'
 
 export const OtpException = {
   Invalid: new UnprocessableEntityException([
@@ -253,6 +259,21 @@ export const ProductException = {
       code: 'ERROR.PRODUCT_FORBIDDEN',
       message: 'You do not have permission to manage this product',
     },
+  ]),
+}
+
+export const CartException = {
+  NotFoundSKU: new NotFoundException([
+    { path: 'skuId', code: 'ERROR.CART_SKU_NOT_FOUND', message: 'SKU is not exist' },
+  ]),
+  OutOfStockSKU: new BadRequestException([
+    { path: 'skuId', code: 'ERROR.CART_SKU_OUT_OF_STOCK', message: 'SKU is out of stock' },
+  ]),
+  ProductNotFound: new NotFoundException([
+    { path: 'productId', code: 'ERROR.CART_PRODUCT_NOT_FOUND', message: 'Product is not exist' },
+  ]),
+  NotFoundCartItem: new NotFoundException([
+    { path: 'cartItemId', code: 'ERROR.CART_ITEM_NOT_FOUND', message: 'Cart item is not exist' },
   ]),
 }
 

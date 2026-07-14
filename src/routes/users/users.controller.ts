@@ -8,7 +8,7 @@ import {
   UpdateUserBodyDto,
   UpdateUserResDto,
 } from './users.dto'
-import { QueryParamsDto } from '@/shared/dtos/request.dto'
+import { PaginationParamsDto } from '@/shared/dtos/request.dto'
 import { ZodSerializerDto } from 'nestjs-zod'
 import { ResponseMessage } from '@/shared/decorators/response-message.decorator'
 import { ActiveUser } from '@/shared/decorators/active-user.decorator'
@@ -28,7 +28,7 @@ export class UsersController {
   @Get()
   @ResponseMessage('Get list users successfully!')
   @ZodSerializerDto(GetUsersResDto)
-  getList(@Query() query: QueryParamsDto) {
+  getList(@Query() query: PaginationParamsDto) {
     return this.usersService.getList(query)
   }
 

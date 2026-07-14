@@ -7,9 +7,9 @@ import {
   GetProductDetailResType,
   GetProductsQueryType,
   GetProductsResType,
-  ProductType,
   UpdateProductBodyType,
 } from './product.model'
+import { ProductType } from '@/shared/models/product.model'
 
 const buildPublishedAtCondition = (isPublic?: boolean): Prisma.ProductWhereInput => {
   if (isPublic === true) {

@@ -24,6 +24,7 @@ import { ProfileModule } from './routes/profile/profile.module'
 import { SharedRolesRepository } from './shared/repository/shared-role.repo'
 import { UsersModule } from './routes/users/users.module'
 import { MediaModule } from './routes/media/media.module'
+import { CartModule } from './routes/cart/cart.module';
 
 @Module({
   imports: [
@@ -48,6 +49,7 @@ import { MediaModule } from './routes/media/media.module'
     ProfileModule,
     UsersModule,
     MediaModule,
+    CartModule,
   ],
   controllers: [AppController],
   providers: [

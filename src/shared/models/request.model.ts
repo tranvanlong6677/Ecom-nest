@@ -3,12 +3,11 @@ import { z } from 'zod'
 
 export const EmptyBodySchema = z.object({}).strict()
 
-export type EmptyBodyType = z.infer<typeof EmptyBodySchema>
-
-export const QueryParamsSchema = z.object({
+export const PaginationParamsSchema = z.object({
   page: z.coerce.number().int().positive().default(1),
   limit: z.coerce.number().int().positive().default(10),
-  sort: z.enum([Prisma.SortOrder.asc, Prisma.SortOrder.desc]).optional().default(Prisma.SortOrder.desc),
+  sort: z.enum([Prisma.SortOrder.asc, Prisma.SortOrder.desc]).optional().default(Prisma.SortOrder.desc).nullable(),
 })
 
-export type QueryParamsType = z.infer<typeof QueryParamsSchema>
+export type PaginationParamsType = z.infer<typeof PaginationParamsSchema>
+export type EmptyBodyType = z.infer<typeof EmptyBodySchema>

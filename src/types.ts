@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-namespace */
-import { VariantsType } from '@/routes/product/product.model'
+import { VariantsType } from '@/shared/models/product.model'
 
 declare global {
   namespace PrismaJson {

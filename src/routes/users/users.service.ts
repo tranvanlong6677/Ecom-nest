@@ -1,4 +1,4 @@
-import { QueryParamsType } from '@/shared/models/request.model'
+import { PaginationParamsType } from '@/shared/models/request.model'
 import { Injectable } from '@nestjs/common'
 import { UsersRepository } from './users.repo'
 import { isNotFoundPrismaError } from '@/shared/helper'
@@ -65,7 +65,7 @@ export class UsersService {
     }
   }
 
-  async getList(query: QueryParamsType) {
+  async getList(query: PaginationParamsType) {
     try {
       return await this.usersRepository.getList(query)
     } catch (error) {
