@@ -2,7 +2,7 @@ import { BrandIncludeTranslationSchema } from '@/shared/models/brand.model'
 import { CategoryIncludeTranslationSchema } from '@/shared/models/category.model'
 import { OrderBy, SortBy } from '@/shared/constants/other.constants'
 import { z } from 'zod'
-import { ProductTranslationSchema } from './product-translation/product-translation.model'
+import { ProductTranslationSchema } from '@/shared/models/product-translation.model'
 import { SKUSchema, SKUType, UpsertSKUBodySchema } from '@/shared/models/sku.model'
 import { ProductSchema, VariantsType } from '@/shared/models/product.model'
 

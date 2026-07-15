@@ -101,7 +101,7 @@ model User {
   updatedUserTranslations     UserTranslation[]     @relation("UserTranslationUpdatedBy")
   deletedUserTranslations     UserTranslation[]     @relation("UserTranslationDeletedBy")
   userTranslations            UserTranslation[]     @relation("User")
-
+  soldOrders                  Order[]               @relation("Shop")
   @@index([deletedAt])
 }
 
@@ -230,7 +230,7 @@ model Product {
   skus                SKU[]
   categories          Category[]           @relation("CategoryToProduct")
   orders              Order[]              @relation("OrderToProduct")
-
+  productSnapshots    ProductSKUSnapshot[]
   @@index([deletedAt])
 }
 
@@ -389,8 +389,12 @@ model ProductSKUSnapshot {
   skuId       Int?
   orderId     Int?
   createdAt   DateTime @default(now())
-  images      String[]
-  price       Float
+  image       String?
+  skuPrice    Float
+  quantity    Int
+  productId   Int?
+  product     Product? @relation(fields: [productId], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  productTranslations Json
   order       Order?   @relation(fields: [orderId], references: [id], onUpdate: NoAction)
   sku         SKU?     @relation(fields: [skuId], references: [id], onUpdate: NoAction)
 }
@@ -402,6 +406,9 @@ model Order {
   createdById Int?
   updatedById Int?
   deletedById Int?
+  receiver    Json
+  shopId      Int
+  shop        User                 @relation("Shop", fields: [shopId], references: [id], onDelete: SetNull, onUpdate: NoAction)
   deletedAt   DateTime?
   createdAt   DateTime             @default(now())
   updatedAt   DateTime             @updatedAt

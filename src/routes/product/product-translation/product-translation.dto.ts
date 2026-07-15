@@ -1,11 +1,11 @@
-import { createZodDto } from 'nestjs-zod'
 import {
   CreateProductTranslationBodySchema,
   DeleteProductTranslationQuerySchema,
   GetProductTranslationParamsSchema,
   ProductTranslationSchema,
   UpdateProductTranslationBodySchema,
-} from './product-translation.model'
+} from '@/shared/models/product-translation.model'
+import { createZodDto } from 'nestjs-zod'
 
 export class GetProductTranslationParamsDTO extends createZodDto(GetProductTranslationParamsSchema) {}
 

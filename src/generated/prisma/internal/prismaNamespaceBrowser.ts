@@ -352,8 +352,11 @@ export const ProductSKUSnapshotScalarFieldEnum = {
   skuId: 'skuId',
   orderId: 'orderId',
   createdAt: 'createdAt',
-  images: 'images',
-  price: 'price'
+  image: 'image',
+  skuPrice: 'skuPrice',
+  quantity: 'quantity',
+  productId: 'productId',
+  productTranslations: 'productTranslations'
 } as const
 
 export type ProductSKUSnapshotScalarFieldEnum = (typeof ProductSKUSnapshotScalarFieldEnum)[keyof typeof ProductSKUSnapshotScalarFieldEnum]
@@ -366,6 +369,8 @@ export const OrderScalarFieldEnum = {
   createdById: 'createdById',
   updatedById: 'updatedById',
   deletedById: 'deletedById',
+  receiver: 'receiver',
+  shopId: 'shopId',
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

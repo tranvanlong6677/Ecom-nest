@@ -4,7 +4,7 @@ import {
   CreateProductTranslationBodyType,
   ProductTranslationType,
   UpdateProductTranslationBodyType,
-} from './product-translation.model'
+} from '@/shared/models/product-translation.model'
 
 @Injectable()
 export class ProductTranslationRepo {

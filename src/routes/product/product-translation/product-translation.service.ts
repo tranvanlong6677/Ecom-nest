@@ -2,7 +2,10 @@ import { Injectable } from '@nestjs/common'
 import { isForeignKeyConstraintPrismaError, isNotFoundPrismaError } from '@/shared/helper'
 import { ProductTranslationException } from '@/shared/models/error.model'
 import { ProductTranslationRepo } from './product-translation.repo'
-import { CreateProductTranslationBodyType, UpdateProductTranslationBodyType } from './product-translation.model'
+import {
+  CreateProductTranslationBodyType,
+  UpdateProductTranslationBodyType,
+} from '@/shared/models/product-translation.model'
 
 @Injectable()
 export class ProductTranslationService {
