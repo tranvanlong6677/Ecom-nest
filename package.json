@@ -20,7 +20,8 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "init-seed-data": "npx tsx initialScript",
     "create-permissions": "npx tsx initialScript/create-permissions.ts",
-    "create-categories": "npx tsx initialScript/create-categories.ts"
+    "create-categories": "npx tsx initialScript/create-categories.ts",
+    "create-fake-data": "npx tsx initialScript/create-fake-data.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1084.0",

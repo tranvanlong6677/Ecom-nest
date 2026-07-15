@@ -380,6 +380,7 @@ model CartItem {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
   @@index([userId])
+  @@unique([userId, skuId])
 }
 
 model ProductSKUSnapshot {
@@ -477,7 +478,7 @@ model UserProvider {
 }
 
 enum OrderStatus {
-  PENDING_CONFIRMATION
+  PENDING_PAYMENT
   PENDING_PICKUP
   PENDING_DELIVERY
   DELIVERED

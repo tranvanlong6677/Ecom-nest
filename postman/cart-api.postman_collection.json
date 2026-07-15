@@ -1,0 +1,98 @@
+{
+  "info": {
+    "name": "Cart API",
+    "description": "Cart endpoints (GET/POST/PUT/DELETE /cart). Yêu cầu Bearer token hợp lệ và role có permission tương ứng với path/method (xem AccessTokenGuard).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{access_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "Cart",
+      "item": [
+        {
+          "name": "Get Cart",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{host}}/cart?page=1&limit=10",
+              "host": ["{{host}}"],
+              "path": ["cart"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "10" }
+              ]
+            },
+            "description": "Trả về danh sách cart item, nhóm theo shop (createdById), phân trang theo số nhóm shop."
+          }
+        },
+        {
+          "name": "Add To Cart",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"skuId\": 1,\n  \"quantity\": 2\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{host}}/cart",
+              "host": ["{{host}}"],
+              "path": ["cart"]
+            }
+          }
+        },
+        {
+          "name": "Update Cart Item",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"skuId\": 1,\n  \"quantity\": 3\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{host}}/cart/1",
+              "host": ["{{host}}"],
+              "path": ["cart", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Cart Items",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cartItemIds\": [1, 2]\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{host}}/cart",
+              "host": ["{{host}}"],
+              "path": ["cart"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -8,20 +8,30 @@ export class CartService {
   constructor(private readonly cartRepo: CartRepo) {}
 
   async getCart(userId: number, query: PaginationParamsDto) {
-    return this.cartRepo.list2({
-      userId,
-      languageId: I18nContext.current()?.lang as string,
-      page: query.page,
-      limit: query.limit,
-    })
+    try {
+      return await this.cartRepo.list2({
+        userId,
+        languageId: I18nContext.current()?.lang as string,
+        page: query.page,
+        limit: query.limit,
+      })
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
   }
 
   addToCart(userId: number, body: AddCartBodyType) {
-    return this.cartRepo.create({ data: body, userId })
+    return this.cartRepo.create({ data: body, userId, languageId: I18nContext.current()?.lang as string })
   }
 
   updateCartItem(cartItemId: number, body: UpdateCartBodyType, userId: number) {
-    return this.cartRepo.update({ data: body, cartItemId, userId })
+    return this.cartRepo.update({
+      data: body,
+      cartItemId,
+      userId,
+      languageId: I18nContext.current()?.lang as string,
+    })
   }
 
   async deleteCart(userId: number, body: DeleteCartBodyType) {

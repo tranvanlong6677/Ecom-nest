@@ -17,23 +17,11 @@ export const GetCartItemParamsSchema = z.object({
   cartItemId: z.coerce.number().int().positive(),
 })
 
-export const CartItemDetailSchema = z.object({
-  shop: UserSchema.pick({ id: true, name: true, avatar: true }),
-  cartItems: z.array(
-    CartItemSchema.extend({
-      sku: SKUSchema.extend({
-        product: ProductSchema.extend({
-          productTranslations: z.array(
-            ProductTranslationSchema.omit({
-              createdById: true,
-              updatedById: true,
-              deletedById: true,
-              deletedAt: true,
-              createdAt: true,
-              updatedAt: true,
-            }),
-          ),
-        }).omit({
+export const CartItemWithSKUSchema = CartItemSchema.extend({
+  sku: SKUSchema.extend({
+    product: ProductSchema.extend({
+      productTranslations: z.array(
+        ProductTranslationSchema.omit({
           createdById: true,
           updatedById: true,
           deletedById: true,
@@ -41,16 +29,28 @@ export const CartItemDetailSchema = z.object({
           createdAt: true,
           updatedAt: true,
         }),
-      }).omit({
-        createdById: true,
-        updatedById: true,
-        deletedById: true,
-        deletedAt: true,
-        createdAt: true,
-        updatedAt: true,
-      }),
+      ),
+    }).omit({
+      createdById: true,
+      updatedById: true,
+      deletedById: true,
+      deletedAt: true,
+      createdAt: true,
+      updatedAt: true,
     }),
-  ),
+  }).omit({
+    createdById: true,
+    updatedById: true,
+    deletedById: true,
+    deletedAt: true,
+    createdAt: true,
+    updatedAt: true,
+  }),
+})
+
+export const CartItemDetailSchema = z.object({
+  shop: UserSchema.pick({ id: true, name: true, avatar: true }),
+  cartItems: z.array(CartItemWithSKUSchema),
 })
 
 export const GetCartResSchema = z.object({
@@ -68,7 +68,7 @@ export const AddCartBodySchema = CartItemSchema.pick({
 
 export const UpdateCartBodySchema = AddCartBodySchema
 
-export const UpdateCartResSchema = CartItemDetailSchema
+export const UpdateCartResSchema = CartItemWithSKUSchema
 
 export const DeleteCartBodySchema = z
   .object({
@@ -76,13 +76,15 @@ export const DeleteCartBodySchema = z
   })
   .strict()
 
-export const AddCartResSchema = CartItemDetailSchema
+export const AddCartResSchema = CartItemWithSKUSchema
 
 export type GetCartItemParamsType = z.infer<typeof GetCartItemParamsSchema>
 export type AddCartBodyType = z.infer<typeof AddCartBodySchema>
 export type UpdateCartBodyType = z.infer<typeof UpdateCartBodySchema>
+export type AddCartResType = z.infer<typeof AddCartResSchema>
 export type UpdateCartResType = z.infer<typeof UpdateCartResSchema>
 export type DeleteCartBodyType = z.infer<typeof DeleteCartBodySchema>
 export type CartItemType = z.infer<typeof CartItemSchema>
+export type CartItemWithSKUType = z.infer<typeof CartItemWithSKUSchema>
 export type CartItemDetailType = z.infer<typeof CartItemDetailSchema>
 export type GetCartResType = z.infer<typeof GetCartResSchema>

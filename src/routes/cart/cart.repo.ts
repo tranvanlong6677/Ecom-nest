@@ -2,8 +2,28 @@ import { Injectable } from '@nestjs/common'
 import { PrismaService } from '@/shared/services/prisma.service'
 import { CartException } from '@/shared/models/error.model'
 import { ALL_LANGUAGE_CODE } from '@/shared/constants/other.constants'
-import { AddCartBodyType, CartItemDetailType, GetCartResType, UpdateCartBodyType } from './cart.model'
+import {
+  AddCartBodyType,
+  CartItemDetailType,
+  CartItemWithSKUType,
+  GetCartResType,
+  UpdateCartBodyType,
+} from './cart.model'
 import { Prisma } from '@/generated/prisma/client'
+
+// jsonb_build_object trả timestamp dưới dạng ISO string, không phải Date như Prisma ORM,
+// nên cần khai báo riêng kiểu thô rồi convert lại đúng CartItemDetailType trước khi trả về.
+type RawCartItemDetail = Omit<CartItemDetailType, 'cartItems'> & {
+  cartItems: (Omit<CartItemDetailType['cartItems'][number], 'createdAt' | 'updatedAt' | 'sku'> & {
+    createdAt: string
+    updatedAt: string
+    sku: Omit<CartItemDetailType['cartItems'][number]['sku'], 'product'> & {
+      product: Omit<CartItemDetailType['cartItems'][number]['sku']['product'], 'publishedAt'> & {
+        publishedAt: string | null
+      }
+    }
+  })[]
+}
 
 @Injectable()
 export class CartRepo {
@@ -40,6 +60,31 @@ export class CartRepo {
     }
 
     return sku
+  }
+
+  private findCartItemWithSKU({
+    cartItemId,
+    languageId,
+  }: {
+    cartItemId: number
+    languageId: string
+  }): Promise<CartItemWithSKUType> {
+    return this.prismaService.cartItem.findUniqueOrThrow({
+      where: { id: cartItemId },
+      include: {
+        sku: {
+          include: {
+            product: {
+              include: {
+                productTranslations: {
+                  where: { languageId: languageId === ALL_LANGUAGE_CODE ? undefined : languageId, deletedAt: null },
+                },
+              },
+            },
+          },
+        },
+      },
+    })
   }
 
   async list({
@@ -127,7 +172,7 @@ export class CartRepo {
         AND "Product"."publishedAt" <= NOW()
       GROUP BY "Product"."createdById"
     `
-    const data$ = this.prismaService.$queryRaw<CartItemDetailType[]>`
+    const data$ = this.prismaService.$queryRaw<RawCartItemDetail[]>`
      SELECT
        "Product"."createdById",
        json_agg(
@@ -194,7 +239,24 @@ export class CartRepo {
       LIMIT ${take} 
       OFFSET ${skip}
    `
-    const [data, totalItems] = await Promise.all([data$, totalItems$])
+    const [rawData, totalItems] = await Promise.all([data$, totalItems$])
+
+    const data: CartItemDetailType[] = rawData.map((group) => ({
+      ...group,
+      cartItems: group.cartItems.map((item) => ({
+        ...item,
+        createdAt: new Date(item.createdAt),
+        updatedAt: new Date(item.updatedAt),
+        sku: {
+          ...item.sku,
+          product: {
+            ...item.sku.product,
+            publishedAt: item.sku.product.publishedAt ? new Date(item.sku.product.publishedAt) : null,
+          },
+        },
+      })),
+    }))
+
     return {
       data,
       page,
@@ -204,19 +266,48 @@ export class CartRepo {
     }
   }
 
-  async create({ data, userId }: { data: AddCartBodyType; userId: number }) {
+  async create({
+    data,
+    userId,
+    languageId,
+  }: {
+    data: AddCartBodyType
+    userId: number
+    languageId: string
+  }): Promise<CartItemWithSKUType> {
     await this.validateSKU({ skuId: data.skuId, quantity: data.quantity })
-    return await this.prismaService.cartItem.create({
-      data: {
+    const cartItem = await this.prismaService.cartItem.upsert({
+      where: {
+        userId_skuId: {
+          userId,
+          skuId: data.skuId,
+        },
+      },
+      update: {
+        quantity: { increment: data.quantity },
+        updatedAt: new Date(),
+      },
+      create: {
         ...data,
         userId,
         updatedAt: new Date(),
         createdAt: new Date(),
       },
     })
+    return this.findCartItemWithSKU({ cartItemId: cartItem.id, languageId })
   }
 
-  async update({ data, cartItemId, userId }: { data: UpdateCartBodyType; cartItemId: number; userId: number }) {
+  async update({
+    data,
+    cartItemId,
+    userId,
+    languageId,
+  }: {
+    data: UpdateCartBodyType
+    cartItemId: number
+    userId: number
+    languageId: string
+  }): Promise<CartItemWithSKUType> {
     const cartItem = await this.prismaService.cartItem.findUnique({
       where: { id: cartItemId },
     })
@@ -225,7 +316,7 @@ export class CartRepo {
     }
 
     await this.validateSKU({ skuId: data.skuId, quantity: data.quantity })
-    return await this.prismaService.cartItem.update({
+    const updated = await this.prismaService.cartItem.update({
       where: {
         id: cartItemId,
         userId,
@@ -235,6 +326,7 @@ export class CartRepo {
         updatedAt: new Date(),
       },
     })
+    return this.findCartItemWithSKU({ cartItemId: updated.id, languageId })
   }
 
   async delete({ userId, cartItemIds }: { userId: number; cartItemIds: number[] }) {
