@@ -25,6 +25,7 @@ import { SharedRolesRepository } from './shared/repository/shared-role.repo'
 import { UsersModule } from './routes/users/users.module'
 import { MediaModule } from './routes/media/media.module'
 import { CartModule } from './routes/cart/cart.module';
+import { OrderModule } from './routes/order/order.module'
 
 @Module({
   imports: [
@@ -50,6 +51,7 @@ import { CartModule } from './routes/cart/cart.module';
     UsersModule,
     MediaModule,
     CartModule,
+    OrderModule,
   ],
   controllers: [AppController],
   providers: [

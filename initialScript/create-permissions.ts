@@ -103,8 +103,8 @@ async function bootstrap() {
     })
   }
 
-  const SellerModule = ['AUTH', 'MEDIA', 'MANAGE-PRODUCT', 'PRODUCT-TRANSLATIONS', 'PROFILE']
-  const ClientModule = ['AUTH', 'PROFILE', 'CART']
+  const SellerModule = ['AUTH', 'MEDIA', 'MANAGE-PRODUCT', 'PRODUCT-TRANSLATIONS', 'PROFILE', 'ORDERS']
+  const ClientModule = ['AUTH', 'PROFILE', 'CART', 'ORDERS']
 
   const adminPermissionIds = updatedPermissionsInDb.map((item) => ({ id: item.id }))
   const sellerPermissionIds = updatedPermissionsInDb
