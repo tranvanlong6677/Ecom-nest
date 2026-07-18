@@ -14,4 +14,11 @@ export const OrderException = {
   SKUNotBelongToShop: new BadRequestException([
     { path: 'cartItemIds', code: 'ERROR.ORDER_SKU_NOT_BELONG_TO_SHOP', message: 'SKU does not belong to this shop' },
   ]),
+  CannotCancelOrder: new BadRequestException([
+    {
+      path: 'orderId',
+      code: 'ERROR.ORDER_CANNOT_CANCEL',
+      message: 'Only orders pending payment can be cancelled',
+    },
+  ]),
 }

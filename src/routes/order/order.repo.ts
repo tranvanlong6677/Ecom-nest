@@ -3,6 +3,7 @@ import { PrismaService } from '@/shared/services/prisma.service'
 import { OrderStatus, Prisma } from '@/generated/prisma/client'
 import { CreateOrderBodyType, GetOrderListQueryType, GetOrderListResType } from './order.model'
 import { OrderException } from './order.error'
+import { isNotFoundPrismaError } from '@/shared/helper'
 
 @Injectable()
 export class OrderRepo {
@@ -136,5 +137,36 @@ export class OrderRepo {
     })
 
     return { data: orders }
+  }
+
+  async detail(userId: number, orderId: number) {
+    const order = await this.prismaService.order.findUnique({
+      where: { id: orderId, userId, deletedAt: null },
+      include: { items: true },
+    })
+    if (!order) {
+      throw OrderException.NotFound
+    }
+    return order
+  }
+
+  async cancel(userId: number, orderId: number) {
+    try {
+      const order = await this.prismaService.order.findUniqueOrThrow({
+        where: { id: orderId, userId, deletedAt: null },
+      })
+      if (order.status !== OrderStatus.PENDING_PAYMENT) {
+        throw OrderException.CannotCancelOrder
+      }
+      return await this.prismaService.order.update({
+        where: { id: orderId, userId, deletedAt: null },
+        data: { status: OrderStatus.CANCELLED, updatedById: userId },
+      })
+    } catch (error) {
+      if (isNotFoundPrismaError(error)) {
+        throw OrderException.NotFound
+      }
+      throw error
+    }
   }
 }

@@ -13,4 +13,12 @@ export class OrderService {
   create({ userId, data }: { userId: number; data: CreateOrderBodyType }) {
     return this.orderRepo.createOrder({ userId, data })
   }
+
+  detail(userId: number, orderId: number) {
+    return this.orderRepo.detail(userId, orderId)
+  }
+
+  cancel(userId: number, orderId: number) {
+    return this.orderRepo.cancel(userId, orderId)
+  }
 }

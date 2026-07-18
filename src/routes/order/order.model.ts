@@ -104,6 +104,8 @@ export const CreateOrderResSchema = z.object({
   ),
 })
 
+export const CancelOrderBodySchema = z.object({}).strict()
+
 export const CancelOrderResSchema = OrderSchema
 
 export type OrderStatusZodType = z.infer<typeof OrderStatusSchema>
@@ -117,4 +119,5 @@ export type GetOrderDetailResType = z.infer<typeof GetOrderDetailResSchema>
 export type CreateOrderItemType = z.infer<typeof CreateOrderItemSchema>
 export type CreateOrderBodyType = z.infer<typeof CreateOrderBodySchema>
 export type CreateOrderResType = z.infer<typeof CreateOrderResSchema>
+export type CancelOrderBodyType = z.infer<typeof CancelOrderBodySchema>
 export type CancelOrderResType = z.infer<typeof CancelOrderResSchema>

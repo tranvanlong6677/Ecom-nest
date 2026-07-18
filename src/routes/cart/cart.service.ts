@@ -25,7 +25,7 @@ export class CartService {
     return this.cartRepo.create({ data: body, userId, languageId: I18nContext.current()?.lang as string })
   }
 
-  updateCartItem(cartItemId: number, body: UpdateCartBodyType, userId: number) {
+  updateCartItem({ userId, cartItemId, body }: { userId: number; cartItemId: number; body: UpdateCartBodyType }) {
     return this.cartRepo.update({
       data: body,
       cartItemId,
