@@ -26,6 +26,7 @@ import { UsersModule } from './routes/users/users.module'
 import { MediaModule } from './routes/media/media.module'
 import { CartModule } from './routes/cart/cart.module';
 import { OrderModule } from './routes/order/order.module'
+import { PaymentModule } from './routes/payment/payment.module'
 
 @Module({
   imports: [
@@ -52,6 +53,7 @@ import { OrderModule } from './routes/order/order.module'
     MediaModule,
     CartModule,
     OrderModule,
+    PaymentModule
   ],
   controllers: [AppController],
   providers: [
@@ -78,4 +80,4 @@ import { OrderModule } from './routes/order/order.module'
     },
   ],
 })
-export class AppModule {}
+export class AppModule { }

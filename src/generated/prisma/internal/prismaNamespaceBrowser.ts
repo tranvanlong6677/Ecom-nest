@@ -70,6 +70,7 @@ export const ModelName = {
   ProductSKUSnapshot: 'ProductSKUSnapshot',
   Order: 'Order',
   Review: 'Review',
+  Payment: 'Payment',
   PaymentTransaction: 'PaymentTransaction',
   Message: 'Message',
   UserProvider: 'UserProvider'
@@ -371,6 +372,7 @@ export const OrderScalarFieldEnum = {
   deletedById: 'deletedById',
   receiver: 'receiver',
   shopId: 'shopId',
+  paymentId: 'paymentId',
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -390,6 +392,16 @@ export const ReviewScalarFieldEnum = {
 } as const
 
 export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum]
+
+
+export const PaymentScalarFieldEnum = {
+  id: 'id',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
 
 
 export const PaymentTransactionScalarFieldEnum = {

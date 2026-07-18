@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { PaginationParamsSchema } from '@/shared/models/request.model'
 import { ProductTranslationSchema } from '@/shared/models/product-translation.model'
-import { OrderStatus } from './order.constant'
+import { OrderStatus } from '../../routes/order/order.constant'
 
 export const OrderStatusSchema = z.enum([
   OrderStatus.PENDING_PAYMENT,
@@ -24,6 +24,7 @@ export const OrderSchema = z.object({
   status: OrderStatusSchema,
   receiver: ReceiverSchema,
   shopId: z.number(),
+  paymentId: z.number(),
   createdById: z.number().nullable(),
   updatedById: z.number().nullable(),
   deletedById: z.number().nullable(),
@@ -108,6 +109,11 @@ export const CancelOrderBodySchema = z.object({}).strict()
 
 export const CancelOrderResSchema = OrderSchema
 
+export const OrderIncludeProductSKUSnapshotSchema = OrderSchema.extend({
+  items: z.array(ProductSKUSnapshotSchema),
+})
+
+export type OrderIncludeProductSKUSnapshotType = z.infer<typeof OrderIncludeProductSKUSnapshotSchema>
 export type OrderStatusZodType = z.infer<typeof OrderStatusSchema>
 export type ReceiverType = z.infer<typeof ReceiverSchema>
 export type OrderType = z.infer<typeof OrderSchema>

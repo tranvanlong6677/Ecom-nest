@@ -326,3 +326,9 @@ export const RoleException = {
     { path: 'id', code: 'ERROR.ROLE_ADMIN_CANNOT_BE_UPDATED', message: 'Admin role cannot be updated' },
   ]),
 }
+
+export const PaymentException = {
+  CannotGetPaymentId: new BadRequestException('Cannot get payment id information'),
+  NotFoundPayment: new NotFoundException('Payment is not exist'),
+  TotalPriceNotMatch: new BadRequestException('Total price is not match'),
+}

@@ -10,3 +10,5 @@ export const SortBy = {
   CreatedAt: 'createdAt',
   Sale: 'sale',
 } as const
+
+export const PREFIX_PAYMENT_CODE = 'DH'

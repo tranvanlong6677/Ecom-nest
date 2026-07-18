@@ -410,6 +410,8 @@ model Order {
   receiver    Json
   shopId      Int
   shop        User                 @relation("Shop", fields: [shopId], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  paymentId   Int
+  payment     Payment?             @relation(fields: [paymentId], references: [id], onUpdate: NoAction)
   deletedAt   DateTime?
   createdAt   DateTime             @default(now())
   updatedAt   DateTime             @updatedAt
@@ -436,11 +438,25 @@ model Review {
   user      User     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+  FAILED
+}
+
+model Payment {
+  id        Int           @id @default(autoincrement())
+  orders    Order[]
+  status    PaymentStatus
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+}
+
 model PaymentTransaction {
   id                 Int      @id @default(autoincrement())
   gateway            String   @db.VarChar(100)
   transactionDate    DateTime @default(now())
-  accountNumber      String   @db.VarChar(100)
+  accountNumber      String?  @db.VarChar(100)
   subAccount         String?  @db.VarChar(250)
   amountIn           Int      @default(0)
   amountOut          Int      @default(0)
@@ -478,12 +494,12 @@ model UserProvider {
 }
 
 enum OrderStatus {
-  PENDING_PAYMENT
-  PENDING_PICKUP
-  PENDING_DELIVERY
-  DELIVERED
-  RETURNED
-  CANCELLED
+  PENDING_PAYMENT //chờ người mua thanh toán
+  PENDING_PICKUP //chờ bên giao hàng đến lấy hàng
+  PENDING_DELIVERY //chờ bên giao hàng giao hàng
+  DELIVERED //đã giao hàng
+  RETURNED //đã trả hàng
+  CANCELLED //đơn hàng bị hủy
 }
 
 enum VerificationCodeType {

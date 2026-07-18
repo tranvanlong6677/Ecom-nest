@@ -1,0 +1,5 @@
+{
+  "files.watcherExclude": { "**/src/generated/**": true },
+  "search.exclude": { "**/src/generated": true },
+  "typescript.tsserver.exclude": ["**/src/generated/**"]
+}

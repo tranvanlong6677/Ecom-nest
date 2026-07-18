@@ -26,6 +26,7 @@
       "@/*": ["src/*"]
     }
   },
+  "exclude": ["node_modules", "dist", "src/generated"],
   "ts-node": {
     "require": ["tsconfig-paths/register"]
   }

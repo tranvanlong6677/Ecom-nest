@@ -28,7 +28,7 @@ type RawCartItemDetail = Omit<CartItemDetailType, 'cartItems'> & {
 
 @Injectable()
 export class CartRepo {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(private readonly prismaService: PrismaService) { }
 
   private validateSKU = async ({
     skuId,

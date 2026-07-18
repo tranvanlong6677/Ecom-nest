@@ -8,13 +8,13 @@ import {
   GetOrderListQuerySchema,
   GetOrderListResSchema,
   GetOrderParamsSchema,
-} from './order.model'
+} from '../../shared/models/order.model'
 
-export class GetOrderListQueryDTO extends createZodDto(GetOrderListQuerySchema) {}
-export class GetOrderListResDTO extends createZodDto(GetOrderListResSchema) {}
-export class GetOrderParamsDTO extends createZodDto(GetOrderParamsSchema) {}
-export class GetOrderDetailResDTO extends createZodDto(GetOrderDetailResSchema) {}
-export class CreateOrderBodyDTO extends createZodDto(CreateOrderBodySchema) {}
-export class CreateOrderResDTO extends createZodDto(CreateOrderResSchema) {}
-export class CancelOrderBodyDTO extends createZodDto(CancelOrderBodySchema) {}
-export class CancelOrderResDTO extends createZodDto(CancelOrderResSchema) {}
+export class GetOrderListQueryDTO extends createZodDto(GetOrderListQuerySchema) { }
+export class GetOrderListResDTO extends createZodDto(GetOrderListResSchema) { }
+export class GetOrderParamsDTO extends createZodDto(GetOrderParamsSchema) { }
+export class GetOrderDetailResDTO extends createZodDto(GetOrderDetailResSchema) { }
+export class CreateOrderBodyDTO extends createZodDto(CreateOrderBodySchema) { }
+export class CreateOrderResDTO extends createZodDto(CreateOrderResSchema) { }
+export class CancelOrderBodyDTO extends createZodDto(CancelOrderBodySchema) { }
+export class CancelOrderResDTO extends createZodDto(CancelOrderResSchema) { }

@@ -113,6 +113,11 @@ export type Order = Prisma.OrderModel
  */
 export type Review = Prisma.ReviewModel
 /**
+ * Model Payment
+ * 
+ */
+export type Payment = Prisma.PaymentModel
+/**
  * Model PaymentTransaction
  * 
  */

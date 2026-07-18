@@ -1,13 +1,14 @@
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from '@/shared/services/prisma.service'
 import { OrderStatus, Prisma } from '@/generated/prisma/client'
-import { CreateOrderBodyType, GetOrderListQueryType, GetOrderListResType } from './order.model'
+import { CreateOrderBodyType, GetOrderListQueryType, GetOrderListResType } from '../../shared/models/order.model'
 import { OrderException } from './order.error'
 import { isNotFoundPrismaError } from '@/shared/helper'
+import { PaymentStatus } from '@/shared/constants/payment.constant'
 
 @Injectable()
 export class OrderRepo {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(private readonly prismaService: PrismaService) { }
 
   async list(userId: number, query: GetOrderListQueryType): Promise<GetOrderListResType> {
     const { page, limit, status } = query
@@ -94,10 +95,16 @@ export class OrderRepo {
 
     // Bước 5: tạo order (kèm snapshot sản phẩm/SKU) và xóa cartItem trong 1 transaction
     const orders = await this.prismaService.$transaction(async (tx) => {
-      const createdOrders = await Promise.all(
+      const payment = await tx.payment.create({
+        data: {
+          status: PaymentStatus.PENDING,
+        }
+      })
+      const createdOrders$ = Promise.all(
         data.map((orderItem) =>
           tx.order.create({
             data: {
+              paymentId: payment.id,
               userId,
               shopId: orderItem.shopId,
               receiver: orderItem.receiver,
@@ -129,10 +136,19 @@ export class OrderRepo {
         ),
       )
 
-      await tx.cartItem.deleteMany({
+      const deletedCartItems$ = tx.cartItem.deleteMany({
         where: { id: { in: allBodyCartItemIds } },
       })
 
+      const sku$ = Promise.all(cartItems.map((cartItem) => tx.sKU.update({
+        where: { id: cartItem.skuId },
+        data: {
+          stock: {
+            decrement: cartItem.quantity,
+          }
+        },
+      })))
+      const [createdOrders, ,] = await Promise.all([createdOrders$, deletedCartItems$, sku$])
       return createdOrders
     })
 

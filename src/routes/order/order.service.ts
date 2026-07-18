@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common'
 import { OrderRepo } from './order.repo'
-import { CreateOrderBodyType, GetOrderListQueryType } from './order.model'
+import { CreateOrderBodyType, GetOrderListQueryType } from '../../shared/models/order.model'
 
 @Injectable()
 export class OrderService {
-  constructor(private readonly orderRepo: OrderRepo) {}
+  constructor(private readonly orderRepo: OrderRepo) { }
 
   list(userId: number, query: GetOrderListQueryType) {
     return this.orderRepo.list(userId, query)
