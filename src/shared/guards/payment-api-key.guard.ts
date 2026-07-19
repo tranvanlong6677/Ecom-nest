@@ -3,12 +3,12 @@ import type { Request } from 'express'
 import envConfig from '@/shared/config'
 
 @Injectable()
-export class ApiKeyGuard implements CanActivate {
+export class PaymentApiKeyGuard implements CanActivate {
   canActivate(context: ExecutionContext): boolean {
     const request = context.switchToHttp().getRequest<Request>()
-    const apiKey = request.headers['x-api-key']
+    const apiKey = request.headers['payment-api-key']
 
-    if (apiKey !== envConfig.SECRET_API_KEY) {
+    if (apiKey !== envConfig.PAYMENT_API_KEY) {
       throw new UnauthorizedException('Invalid API key')
     }
 

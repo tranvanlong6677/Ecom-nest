@@ -1,6 +1,6 @@
 export enum AuthType {
   Bearer = 'Bearer',
-  APIKey = 'APIKey',
+  PaymentAPIKey = 'PaymentAPIKey',
   None = 'None',
 }
 

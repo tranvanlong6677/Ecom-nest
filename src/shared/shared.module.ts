@@ -2,7 +2,7 @@ import { Global, Module } from '@nestjs/common'
 import { APP_GUARD } from '@nestjs/core'
 import { JwtModule } from '@nestjs/jwt'
 import { AccessTokenGuard } from '@/shared/guards/access-token.guard'
-import { ApiKeyGuard } from '@/shared/guards/api-key.guard'
+import { PaymentApiKeyGuard } from '@/shared/guards/payment-api-key.guard'
 import { AuthGuard } from '@/shared/guards/auth.guard'
 import { HashingService } from '@/shared/services/hashing.service'
 import { JwtService } from '@/shared/services/jwt.service'
@@ -25,7 +25,7 @@ const sharedTasks = [CleanupTask]
     ...sharedRepos,
     ...sharedTasks,
     AccessTokenGuard,
-    ApiKeyGuard,
+    PaymentApiKeyGuard,
     { provide: APP_GUARD, useClass: AuthGuard },
   ],
   exports: [...sharedServices, ...sharedRepos],

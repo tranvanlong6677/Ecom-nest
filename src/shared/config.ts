@@ -17,7 +17,7 @@ const configSchema = z
     ACCESS_TOKEN_EXPIRES_IN: z.string(),
     REFRESH_TOKEN_SECRET: z.string(),
     REFRESH_TOKEN_EXPIRES_IN: z.string(),
-    SECRET_API_KEY: z.string(),
+    PAYMENT_API_KEY: z.string(),
     PORT: z.string().optional().default('8000'),
     APP_NAME: z.string(),
     APP_URL: z.string(),
