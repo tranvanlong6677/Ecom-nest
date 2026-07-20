@@ -16,3 +16,7 @@ export function isForeignKeyConstraintPrismaError(error: any): error is Prisma.P
 export const generateOTP = () => {
   return String(randomInt(100000, 1000000))
 }
+
+export const generateCancelPaymentID = (paymentId: number) => {
+  return `payment-${paymentId}`
+}

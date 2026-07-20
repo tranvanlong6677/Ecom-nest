@@ -11,7 +11,7 @@ import { OrderStatus } from '../order/order.constant'
 
 @Injectable()
 export class PaymentRepository {
-  constructor(private readonly prismaService: PrismaService) { }
+  constructor(private readonly prismaService: PrismaService) {}
   private getTotalPrice(orders: OrderIncludeProductSKUSnapshotType[]) {
     const ordersPrice = orders.reduce((acc, order) => {
       const orderPrice = order.items.reduce((totalPrice, productSku) => {
@@ -21,7 +21,11 @@ export class PaymentRepository {
     }, 0)
     return ordersPrice
   }
-  async receiver(data: WebhookPaymentBodyType): Promise<MessageResType> {
+  async receiver(data: WebhookPaymentBodyType): Promise<
+    MessageResType & {
+      paymentId: number
+    }
+  > {
     //   1: Thêm thông tin giao dịch vào DB
     let amountIn = 0
     let amountOut = 0
@@ -81,21 +85,21 @@ export class PaymentRepository {
     await this.prismaService.$transaction([
       this.prismaService.payment.update({
         where: {
-          id: paymentId
+          id: paymentId,
         },
         data: {
-          status: PaymentStatus.SUCCESS
-        }
+          status: PaymentStatus.SUCCESS,
+        },
       }),
       this.prismaService.order.updateMany({
         where: {
-          id: { in: orders.map((order) => order.id) }
+          id: { in: orders.map((order) => order.id) },
         },
         data: {
-          status: OrderStatus.PENDING_PICKUP
-        }
-      })
+          status: OrderStatus.PENDING_PICKUP,
+        },
+      }),
     ])
-    return { message: 'Payment data received successfully' }
+    return { message: 'Payment data received successfully', paymentId }
   }
 }

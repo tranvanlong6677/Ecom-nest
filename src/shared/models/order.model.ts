@@ -98,11 +98,12 @@ export const CreateOrderItemSchema = z.object({
 export const CreateOrderBodySchema = z.array(CreateOrderItemSchema).min(1, 'Phải có ít nhất 1 đơn hàng')
 
 export const CreateOrderResSchema = z.object({
-  data: z.array(
+  orders: z.array(
     OrderSchema.extend({
       items: z.array(ProductSKUSnapshotSchema),
     }),
   ),
+  paymentId: z.number(),
 })
 
 export const CancelOrderBodySchema = z.object({}).strict()

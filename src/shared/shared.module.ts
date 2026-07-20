@@ -13,17 +13,25 @@ import { S3Service } from '@/shared/services/s3.service'
 import { SharedUserRepository } from '@/shared/repository/shared-user.repo'
 import { CleanupTask } from '@/shared/tasks/cleanup.task'
 import { TotpService } from './services/totp.service'
+import { SharedPaymentRepository } from './repository/shared-payment.repo'
 
-const sharedServices = [PrismaService, HashingService, JwtService, TokenService, EmailService, TotpService, S3Service]
-const sharedRepos = [SharedUserRepository]
-const sharedTasks = [CleanupTask]
+const sharedServices = [
+  PrismaService,
+  HashingService,
+  JwtService,
+  TokenService,
+  EmailService,
+  TotpService,
+  S3Service,
+  CleanupTask,
+]
+const sharedRepos = [SharedUserRepository, SharedPaymentRepository]
 @Global()
 @Module({
   imports: [JwtModule.register({})],
   providers: [
     ...sharedServices,
     ...sharedRepos,
-    ...sharedTasks,
     AccessTokenGuard,
     PaymentApiKeyGuard,
     { provide: APP_GUARD, useClass: AuthGuard },

@@ -1,14 +1,19 @@
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from '@/shared/services/prisma.service'
 import { OrderStatus, Prisma } from '@/generated/prisma/client'
-import { CreateOrderBodyType, GetOrderListQueryType, GetOrderListResType } from '../../shared/models/order.model'
+import {
+  CreateOrderBodyType,
+  CreateOrderResType,
+  GetOrderListQueryType,
+  GetOrderListResType,
+} from '../../shared/models/order.model'
 import { OrderException } from './order.error'
 import { isNotFoundPrismaError } from '@/shared/helper'
 import { PaymentStatus } from '@/shared/constants/payment.constant'
 
 @Injectable()
 export class OrderRepo {
-  constructor(private readonly prismaService: PrismaService) { }
+  constructor(private readonly prismaService: PrismaService) {}
 
   async list(userId: number, query: GetOrderListQueryType): Promise<GetOrderListResType> {
     const { page, limit, status } = query
@@ -36,7 +41,13 @@ export class OrderRepo {
     }
   }
 
-  async createOrder({ userId, data }: { userId: number; data: CreateOrderBodyType }) {
+  async createOrder({
+    userId,
+    data,
+  }: {
+    userId: number
+    data: CreateOrderBodyType
+  }): Promise<{ orders: CreateOrderResType['orders']; paymentId: number }> {
     // Giỏ hàng có thể chứa sản phẩm của nhiều shop, gom hết cartItemId lại để truy vấn 1 lần
     const allBodyCartItemIds = data.map((item) => item.cartItemIds).flat()
 
@@ -94,11 +105,11 @@ export class OrderRepo {
     }
 
     // Bước 5: tạo order (kèm snapshot sản phẩm/SKU) và xóa cartItem trong 1 transaction
-    const orders = await this.prismaService.$transaction(async (tx) => {
+    const [paymentId, orders] = await this.prismaService.$transaction(async (tx) => {
       const payment = await tx.payment.create({
         data: {
           status: PaymentStatus.PENDING,
-        }
+        },
       })
       const createdOrders$ = Promise.all(
         data.map((orderItem) =>
@@ -140,19 +151,26 @@ export class OrderRepo {
         where: { id: { in: allBodyCartItemIds } },
       })
 
-      const sku$ = Promise.all(cartItems.map((cartItem) => tx.sKU.update({
-        where: { id: cartItem.skuId },
-        data: {
-          stock: {
-            decrement: cartItem.quantity,
-          }
-        },
-      })))
+      const sku$ = Promise.all(
+        cartItems.map((cartItem) =>
+          tx.sKU.update({
+            where: { id: cartItem.skuId },
+            data: {
+              stock: {
+                decrement: cartItem.quantity,
+              },
+            },
+          }),
+        ),
+      )
       const [createdOrders, ,] = await Promise.all([createdOrders$, deletedCartItems$, sku$])
-      return createdOrders
+      return [payment.id, createdOrders]
     })
 
-    return { data: orders }
+    return {
+      orders: orders as CreateOrderResType['orders'],
+      paymentId,
+    }
   }
 
   async detail(userId: number, orderId: number) {

@@ -24,10 +24,11 @@ import { ProfileModule } from './routes/profile/profile.module'
 import { SharedRolesRepository } from './shared/repository/shared-role.repo'
 import { UsersModule } from './routes/users/users.module'
 import { MediaModule } from './routes/media/media.module'
-import { CartModule } from './routes/cart/cart.module';
+import { CartModule } from './routes/cart/cart.module'
 import { OrderModule } from './routes/order/order.module'
 import { PaymentModule } from './routes/payment/payment.module'
-
+import { BullModule } from '@nestjs/bullmq'
+import { PaymentConsumer } from './queues/payment.consumer'
 @Module({
   imports: [
     ScheduleModule.forRoot(),
@@ -37,6 +38,12 @@ import { PaymentModule } from './routes/payment/payment.module'
         limit: 20,
       },
     ]),
+    BullModule.forRoot({
+      connection: {
+        host: 'localhost',
+        port: 6379,
+      },
+    }),
     SharedModule,
     AuthModule,
     BrandModule,
@@ -53,12 +60,13 @@ import { PaymentModule } from './routes/payment/payment.module'
     MediaModule,
     CartModule,
     OrderModule,
-    PaymentModule
+    PaymentModule,
   ],
   controllers: [AppController],
   providers: [
     AppService,
     SharedRolesRepository,
+    PaymentConsumer,
     {
       provide: APP_PIPE,
       useClass: CustomZodValidationPipe,
@@ -80,4 +88,4 @@ import { PaymentModule } from './routes/payment/payment.module'
     },
   ],
 })
-export class AppModule { }
+export class AppModule {}
