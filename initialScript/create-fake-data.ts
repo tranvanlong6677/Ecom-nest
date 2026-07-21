@@ -105,6 +105,69 @@ async function seedSellers(count: number): Promise<number[]> {
   return sellerIds
 }
 
+async function createProductWithSkus({
+  sellerId,
+  brandIds,
+  categoryIds,
+  index,
+}: {
+  sellerId: number
+  brandIds: number[]
+  categoryIds: number[]
+  index: number
+}): Promise<number[]> {
+  const baseName = PRODUCT_NAME_TEMPLATES[index % PRODUCT_NAME_TEMPLATES.length]
+  const name = `${baseName} #${index}`
+  const basePrice = randomInt(10, 30) * 10000
+  const colors = randomItems(COLORS, 2)
+  const sizes = randomItems(SIZES, 3)
+  const image = `https://picsum.photos/seed/product-${index}/600/600`
+
+  const product = await prisma.product.create({
+    data: {
+      name,
+      basePrice,
+      virtualPrice: basePrice + 50000,
+      brandId: brandIds[index % brandIds.length],
+      images: [image],
+      publishedAt: new Date(),
+      createdById: sellerId,
+      variants: [
+        { value: 'Màu sắc', options: colors },
+        { value: 'Kích cỡ', options: sizes },
+      ],
+      categories: {
+        connect: randomItems(categoryIds, Math.min(2, categoryIds.length)).map((id) => ({ id })),
+      },
+      productTranslations: {
+        create: {
+          languageId: LANGUAGE_ID,
+          name,
+          description: `${baseName} chất lượng cao, dữ liệu fake dùng để test.`,
+        },
+      },
+    },
+  })
+
+  const skus = await Promise.all(
+    colors.flatMap((color) =>
+      sizes.map((size) =>
+        prisma.sKU.create({
+          data: {
+            value: `${color}-${size}`,
+            price: basePrice,
+            stock: randomInt(5, 50),
+            image,
+            productId: product.id,
+            createdById: sellerId,
+          },
+        }),
+      ),
+    ),
+  )
+  return skus.map((sku) => sku.id)
+}
+
 async function seedProducts({
   sellerIds,
   brandIds,
@@ -129,60 +192,59 @@ async function seedProducts({
   for (const sellerId of sellerIds) {
     for (let i = 0; i < productsPerSeller; i++) {
       productIndex++
-      const baseName = PRODUCT_NAME_TEMPLATES[productIndex % PRODUCT_NAME_TEMPLATES.length]
-      const name = `${baseName} #${productIndex}`
-      const basePrice = randomInt(10, 30) * 10000
-      const colors = randomItems(COLORS, 2)
-      const sizes = randomItems(SIZES, 3)
-      const image = `https://picsum.photos/seed/product-${productIndex}/600/600`
-
-      const product = await prisma.product.create({
-        data: {
-          name,
-          basePrice,
-          virtualPrice: basePrice + 50000,
-          brandId: brandIds[productIndex % brandIds.length],
-          images: [image],
-          publishedAt: new Date(),
-          createdById: sellerId,
-          variants: [
-            { value: 'Màu sắc', options: colors },
-            { value: 'Kích cỡ', options: sizes },
-          ],
-          categories: {
-            connect: randomItems(categoryIds, Math.min(2, categoryIds.length)).map((id) => ({ id })),
-          },
-          productTranslations: {
-            create: {
-              languageId: LANGUAGE_ID,
-              name,
-              description: `${baseName} chất lượng cao, dữ liệu fake dùng để test.`,
-            },
-          },
-        },
-      })
-
-      const skus = await Promise.all(
-        colors.flatMap((color) =>
-          sizes.map((size) =>
-            prisma.sKU.create({
-              data: {
-                value: `${color}-${size}`,
-                price: basePrice,
-                stock: randomInt(5, 50),
-                image,
-                productId: product.id,
-                createdById: sellerId,
-              },
-            }),
-          ),
-        ),
-      )
-      skuIds.push(...skus.map((sku) => sku.id))
+      const newSkuIds = await createProductWithSkus({ sellerId, brandIds, categoryIds, index: productIndex })
+      skuIds.push(...newSkuIds)
     }
   }
 
   console.log(`Created ${productIndex} products and ${skuIds.length} SKUs`)
+  return skuIds
+}
+
+// Tạo thêm 1 shop (seller) mới kèm sản phẩm/SKU riêng, độc lập với seedProducts ở trên
+// (seedProducts bỏ qua hoàn toàn nếu DB đã có sản phẩm, nên không thể dùng nó để bổ sung thêm 1 shop).
+const EXTRA_SHOP_EMAIL = 'fake.seller.extra1@example.com'
+const EXTRA_SHOP_PRODUCT_COUNT = 10
+
+async function seedExtraShop({
+  brandIds,
+  categoryIds,
+}: {
+  brandIds: number[]
+  categoryIds: number[]
+}): Promise<number[]> {
+  const existingProductCount = await prisma.product.count({
+    where: { createdBy: { email: EXTRA_SHOP_EMAIL }, deletedAt: null },
+  })
+  if (existingProductCount > 0) {
+    console.log(`Extra shop (${EXTRA_SHOP_EMAIL}) already has ${existingProductCount} product(s), skip`)
+    return []
+  }
+
+  let seller = await prisma.user.findFirst({ where: { email: EXTRA_SHOP_EMAIL } })
+  if (!seller) {
+    const sellerRole = await prisma.role.findFirstOrThrow({ where: { name: RoleName.Seller, deletedAt: null } })
+    const password = await hashingService.hash('Fake@12345')
+    seller = await prisma.user.create({
+      data: {
+        email: EXTRA_SHOP_EMAIL,
+        name: 'Fake Shop Extra',
+        password,
+        roleId: sellerRole.id,
+        status: 'ACTIVE',
+      },
+    })
+    console.log(`Created extra seller id=${seller.id} (${EXTRA_SHOP_EMAIL}, password: Fake@12345)`)
+  }
+
+  const skuIds: number[] = []
+  for (let i = 1; i <= EXTRA_SHOP_PRODUCT_COUNT; i++) {
+    // offset index để không trùng name/image seed với các sản phẩm đã tạo ở seedProducts
+    const newSkuIds = await createProductWithSkus({ sellerId: seller.id, brandIds, categoryIds, index: 100 + i })
+    skuIds.push(...newSkuIds)
+  }
+
+  console.log(`Created ${EXTRA_SHOP_PRODUCT_COUNT} products and ${skuIds.length} SKUs for shop id=${seller.id}`)
   return skuIds
 }
 
@@ -224,7 +286,8 @@ async function main() {
     categoryIds,
     productsPerSeller: PRODUCTS_PER_SELLER,
   })
-  await seedCartItems(skuIds)
+  const extraShopSkuIds = await seedExtraShop({ brandIds, categoryIds })
+  await seedCartItems([...skuIds, ...extraShopSkuIds])
 }
 
 main()

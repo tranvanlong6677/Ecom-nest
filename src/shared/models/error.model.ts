@@ -331,4 +331,5 @@ export const PaymentException = {
   CannotGetPaymentId: new BadRequestException('Cannot get payment id information'),
   NotFoundPayment: new NotFoundException('Payment is not exist'),
   TotalPriceNotMatch: new BadRequestException('Total price is not match'),
+  DuplicatePaymentTransaction: new UnprocessableEntityException('Payment transaction already exists'),
 }

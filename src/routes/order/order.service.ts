@@ -16,7 +16,7 @@ export class OrderService {
 
   async create({ userId, data }: { userId: number; data: CreateOrderBodyType }) {
     const result = await this.orderRepo.createOrder({ userId, data })
-    await this.orderProducer.addCancelPaymentJob(result.paymentId)
+
     return result
   }
 

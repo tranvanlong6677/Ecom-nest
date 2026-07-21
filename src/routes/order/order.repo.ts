@@ -10,10 +10,14 @@ import {
 import { OrderException } from './order.error'
 import { isNotFoundPrismaError } from '@/shared/helper'
 import { PaymentStatus } from '@/shared/constants/payment.constant'
+import { OrderProducer } from './order.producer'
 
 @Injectable()
 export class OrderRepo {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(
+    private readonly prismaService: PrismaService,
+    private readonly orderProducer: OrderProducer,
+  ) {}
 
   async list(userId: number, query: GetOrderListQueryType): Promise<GetOrderListResType> {
     const { page, limit, status } = query
@@ -47,7 +51,7 @@ export class OrderRepo {
   }: {
     userId: number
     data: CreateOrderBodyType
-  }): Promise<{ orders: CreateOrderResType['orders']; paymentId: number }> {
+  }): Promise<{ orders: CreateOrderResType['orders'] }> {
     // Giỏ hàng có thể chứa sản phẩm của nhiều shop, gom hết cartItemId lại để truy vấn 1 lần
     const allBodyCartItemIds = data.map((item) => item.cartItemIds).flat()
 
@@ -105,7 +109,7 @@ export class OrderRepo {
     }
 
     // Bước 5: tạo order (kèm snapshot sản phẩm/SKU) và xóa cartItem trong 1 transaction
-    const [paymentId, orders] = await this.prismaService.$transaction(async (tx) => {
+    const orders = await this.prismaService.$transaction(async (tx) => {
       const payment = await tx.payment.create({
         data: {
           status: PaymentStatus.PENDING,
@@ -163,13 +167,17 @@ export class OrderRepo {
           }),
         ),
       )
-      const [createdOrders, ,] = await Promise.all([createdOrders$, deletedCartItems$, sku$])
-      return [payment.id, createdOrders]
+      const [createdOrders, , ,] = await Promise.all([
+        createdOrders$,
+        deletedCartItems$,
+        sku$,
+        this.orderProducer.addCancelPaymentJob(payment.id), // Tạo job hủy payment sau 15 phút nếu user không thanh toán
+      ])
+      return createdOrders
     })
 
     return {
       orders: orders as CreateOrderResType['orders'],
-      paymentId,
     }
   }
 

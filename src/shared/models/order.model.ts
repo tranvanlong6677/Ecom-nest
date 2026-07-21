@@ -103,7 +103,6 @@ export const CreateOrderResSchema = z.object({
       items: z.array(ProductSKUSnapshotSchema),
     }),
   ),
-  paymentId: z.number(),
 })
 
 export const CancelOrderBodySchema = z.object({}).strict()
