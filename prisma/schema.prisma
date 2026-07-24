@@ -49,6 +49,7 @@ model User {
   deletedAt                   DateTime?
   createdAt                   DateTime              @default(now())
   updatedAt                   DateTime              @updatedAt
+  websockets                     Websocket[]
   createdBrands               Brand[]               @relation("BrandCreatedBy")
   updatedBrands               Brand[]               @relation("BrandUpdatedBy")
   deletedBrands               Brand[]               @relation("BrandDeletedBy")
@@ -450,6 +451,13 @@ model Payment {
   status    PaymentStatus
   createdAt DateTime      @default(now())
   updatedAt DateTime      @updatedAt
+}
+
+model Websocket {
+  id        String    @id
+  userId    Int
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  createdAt DateTime  @default(now())
 }
 
 model PaymentTransaction {

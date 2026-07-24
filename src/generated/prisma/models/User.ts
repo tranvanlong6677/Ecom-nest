@@ -314,6 +314,7 @@ export type UserWhereInput = {
   deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  websockets?: Prisma.WebsocketListRelationFilter
   createdBrands?: Prisma.BrandListRelationFilter
   updatedBrands?: Prisma.BrandListRelationFilter
   deletedBrands?: Prisma.BrandListRelationFilter
@@ -385,6 +386,7 @@ export type UserOrderByWithRelationInput = {
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  websockets?: Prisma.WebsocketOrderByRelationAggregateInput
   createdBrands?: Prisma.BrandOrderByRelationAggregateInput
   updatedBrands?: Prisma.BrandOrderByRelationAggregateInput
   deletedBrands?: Prisma.BrandOrderByRelationAggregateInput
@@ -459,6 +461,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  websockets?: Prisma.WebsocketListRelationFilter
   createdBrands?: Prisma.BrandListRelationFilter
   updatedBrands?: Prisma.BrandListRelationFilter
   deletedBrands?: Prisma.BrandListRelationFilter
@@ -569,6 +572,7 @@ export type UserCreateInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -640,6 +644,7 @@ export type UserUncheckedCreateInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -702,6 +707,7 @@ export type UserUpdateInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -773,6 +779,7 @@ export type UserUncheckedUpdateInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -1865,6 +1872,20 @@ export type UserUpdateOneRequiredWithoutReviewsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReviewsInput, Prisma.UserUpdateWithoutReviewsInput>, Prisma.UserUncheckedUpdateWithoutReviewsInput>
 }
 
+export type UserCreateNestedOneWithoutWebsocketsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutWebsocketsInput, Prisma.UserUncheckedCreateWithoutWebsocketsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutWebsocketsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutWebsocketsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutWebsocketsInput, Prisma.UserUncheckedCreateWithoutWebsocketsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutWebsocketsInput
+  upsert?: Prisma.UserUpsertWithoutWebsocketsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutWebsocketsInput, Prisma.UserUpdateWithoutWebsocketsInput>, Prisma.UserUncheckedUpdateWithoutWebsocketsInput>
+}
+
 export type UserCreateNestedOneWithoutSentMessagesInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutSentMessagesInput, Prisma.UserUncheckedCreateWithoutSentMessagesInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutSentMessagesInput
@@ -1918,6 +1939,7 @@ export type UserCreateWithoutCreatedLanguagesInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -1988,6 +2010,7 @@ export type UserUncheckedCreateWithoutCreatedLanguagesInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -2054,6 +2077,7 @@ export type UserCreateWithoutUpdatedLanguagesInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -2124,6 +2148,7 @@ export type UserUncheckedCreateWithoutUpdatedLanguagesInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -2190,6 +2215,7 @@ export type UserCreateWithoutDeletedLanguagesInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -2260,6 +2286,7 @@ export type UserUncheckedCreateWithoutDeletedLanguagesInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -2337,6 +2364,7 @@ export type UserUpdateWithoutCreatedLanguagesInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -2407,6 +2435,7 @@ export type UserUncheckedUpdateWithoutCreatedLanguagesInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -2479,6 +2508,7 @@ export type UserUpdateWithoutUpdatedLanguagesInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -2549,6 +2579,7 @@ export type UserUncheckedUpdateWithoutUpdatedLanguagesInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -2621,6 +2652,7 @@ export type UserUpdateWithoutDeletedLanguagesInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -2691,6 +2723,7 @@ export type UserUncheckedUpdateWithoutDeletedLanguagesInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -2752,6 +2785,7 @@ export type UserCreateWithoutCreatedUsersInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -2822,6 +2856,7 @@ export type UserUncheckedCreateWithoutCreatedUsersInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -2888,6 +2923,7 @@ export type UserCreateWithoutCreatedByInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -2957,6 +2993,7 @@ export type UserUncheckedCreateWithoutCreatedByInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -3029,6 +3066,7 @@ export type UserCreateWithoutUpdatedUsersInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -3099,6 +3137,7 @@ export type UserUncheckedCreateWithoutUpdatedUsersInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -3165,6 +3204,7 @@ export type UserCreateWithoutUpdatedByInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -3234,6 +3274,7 @@ export type UserUncheckedCreateWithoutUpdatedByInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -3306,6 +3347,7 @@ export type UserCreateWithoutDeletedUsersInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -3376,6 +3418,7 @@ export type UserUncheckedCreateWithoutDeletedUsersInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -3442,6 +3485,7 @@ export type UserCreateWithoutDeletedByInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -3511,6 +3555,7 @@ export type UserUncheckedCreateWithoutDeletedByInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -3594,6 +3639,7 @@ export type UserUpdateWithoutCreatedUsersInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -3664,6 +3710,7 @@ export type UserUncheckedUpdateWithoutCreatedUsersInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -3773,6 +3820,7 @@ export type UserUpdateWithoutUpdatedUsersInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -3843,6 +3891,7 @@ export type UserUncheckedUpdateWithoutUpdatedUsersInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -3931,6 +3980,7 @@ export type UserUpdateWithoutDeletedUsersInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -4001,6 +4051,7 @@ export type UserUncheckedUpdateWithoutDeletedUsersInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -4078,6 +4129,7 @@ export type UserCreateWithoutCreatedUserTranslationsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -4148,6 +4200,7 @@ export type UserUncheckedCreateWithoutCreatedUserTranslationsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -4214,6 +4267,7 @@ export type UserCreateWithoutUpdatedUserTranslationsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -4284,6 +4338,7 @@ export type UserUncheckedCreateWithoutUpdatedUserTranslationsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -4350,6 +4405,7 @@ export type UserCreateWithoutDeletedUserTranslationsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -4420,6 +4476,7 @@ export type UserUncheckedCreateWithoutDeletedUserTranslationsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -4486,6 +4543,7 @@ export type UserCreateWithoutUserTranslationsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -4556,6 +4614,7 @@ export type UserUncheckedCreateWithoutUserTranslationsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -4633,6 +4692,7 @@ export type UserUpdateWithoutCreatedUserTranslationsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -4703,6 +4763,7 @@ export type UserUncheckedUpdateWithoutCreatedUserTranslationsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -4775,6 +4836,7 @@ export type UserUpdateWithoutUpdatedUserTranslationsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -4845,6 +4907,7 @@ export type UserUncheckedUpdateWithoutUpdatedUserTranslationsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -4917,6 +4980,7 @@ export type UserUpdateWithoutDeletedUserTranslationsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -4987,6 +5051,7 @@ export type UserUncheckedUpdateWithoutDeletedUserTranslationsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -5059,6 +5124,7 @@ export type UserUpdateWithoutUserTranslationsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -5129,6 +5195,7 @@ export type UserUncheckedUpdateWithoutUserTranslationsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -5190,6 +5257,7 @@ export type UserCreateWithoutDevicesInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -5260,6 +5328,7 @@ export type UserUncheckedCreateWithoutDevicesInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -5337,6 +5406,7 @@ export type UserUpdateWithoutDevicesInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -5407,6 +5477,7 @@ export type UserUncheckedUpdateWithoutDevicesInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -5468,6 +5539,7 @@ export type UserCreateWithoutRefreshTokensInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -5538,6 +5610,7 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -5615,6 +5688,7 @@ export type UserUpdateWithoutRefreshTokensInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -5685,6 +5759,7 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -5746,6 +5821,7 @@ export type UserCreateWithoutCreatedPermissionsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -5816,6 +5892,7 @@ export type UserUncheckedCreateWithoutCreatedPermissionsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -5882,6 +5959,7 @@ export type UserCreateWithoutUpdatedPermissionsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -5952,6 +6030,7 @@ export type UserUncheckedCreateWithoutUpdatedPermissionsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -6018,6 +6097,7 @@ export type UserCreateWithoutDeletedPermissionsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -6088,6 +6168,7 @@ export type UserUncheckedCreateWithoutDeletedPermissionsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -6165,6 +6246,7 @@ export type UserUpdateWithoutCreatedPermissionsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -6235,6 +6317,7 @@ export type UserUncheckedUpdateWithoutCreatedPermissionsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -6307,6 +6390,7 @@ export type UserUpdateWithoutUpdatedPermissionsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -6377,6 +6461,7 @@ export type UserUncheckedUpdateWithoutUpdatedPermissionsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -6449,6 +6534,7 @@ export type UserUpdateWithoutDeletedPermissionsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -6519,6 +6605,7 @@ export type UserUncheckedUpdateWithoutDeletedPermissionsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -6580,6 +6667,7 @@ export type UserCreateWithoutCreatedRolesInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -6650,6 +6738,7 @@ export type UserUncheckedCreateWithoutCreatedRolesInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -6716,6 +6805,7 @@ export type UserCreateWithoutUpdatedRolesInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -6786,6 +6876,7 @@ export type UserUncheckedCreateWithoutUpdatedRolesInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -6852,6 +6943,7 @@ export type UserCreateWithoutDeletedRolesInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -6922,6 +7014,7 @@ export type UserUncheckedCreateWithoutDeletedRolesInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -6988,6 +7081,7 @@ export type UserCreateWithoutRoleInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -7057,6 +7151,7 @@ export type UserUncheckedCreateWithoutRoleInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -7140,6 +7235,7 @@ export type UserUpdateWithoutCreatedRolesInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -7210,6 +7306,7 @@ export type UserUncheckedUpdateWithoutCreatedRolesInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -7282,6 +7379,7 @@ export type UserUpdateWithoutUpdatedRolesInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -7352,6 +7450,7 @@ export type UserUncheckedUpdateWithoutUpdatedRolesInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -7424,6 +7523,7 @@ export type UserUpdateWithoutDeletedRolesInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -7494,6 +7594,7 @@ export type UserUncheckedUpdateWithoutDeletedRolesInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -7571,6 +7672,7 @@ export type UserCreateWithoutCreatedProductsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -7641,6 +7743,7 @@ export type UserUncheckedCreateWithoutCreatedProductsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -7707,6 +7810,7 @@ export type UserCreateWithoutUpdatedProductsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -7777,6 +7881,7 @@ export type UserUncheckedCreateWithoutUpdatedProductsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -7843,6 +7948,7 @@ export type UserCreateWithoutDeletedProductsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -7913,6 +8019,7 @@ export type UserUncheckedCreateWithoutDeletedProductsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -7990,6 +8097,7 @@ export type UserUpdateWithoutCreatedProductsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -8060,6 +8168,7 @@ export type UserUncheckedUpdateWithoutCreatedProductsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -8132,6 +8241,7 @@ export type UserUpdateWithoutUpdatedProductsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -8202,6 +8312,7 @@ export type UserUncheckedUpdateWithoutUpdatedProductsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -8274,6 +8385,7 @@ export type UserUpdateWithoutDeletedProductsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -8344,6 +8456,7 @@ export type UserUncheckedUpdateWithoutDeletedProductsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -8405,6 +8518,7 @@ export type UserCreateWithoutCreatedProductTranslationsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -8475,6 +8589,7 @@ export type UserUncheckedCreateWithoutCreatedProductTranslationsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -8541,6 +8656,7 @@ export type UserCreateWithoutUpdatedProductTranslationsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -8611,6 +8727,7 @@ export type UserUncheckedCreateWithoutUpdatedProductTranslationsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -8677,6 +8794,7 @@ export type UserCreateWithoutDeletedProductTranslationsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -8747,6 +8865,7 @@ export type UserUncheckedCreateWithoutDeletedProductTranslationsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -8824,6 +8943,7 @@ export type UserUpdateWithoutCreatedProductTranslationsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -8894,6 +9014,7 @@ export type UserUncheckedUpdateWithoutCreatedProductTranslationsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -8966,6 +9087,7 @@ export type UserUpdateWithoutUpdatedProductTranslationsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -9036,6 +9158,7 @@ export type UserUncheckedUpdateWithoutUpdatedProductTranslationsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -9108,6 +9231,7 @@ export type UserUpdateWithoutDeletedProductTranslationsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -9178,6 +9302,7 @@ export type UserUncheckedUpdateWithoutDeletedProductTranslationsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -9239,6 +9364,7 @@ export type UserCreateWithoutCreatedCategoriesInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -9309,6 +9435,7 @@ export type UserUncheckedCreateWithoutCreatedCategoriesInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -9375,6 +9502,7 @@ export type UserCreateWithoutUpdatedCategoriesInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -9445,6 +9573,7 @@ export type UserUncheckedCreateWithoutUpdatedCategoriesInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -9511,6 +9640,7 @@ export type UserCreateWithoutDeletedCategoriesInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -9581,6 +9711,7 @@ export type UserUncheckedCreateWithoutDeletedCategoriesInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -9658,6 +9789,7 @@ export type UserUpdateWithoutCreatedCategoriesInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -9728,6 +9860,7 @@ export type UserUncheckedUpdateWithoutCreatedCategoriesInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -9800,6 +9933,7 @@ export type UserUpdateWithoutUpdatedCategoriesInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -9870,6 +10004,7 @@ export type UserUncheckedUpdateWithoutUpdatedCategoriesInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -9942,6 +10077,7 @@ export type UserUpdateWithoutDeletedCategoriesInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -10012,6 +10148,7 @@ export type UserUncheckedUpdateWithoutDeletedCategoriesInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -10073,6 +10210,7 @@ export type UserCreateWithoutCreatedCategoryTranslationsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -10143,6 +10281,7 @@ export type UserUncheckedCreateWithoutCreatedCategoryTranslationsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -10209,6 +10348,7 @@ export type UserCreateWithoutUpdatedCategoryTranslationsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -10279,6 +10419,7 @@ export type UserUncheckedCreateWithoutUpdatedCategoryTranslationsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -10345,6 +10486,7 @@ export type UserCreateWithoutDeletedCategoryTranslationsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -10415,6 +10557,7 @@ export type UserUncheckedCreateWithoutDeletedCategoryTranslationsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -10492,6 +10635,7 @@ export type UserUpdateWithoutCreatedCategoryTranslationsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -10562,6 +10706,7 @@ export type UserUncheckedUpdateWithoutCreatedCategoryTranslationsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -10634,6 +10779,7 @@ export type UserUpdateWithoutUpdatedCategoryTranslationsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -10704,6 +10850,7 @@ export type UserUncheckedUpdateWithoutUpdatedCategoryTranslationsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -10776,6 +10923,7 @@ export type UserUpdateWithoutDeletedCategoryTranslationsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -10846,6 +10994,7 @@ export type UserUncheckedUpdateWithoutDeletedCategoryTranslationsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -10907,6 +11056,7 @@ export type UserCreateWithoutCreatedSKUSInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -10977,6 +11127,7 @@ export type UserUncheckedCreateWithoutCreatedSKUSInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -11043,6 +11194,7 @@ export type UserCreateWithoutUpdatedSKUSInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -11113,6 +11265,7 @@ export type UserUncheckedCreateWithoutUpdatedSKUSInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -11179,6 +11332,7 @@ export type UserCreateWithoutDeletedSKUSInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -11249,6 +11403,7 @@ export type UserUncheckedCreateWithoutDeletedSKUSInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -11326,6 +11481,7 @@ export type UserUpdateWithoutCreatedSKUSInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -11396,6 +11552,7 @@ export type UserUncheckedUpdateWithoutCreatedSKUSInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -11468,6 +11625,7 @@ export type UserUpdateWithoutUpdatedSKUSInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -11538,6 +11696,7 @@ export type UserUncheckedUpdateWithoutUpdatedSKUSInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -11610,6 +11769,7 @@ export type UserUpdateWithoutDeletedSKUSInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -11680,6 +11840,7 @@ export type UserUncheckedUpdateWithoutDeletedSKUSInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -11741,6 +11902,7 @@ export type UserCreateWithoutCreatedBrandsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
   createdBrandTranslations?: Prisma.BrandTranslationCreateNestedManyWithoutCreatedByInput
@@ -11811,6 +11973,7 @@ export type UserUncheckedCreateWithoutCreatedBrandsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
   createdBrandTranslations?: Prisma.BrandTranslationUncheckedCreateNestedManyWithoutCreatedByInput
@@ -11877,6 +12040,7 @@ export type UserCreateWithoutUpdatedBrandsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
   createdBrandTranslations?: Prisma.BrandTranslationCreateNestedManyWithoutCreatedByInput
@@ -11947,6 +12111,7 @@ export type UserUncheckedCreateWithoutUpdatedBrandsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
   createdBrandTranslations?: Prisma.BrandTranslationUncheckedCreateNestedManyWithoutCreatedByInput
@@ -12013,6 +12178,7 @@ export type UserCreateWithoutDeletedBrandsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   createdBrandTranslations?: Prisma.BrandTranslationCreateNestedManyWithoutCreatedByInput
@@ -12083,6 +12249,7 @@ export type UserUncheckedCreateWithoutDeletedBrandsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   createdBrandTranslations?: Prisma.BrandTranslationUncheckedCreateNestedManyWithoutCreatedByInput
@@ -12160,6 +12327,7 @@ export type UserUpdateWithoutCreatedBrandsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
   createdBrandTranslations?: Prisma.BrandTranslationUpdateManyWithoutCreatedByNestedInput
@@ -12230,6 +12398,7 @@ export type UserUncheckedUpdateWithoutCreatedBrandsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
   createdBrandTranslations?: Prisma.BrandTranslationUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -12302,6 +12471,7 @@ export type UserUpdateWithoutUpdatedBrandsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
   createdBrandTranslations?: Prisma.BrandTranslationUpdateManyWithoutCreatedByNestedInput
@@ -12372,6 +12542,7 @@ export type UserUncheckedUpdateWithoutUpdatedBrandsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
   createdBrandTranslations?: Prisma.BrandTranslationUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -12444,6 +12615,7 @@ export type UserUpdateWithoutDeletedBrandsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   createdBrandTranslations?: Prisma.BrandTranslationUpdateManyWithoutCreatedByNestedInput
@@ -12514,6 +12686,7 @@ export type UserUncheckedUpdateWithoutDeletedBrandsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   createdBrandTranslations?: Prisma.BrandTranslationUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -12575,6 +12748,7 @@ export type UserCreateWithoutCreatedBrandTranslationsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -12645,6 +12819,7 @@ export type UserUncheckedCreateWithoutCreatedBrandTranslationsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -12711,6 +12886,7 @@ export type UserCreateWithoutUpdatedBrandTranslationsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -12781,6 +12957,7 @@ export type UserUncheckedCreateWithoutUpdatedBrandTranslationsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -12847,6 +13024,7 @@ export type UserCreateWithoutDeletedBrandTranslationsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -12917,6 +13095,7 @@ export type UserUncheckedCreateWithoutDeletedBrandTranslationsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -12994,6 +13173,7 @@ export type UserUpdateWithoutCreatedBrandTranslationsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -13064,6 +13244,7 @@ export type UserUncheckedUpdateWithoutCreatedBrandTranslationsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -13136,6 +13317,7 @@ export type UserUpdateWithoutUpdatedBrandTranslationsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -13206,6 +13388,7 @@ export type UserUncheckedUpdateWithoutUpdatedBrandTranslationsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -13278,6 +13461,7 @@ export type UserUpdateWithoutDeletedBrandTranslationsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -13348,6 +13532,7 @@ export type UserUncheckedUpdateWithoutDeletedBrandTranslationsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -13409,6 +13594,7 @@ export type UserCreateWithoutCartsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -13479,6 +13665,7 @@ export type UserUncheckedCreateWithoutCartsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -13556,6 +13743,7 @@ export type UserUpdateWithoutCartsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -13626,6 +13814,7 @@ export type UserUncheckedUpdateWithoutCartsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -13687,6 +13876,7 @@ export type UserCreateWithoutSoldOrdersInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -13757,6 +13947,7 @@ export type UserUncheckedCreateWithoutSoldOrdersInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -13823,6 +14014,7 @@ export type UserCreateWithoutCreatedOrdersInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -13893,6 +14085,7 @@ export type UserUncheckedCreateWithoutCreatedOrdersInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -13959,6 +14152,7 @@ export type UserCreateWithoutUpdatedOrdersInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -14029,6 +14223,7 @@ export type UserUncheckedCreateWithoutUpdatedOrdersInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -14095,6 +14290,7 @@ export type UserCreateWithoutDeletedOrdersInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -14165,6 +14361,7 @@ export type UserUncheckedCreateWithoutDeletedOrdersInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -14231,6 +14428,7 @@ export type UserCreateWithoutOrdersInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -14301,6 +14499,7 @@ export type UserUncheckedCreateWithoutOrdersInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -14378,6 +14577,7 @@ export type UserUpdateWithoutSoldOrdersInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -14448,6 +14648,7 @@ export type UserUncheckedUpdateWithoutSoldOrdersInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -14520,6 +14721,7 @@ export type UserUpdateWithoutCreatedOrdersInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -14590,6 +14792,7 @@ export type UserUncheckedUpdateWithoutCreatedOrdersInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -14662,6 +14865,7 @@ export type UserUpdateWithoutUpdatedOrdersInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -14732,6 +14936,7 @@ export type UserUncheckedUpdateWithoutUpdatedOrdersInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -14804,6 +15009,7 @@ export type UserUpdateWithoutDeletedOrdersInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -14874,6 +15080,7 @@ export type UserUncheckedUpdateWithoutDeletedOrdersInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -14946,6 +15153,7 @@ export type UserUpdateWithoutOrdersInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -15016,6 +15224,7 @@ export type UserUncheckedUpdateWithoutOrdersInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -15077,6 +15286,7 @@ export type UserCreateWithoutReviewsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -15147,6 +15357,7 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -15224,6 +15435,7 @@ export type UserUpdateWithoutReviewsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -15294,6 +15506,7 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -15344,6 +15557,288 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   soldOrders?: Prisma.OrderUncheckedUpdateManyWithoutShopNestedInput
 }
 
+export type UserCreateWithoutWebsocketsInput = {
+  email: string
+  name: string
+  password?: string | null
+  phoneNumber?: string | null
+  avatar?: string | null
+  totpSecret?: string | null
+  status?: $Enums.UserStatus
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
+  updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
+  deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
+  createdBrandTranslations?: Prisma.BrandTranslationCreateNestedManyWithoutCreatedByInput
+  updatedBrandTranslations?: Prisma.BrandTranslationCreateNestedManyWithoutUpdatedByInput
+  deletedBrandTranslations?: Prisma.BrandTranslationCreateNestedManyWithoutDeletedByInput
+  carts?: Prisma.CartItemCreateNestedManyWithoutUserInput
+  createdCategories?: Prisma.CategoryCreateNestedManyWithoutCreatedByInput
+  updatedCategories?: Prisma.CategoryCreateNestedManyWithoutUpdatedByInput
+  deletedCategories?: Prisma.CategoryCreateNestedManyWithoutDeletedByInput
+  createdCategoryTranslations?: Prisma.CategoryTranslationCreateNestedManyWithoutCreatedByInput
+  updatedCategoryTranslations?: Prisma.CategoryTranslationCreateNestedManyWithoutUpdatedByInput
+  deletedCategoryTranslations?: Prisma.CategoryTranslationCreateNestedManyWithoutDeletedByInput
+  devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  createdLanguages?: Prisma.LanguageCreateNestedManyWithoutCreatedByInput
+  updatedLanguages?: Prisma.LanguageCreateNestedManyWithoutUpdatedByInput
+  deletedLanguages?: Prisma.LanguageCreateNestedManyWithoutDeletedByInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutFromUserInput
+  receivedMessages?: Prisma.MessageCreateNestedManyWithoutToUserInput
+  createdOrders?: Prisma.OrderCreateNestedManyWithoutCreatedByInput
+  updatedOrders?: Prisma.OrderCreateNestedManyWithoutUpdatedByInput
+  deletedOrders?: Prisma.OrderCreateNestedManyWithoutDeletedByInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
+  createdPermissions?: Prisma.PermissionCreateNestedManyWithoutCreatedByInput
+  updatedPermissions?: Prisma.PermissionCreateNestedManyWithoutUpdatedByInput
+  deletedPermissions?: Prisma.PermissionCreateNestedManyWithoutDeletedByInput
+  createdProducts?: Prisma.ProductCreateNestedManyWithoutCreatedByInput
+  updatedProducts?: Prisma.ProductCreateNestedManyWithoutUpdatedByInput
+  deletedProducts?: Prisma.ProductCreateNestedManyWithoutDeletedByInput
+  createdProductTranslations?: Prisma.ProductTranslationCreateNestedManyWithoutCreatedByInput
+  updatedProductTranslations?: Prisma.ProductTranslationCreateNestedManyWithoutUpdatedByInput
+  deletedProductTranslations?: Prisma.ProductTranslationCreateNestedManyWithoutDeletedByInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
+  createdRoles?: Prisma.RoleCreateNestedManyWithoutCreatedByInput
+  updatedRoles?: Prisma.RoleCreateNestedManyWithoutUpdatedByInput
+  deletedRoles?: Prisma.RoleCreateNestedManyWithoutDeletedByInput
+  createdSKUS?: Prisma.SKUCreateNestedManyWithoutCreatedByInput
+  updatedSKUS?: Prisma.SKUCreateNestedManyWithoutUpdatedByInput
+  deletedSKUS?: Prisma.SKUCreateNestedManyWithoutDeletedByInput
+  createdBy?: Prisma.UserCreateNestedOneWithoutCreatedUsersInput
+  createdUsers?: Prisma.UserCreateNestedManyWithoutCreatedByInput
+  role: Prisma.RoleCreateNestedOneWithoutUsersInput
+  updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedUsersInput
+  updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
+  deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
+  deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+  providers?: Prisma.UserProviderCreateNestedManyWithoutUserInput
+  createdUserTranslations?: Prisma.UserTranslationCreateNestedManyWithoutCreatedByInput
+  updatedUserTranslations?: Prisma.UserTranslationCreateNestedManyWithoutUpdatedByInput
+  deletedUserTranslations?: Prisma.UserTranslationCreateNestedManyWithoutDeletedByInput
+  userTranslations?: Prisma.UserTranslationCreateNestedManyWithoutUserInput
+  soldOrders?: Prisma.OrderCreateNestedManyWithoutShopInput
+}
+
+export type UserUncheckedCreateWithoutWebsocketsInput = {
+  id?: number
+  email: string
+  name: string
+  password?: string | null
+  phoneNumber?: string | null
+  avatar?: string | null
+  totpSecret?: string | null
+  status?: $Enums.UserStatus
+  roleId: number
+  createdById?: number | null
+  updatedById?: number | null
+  deletedById?: number | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
+  createdBrandTranslations?: Prisma.BrandTranslationUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedBrandTranslations?: Prisma.BrandTranslationUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedBrandTranslations?: Prisma.BrandTranslationUncheckedCreateNestedManyWithoutDeletedByInput
+  carts?: Prisma.CartItemUncheckedCreateNestedManyWithoutUserInput
+  createdCategories?: Prisma.CategoryUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedCategories?: Prisma.CategoryUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedCategories?: Prisma.CategoryUncheckedCreateNestedManyWithoutDeletedByInput
+  createdCategoryTranslations?: Prisma.CategoryTranslationUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedCategoryTranslations?: Prisma.CategoryTranslationUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedCategoryTranslations?: Prisma.CategoryTranslationUncheckedCreateNestedManyWithoutDeletedByInput
+  devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  createdLanguages?: Prisma.LanguageUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedLanguages?: Prisma.LanguageUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedLanguages?: Prisma.LanguageUncheckedCreateNestedManyWithoutDeletedByInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutFromUserInput
+  receivedMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutToUserInput
+  createdOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutDeletedByInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
+  createdPermissions?: Prisma.PermissionUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedPermissions?: Prisma.PermissionUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedPermissions?: Prisma.PermissionUncheckedCreateNestedManyWithoutDeletedByInput
+  createdProducts?: Prisma.ProductUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedProducts?: Prisma.ProductUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedProducts?: Prisma.ProductUncheckedCreateNestedManyWithoutDeletedByInput
+  createdProductTranslations?: Prisma.ProductTranslationUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedProductTranslations?: Prisma.ProductTranslationUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedProductTranslations?: Prisma.ProductTranslationUncheckedCreateNestedManyWithoutDeletedByInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
+  createdRoles?: Prisma.RoleUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedRoles?: Prisma.RoleUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedRoles?: Prisma.RoleUncheckedCreateNestedManyWithoutDeletedByInput
+  createdSKUS?: Prisma.SKUUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedSKUS?: Prisma.SKUUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedSKUS?: Prisma.SKUUncheckedCreateNestedManyWithoutDeletedByInput
+  createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+  providers?: Prisma.UserProviderUncheckedCreateNestedManyWithoutUserInput
+  createdUserTranslations?: Prisma.UserTranslationUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedUserTranslations?: Prisma.UserTranslationUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedUserTranslations?: Prisma.UserTranslationUncheckedCreateNestedManyWithoutDeletedByInput
+  userTranslations?: Prisma.UserTranslationUncheckedCreateNestedManyWithoutUserInput
+  soldOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutShopInput
+}
+
+export type UserCreateOrConnectWithoutWebsocketsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutWebsocketsInput, Prisma.UserUncheckedCreateWithoutWebsocketsInput>
+}
+
+export type UserUpsertWithoutWebsocketsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutWebsocketsInput, Prisma.UserUncheckedUpdateWithoutWebsocketsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutWebsocketsInput, Prisma.UserUncheckedCreateWithoutWebsocketsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutWebsocketsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutWebsocketsInput, Prisma.UserUncheckedUpdateWithoutWebsocketsInput>
+}
+
+export type UserUpdateWithoutWebsocketsInput = {
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
+  updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
+  deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
+  createdBrandTranslations?: Prisma.BrandTranslationUpdateManyWithoutCreatedByNestedInput
+  updatedBrandTranslations?: Prisma.BrandTranslationUpdateManyWithoutUpdatedByNestedInput
+  deletedBrandTranslations?: Prisma.BrandTranslationUpdateManyWithoutDeletedByNestedInput
+  carts?: Prisma.CartItemUpdateManyWithoutUserNestedInput
+  createdCategories?: Prisma.CategoryUpdateManyWithoutCreatedByNestedInput
+  updatedCategories?: Prisma.CategoryUpdateManyWithoutUpdatedByNestedInput
+  deletedCategories?: Prisma.CategoryUpdateManyWithoutDeletedByNestedInput
+  createdCategoryTranslations?: Prisma.CategoryTranslationUpdateManyWithoutCreatedByNestedInput
+  updatedCategoryTranslations?: Prisma.CategoryTranslationUpdateManyWithoutUpdatedByNestedInput
+  deletedCategoryTranslations?: Prisma.CategoryTranslationUpdateManyWithoutDeletedByNestedInput
+  devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  createdLanguages?: Prisma.LanguageUpdateManyWithoutCreatedByNestedInput
+  updatedLanguages?: Prisma.LanguageUpdateManyWithoutUpdatedByNestedInput
+  deletedLanguages?: Prisma.LanguageUpdateManyWithoutDeletedByNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutFromUserNestedInput
+  receivedMessages?: Prisma.MessageUpdateManyWithoutToUserNestedInput
+  createdOrders?: Prisma.OrderUpdateManyWithoutCreatedByNestedInput
+  updatedOrders?: Prisma.OrderUpdateManyWithoutUpdatedByNestedInput
+  deletedOrders?: Prisma.OrderUpdateManyWithoutDeletedByNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
+  createdPermissions?: Prisma.PermissionUpdateManyWithoutCreatedByNestedInput
+  updatedPermissions?: Prisma.PermissionUpdateManyWithoutUpdatedByNestedInput
+  deletedPermissions?: Prisma.PermissionUpdateManyWithoutDeletedByNestedInput
+  createdProducts?: Prisma.ProductUpdateManyWithoutCreatedByNestedInput
+  updatedProducts?: Prisma.ProductUpdateManyWithoutUpdatedByNestedInput
+  deletedProducts?: Prisma.ProductUpdateManyWithoutDeletedByNestedInput
+  createdProductTranslations?: Prisma.ProductTranslationUpdateManyWithoutCreatedByNestedInput
+  updatedProductTranslations?: Prisma.ProductTranslationUpdateManyWithoutUpdatedByNestedInput
+  deletedProductTranslations?: Prisma.ProductTranslationUpdateManyWithoutDeletedByNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
+  createdRoles?: Prisma.RoleUpdateManyWithoutCreatedByNestedInput
+  updatedRoles?: Prisma.RoleUpdateManyWithoutUpdatedByNestedInput
+  deletedRoles?: Prisma.RoleUpdateManyWithoutDeletedByNestedInput
+  createdSKUS?: Prisma.SKUUpdateManyWithoutCreatedByNestedInput
+  updatedSKUS?: Prisma.SKUUpdateManyWithoutUpdatedByNestedInput
+  deletedSKUS?: Prisma.SKUUpdateManyWithoutDeletedByNestedInput
+  createdBy?: Prisma.UserUpdateOneWithoutCreatedUsersNestedInput
+  createdUsers?: Prisma.UserUpdateManyWithoutCreatedByNestedInput
+  role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
+  updatedBy?: Prisma.UserUpdateOneWithoutUpdatedUsersNestedInput
+  updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
+  deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
+  deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+  providers?: Prisma.UserProviderUpdateManyWithoutUserNestedInput
+  createdUserTranslations?: Prisma.UserTranslationUpdateManyWithoutCreatedByNestedInput
+  updatedUserTranslations?: Prisma.UserTranslationUpdateManyWithoutUpdatedByNestedInput
+  deletedUserTranslations?: Prisma.UserTranslationUpdateManyWithoutDeletedByNestedInput
+  userTranslations?: Prisma.UserTranslationUpdateManyWithoutUserNestedInput
+  soldOrders?: Prisma.OrderUpdateManyWithoutShopNestedInput
+}
+
+export type UserUncheckedUpdateWithoutWebsocketsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  roleId?: Prisma.IntFieldUpdateOperationsInput | number
+  createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdBrandTranslations?: Prisma.BrandTranslationUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedBrandTranslations?: Prisma.BrandTranslationUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedBrandTranslations?: Prisma.BrandTranslationUncheckedUpdateManyWithoutDeletedByNestedInput
+  carts?: Prisma.CartItemUncheckedUpdateManyWithoutUserNestedInput
+  createdCategories?: Prisma.CategoryUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedCategories?: Prisma.CategoryUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedCategories?: Prisma.CategoryUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdCategoryTranslations?: Prisma.CategoryTranslationUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedCategoryTranslations?: Prisma.CategoryTranslationUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedCategoryTranslations?: Prisma.CategoryTranslationUncheckedUpdateManyWithoutDeletedByNestedInput
+  devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  createdLanguages?: Prisma.LanguageUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedLanguages?: Prisma.LanguageUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedLanguages?: Prisma.LanguageUncheckedUpdateManyWithoutDeletedByNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutFromUserNestedInput
+  receivedMessages?: Prisma.MessageUncheckedUpdateManyWithoutToUserNestedInput
+  createdOrders?: Prisma.OrderUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedOrders?: Prisma.OrderUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedOrders?: Prisma.OrderUncheckedUpdateManyWithoutDeletedByNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
+  createdPermissions?: Prisma.PermissionUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedPermissions?: Prisma.PermissionUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedPermissions?: Prisma.PermissionUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdProducts?: Prisma.ProductUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedProducts?: Prisma.ProductUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedProducts?: Prisma.ProductUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdProductTranslations?: Prisma.ProductTranslationUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedProductTranslations?: Prisma.ProductTranslationUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedProductTranslations?: Prisma.ProductTranslationUncheckedUpdateManyWithoutDeletedByNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
+  createdRoles?: Prisma.RoleUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedRoles?: Prisma.RoleUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedRoles?: Prisma.RoleUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdSKUS?: Prisma.SKUUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedSKUS?: Prisma.SKUUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedSKUS?: Prisma.SKUUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+  providers?: Prisma.UserProviderUncheckedUpdateManyWithoutUserNestedInput
+  createdUserTranslations?: Prisma.UserTranslationUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedUserTranslations?: Prisma.UserTranslationUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedUserTranslations?: Prisma.UserTranslationUncheckedUpdateManyWithoutDeletedByNestedInput
+  userTranslations?: Prisma.UserTranslationUncheckedUpdateManyWithoutUserNestedInput
+  soldOrders?: Prisma.OrderUncheckedUpdateManyWithoutShopNestedInput
+}
+
 export type UserCreateWithoutSentMessagesInput = {
   email: string
   name: string
@@ -15355,6 +15850,7 @@ export type UserCreateWithoutSentMessagesInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -15425,6 +15921,7 @@ export type UserUncheckedCreateWithoutSentMessagesInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -15491,6 +15988,7 @@ export type UserCreateWithoutReceivedMessagesInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -15561,6 +16059,7 @@ export type UserUncheckedCreateWithoutReceivedMessagesInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -15638,6 +16137,7 @@ export type UserUpdateWithoutSentMessagesInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -15708,6 +16208,7 @@ export type UserUncheckedUpdateWithoutSentMessagesInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -15780,6 +16281,7 @@ export type UserUpdateWithoutReceivedMessagesInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -15850,6 +16352,7 @@ export type UserUncheckedUpdateWithoutReceivedMessagesInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -15911,6 +16414,7 @@ export type UserCreateWithoutProvidersInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandCreateNestedManyWithoutDeletedByInput
@@ -15981,6 +16485,7 @@ export type UserUncheckedCreateWithoutProvidersInput = {
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  websockets?: Prisma.WebsocketUncheckedCreateNestedManyWithoutUserInput
   createdBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutCreatedByInput
   updatedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedBrands?: Prisma.BrandUncheckedCreateNestedManyWithoutDeletedByInput
@@ -16058,6 +16563,7 @@ export type UserUpdateWithoutProvidersInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -16128,6 +16634,7 @@ export type UserUncheckedUpdateWithoutProvidersInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -16240,6 +16747,7 @@ export type UserUpdateWithoutCreatedByInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -16309,6 +16817,7 @@ export type UserUncheckedUpdateWithoutCreatedByInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -16388,6 +16897,7 @@ export type UserUpdateWithoutUpdatedByInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -16457,6 +16967,7 @@ export type UserUncheckedUpdateWithoutUpdatedByInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -16536,6 +17047,7 @@ export type UserUpdateWithoutDeletedByInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -16605,6 +17117,7 @@ export type UserUncheckedUpdateWithoutDeletedByInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -16701,6 +17214,7 @@ export type UserUpdateWithoutRoleInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUpdateManyWithoutDeletedByNestedInput
@@ -16770,6 +17284,7 @@ export type UserUncheckedUpdateWithoutRoleInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  websockets?: Prisma.WebsocketUncheckedUpdateManyWithoutUserNestedInput
   createdBrands?: Prisma.BrandUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedBrands?: Prisma.BrandUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedBrands?: Prisma.BrandUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -16844,6 +17359,7 @@ export type UserUncheckedUpdateManyWithoutRoleInput = {
  */
 
 export type UserCountOutputType = {
+  websockets: number
   createdBrands: number
   updatedBrands: number
   deletedBrands: number
@@ -16896,6 +17412,7 @@ export type UserCountOutputType = {
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  websockets?: boolean | UserCountOutputTypeCountWebsocketsArgs
   createdBrands?: boolean | UserCountOutputTypeCountCreatedBrandsArgs
   updatedBrands?: boolean | UserCountOutputTypeCountUpdatedBrandsArgs
   deletedBrands?: boolean | UserCountOutputTypeCountDeletedBrandsArgs
@@ -16955,6 +17472,13 @@ export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
    * Select specific fields to fetch from the UserCountOutputType
    */
   select?: Prisma.UserCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountWebsocketsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.WebsocketWhereInput
 }
 
 /**
@@ -17317,6 +17841,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  websockets?: boolean | Prisma.User$websocketsArgs<ExtArgs>
   createdBrands?: boolean | Prisma.User$createdBrandsArgs<ExtArgs>
   updatedBrands?: boolean | Prisma.User$updatedBrandsArgs<ExtArgs>
   deletedBrands?: boolean | Prisma.User$deletedBrandsArgs<ExtArgs>
@@ -17437,6 +17962,7 @@ export type UserSelectScalar = {
 
 export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "name" | "password" | "phoneNumber" | "avatar" | "totpSecret" | "status" | "roleId" | "createdById" | "updatedById" | "deletedById" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  websockets?: boolean | Prisma.User$websocketsArgs<ExtArgs>
   createdBrands?: boolean | Prisma.User$createdBrandsArgs<ExtArgs>
   updatedBrands?: boolean | Prisma.User$updatedBrandsArgs<ExtArgs>
   deletedBrands?: boolean | Prisma.User$deletedBrandsArgs<ExtArgs>
@@ -17508,6 +18034,7 @@ export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
   objects: {
+    websockets: Prisma.$WebsocketPayload<ExtArgs>[]
     createdBrands: Prisma.$BrandPayload<ExtArgs>[]
     updatedBrands: Prisma.$BrandPayload<ExtArgs>[]
     deletedBrands: Prisma.$BrandPayload<ExtArgs>[]
@@ -17972,6 +18499,7 @@ readonly fields: UserFieldRefs;
  */
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  websockets<T extends Prisma.User$websocketsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$websocketsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WebsocketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   createdBrands<T extends Prisma.User$createdBrandsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdBrandsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BrandPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   updatedBrands<T extends Prisma.User$updatedBrandsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$updatedBrandsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BrandPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   deletedBrands<T extends Prisma.User$deletedBrandsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$deletedBrandsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BrandPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -18467,6 +18995,30 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Limit how many Users to delete.
    */
   limit?: number
+}
+
+/**
+ * User.websockets
+ */
+export type User$websocketsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Websocket
+   */
+  select?: Prisma.WebsocketSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Websocket
+   */
+  omit?: Prisma.WebsocketOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WebsocketInclude<ExtArgs> | null
+  where?: Prisma.WebsocketWhereInput
+  orderBy?: Prisma.WebsocketOrderByWithRelationInput | Prisma.WebsocketOrderByWithRelationInput[]
+  cursor?: Prisma.WebsocketWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.WebsocketScalarFieldEnum | Prisma.WebsocketScalarFieldEnum[]
 }
 
 /**

@@ -404,6 +404,7 @@ export const ModelName = {
   Order: 'Order',
   Review: 'Review',
   Payment: 'Payment',
+  Websocket: 'Websocket',
   PaymentTransaction: 'PaymentTransaction',
   Message: 'Message',
   UserProvider: 'UserProvider'
@@ -422,7 +423,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "language" | "user" | "userTranslation" | "verificationCode" | "device" | "refreshToken" | "permission" | "role" | "product" | "productTranslation" | "category" | "categoryTranslation" | "sKU" | "brand" | "brandTranslation" | "cartItem" | "productSKUSnapshot" | "order" | "review" | "payment" | "paymentTransaction" | "message" | "userProvider"
+    modelProps: "language" | "user" | "userTranslation" | "verificationCode" | "device" | "refreshToken" | "permission" | "role" | "product" | "productTranslation" | "category" | "categoryTranslation" | "sKU" | "brand" | "brandTranslation" | "cartItem" | "productSKUSnapshot" | "order" | "review" | "payment" | "websocket" | "paymentTransaction" | "message" | "userProvider"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1906,6 +1907,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Websocket: {
+      payload: Prisma.$WebsocketPayload<ExtArgs>
+      fields: Prisma.WebsocketFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.WebsocketFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebsocketPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.WebsocketFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebsocketPayload>
+        }
+        findFirst: {
+          args: Prisma.WebsocketFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebsocketPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.WebsocketFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebsocketPayload>
+        }
+        findMany: {
+          args: Prisma.WebsocketFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebsocketPayload>[]
+        }
+        create: {
+          args: Prisma.WebsocketCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebsocketPayload>
+        }
+        createMany: {
+          args: Prisma.WebsocketCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.WebsocketCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebsocketPayload>[]
+        }
+        delete: {
+          args: Prisma.WebsocketDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebsocketPayload>
+        }
+        update: {
+          args: Prisma.WebsocketUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebsocketPayload>
+        }
+        deleteMany: {
+          args: Prisma.WebsocketDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.WebsocketUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.WebsocketUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebsocketPayload>[]
+        }
+        upsert: {
+          args: Prisma.WebsocketUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebsocketPayload>
+        }
+        aggregate: {
+          args: Prisma.WebsocketAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateWebsocket>
+        }
+        groupBy: {
+          args: Prisma.WebsocketGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WebsocketGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.WebsocketCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WebsocketCountAggregateOutputType> | number
+        }
+      }
+    }
     PaymentTransaction: {
       payload: Prisma.$PaymentTransactionPayload<ExtArgs>
       fields: Prisma.PaymentTransactionFieldRefs
@@ -2479,6 +2554,15 @@ export const PaymentScalarFieldEnum = {
 export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
 
 
+export const WebsocketScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  createdAt: 'createdAt'
+} as const
+
+export type WebsocketScalarFieldEnum = (typeof WebsocketScalarFieldEnum)[keyof typeof WebsocketScalarFieldEnum]
+
+
 export const PaymentTransactionScalarFieldEnum = {
   id: 'id',
   gateway: 'gateway',
@@ -2859,6 +2943,7 @@ export type GlobalOmitConfig = {
   order?: Prisma.OrderOmit
   review?: Prisma.ReviewOmit
   payment?: Prisma.PaymentOmit
+  websocket?: Prisma.WebsocketOmit
   paymentTransaction?: Prisma.PaymentTransactionOmit
   message?: Prisma.MessageOmit
   userProvider?: Prisma.UserProviderOmit

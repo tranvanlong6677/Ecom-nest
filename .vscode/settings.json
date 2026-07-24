@@ -1,5 +1,7 @@
 {
   "files.watcherExclude": { "**/src/generated/**": true },
   "search.exclude": { "**/src/generated": true },
-  "typescript.tsserver.exclude": ["**/src/generated/**"]
+  "typescript.tsserver.exclude": ["**/src/generated/**"],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true
 }

@@ -118,6 +118,11 @@ export type Review = Prisma.ReviewModel
  */
 export type Payment = Prisma.PaymentModel
 /**
+ * Model Websocket
+ * 
+ */
+export type Websocket = Prisma.WebsocketModel
+/**
  * Model PaymentTransaction
  * 
  */

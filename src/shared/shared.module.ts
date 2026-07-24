@@ -14,6 +14,7 @@ import { SharedUserRepository } from '@/shared/repository/shared-user.repo'
 import { CleanupTask } from '@/shared/tasks/cleanup.task'
 import { TotpService } from './services/totp.service'
 import { SharedPaymentRepository } from './repository/shared-payment.repo'
+import { SharedWebsocketRepository } from './repository/shared-websocket.repo'
 
 const sharedServices = [
   PrismaService,
@@ -24,6 +25,7 @@ const sharedServices = [
   TotpService,
   S3Service,
   CleanupTask,
+  SharedWebsocketRepository,
 ]
 const sharedRepos = [SharedUserRepository, SharedPaymentRepository]
 @Global()
