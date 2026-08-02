@@ -1,3 +1,4 @@
+import { generatePaymentRoomName } from '@/shared/helper'
 import { SharedWebsocketRepository } from '@/shared/repository/shared-websocket.repo'
 import { TokenService } from '@/shared/services/token.service'
 import { INestApplicationContext } from '@nestjs/common'
@@ -31,13 +32,15 @@ export class WebsocketAdapter extends IoAdapter {
     }
     try {
       const { userId } = await this.tokenService.verifyAccessToken(accessToken)
-      await this.sharedWebsocketRepository.create({
-        id: socket.id,
-        userId,
-      })
-      socket.on('disconnect', async () => {
-        await this.sharedWebsocketRepository.delete(socket.id).catch(() => {})
-      })
+      const roomName = generatePaymentRoomName(userId)
+      await socket.join(roomName)
+      // await this.sharedWebsocketRepository.create({
+      //   id: socket.id,
+      //   userId,
+      // })
+      // socket.on('disconnect', async () => {
+      //   await this.sharedWebsocketRepository.delete(socket.id).catch(() => {})
+      // })
       next()
     } catch (error) {
       next(error)

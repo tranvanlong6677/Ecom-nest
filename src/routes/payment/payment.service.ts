@@ -4,6 +4,7 @@ import { PaymentRepository } from './payment.repo'
 import { SharedWebsocketRepository } from '@/shared/repository/shared-websocket.repo'
 import { WebSocketGateway, WebSocketServer } from '@nestjs/websockets'
 import { Server } from 'socket.io'
+import { generatePaymentRoomName } from '@/shared/helper'
 
 @Injectable()
 @WebSocketGateway({
@@ -20,16 +21,20 @@ export class PaymentService {
 
   async receiver(body: WebhookPaymentBodyType) {
     const userId = await this.paymentRepo.receiver(body)
-    try {
-      const websockets = await this.sharedWebsocketRepository.findMany(userId)
-      websockets.forEach((ws) => {
-        this.server.to(ws.id).emit('payment', {
-          status: 'success',
-        })
-      })
-    } catch (error) {
-      console.log({ error })
-    }
+    const roomName = generatePaymentRoomName(userId)
+    this.server.to(roomName).emit('payment', {
+      status: 'success',
+    })
+    // try {
+    //   const websockets = await this.sharedWebsocketRepository.findMany(userId)
+    //   websockets.forEach((ws) => {
+    //     this.server.to(ws.id).emit('payment', {
+    //       status: 'success',
+    //     })
+    //   })
+    // } catch (error) {
+    //   console.log({ error })
+    // }
 
     return {
       message: 'Payment  success',
