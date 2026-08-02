@@ -25,8 +25,7 @@ export class PaymentRepository {
     }, 0)
     return ordersPrice
   }
-  async receiver(data: WebhookPaymentBodyType): Promise<MessageResType> {
-    console.log('data', data)
+  async receiver(data: WebhookPaymentBodyType): Promise<number> {
     //   1: Thêm thông tin giao dịch vào DB
     let amountIn = 0
     let amountOut = 0
@@ -36,12 +35,11 @@ export class PaymentRepository {
       amountOut = data.transferAmount
     }
 
-    await this.prismaService.$transaction(async (tx) => {
+    const userId = await this.prismaService.$transaction(async (tx) => {
       const paymentTransaction = await tx.paymentTransaction.findUnique({
         where: { id: data.id },
       })
 
-      console.log('paymentTransaction', paymentTransaction)
       if (paymentTransaction) {
         throw PaymentException.DuplicatePaymentTransaction
       }
@@ -77,6 +75,11 @@ export class PaymentRepository {
           orders: {
             include: {
               items: true,
+              user: {
+                select: {
+                  id: true,
+                },
+              },
             },
           },
         },
@@ -88,13 +91,12 @@ export class PaymentRepository {
 
       const orders = payment.orders as OrderIncludeProductSKUSnapshotType[]
       const totalPrice = this.getTotalPrice(orders)
-      console.log({ totalPrice })
       if (totalPrice !== data.transferAmount) {
         throw PaymentException.TotalPriceNotMatch
       }
 
       // 3: Cập nhật trạng thái đơn hàng
-      return await Promise.all([
+      await Promise.all([
         tx.payment.update({
           where: {
             id: paymentId,
@@ -113,8 +115,8 @@ export class PaymentRepository {
         }),
         this.paymentProducer.removeJob(paymentId),
       ])
+      return payment.orders[0].user.id
     })
-
-    return { message: 'Payment data received successfully' }
+    return userId
   }
 }
