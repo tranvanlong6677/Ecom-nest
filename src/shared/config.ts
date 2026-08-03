@@ -43,6 +43,7 @@ const configSchema = z
     S3_ACCESS_KEY_ID: z.string(),
     S3_SECRET_ACCESS_KEY: z.string(),
     S3_BUCKET_NAME: z.string(),
+    REDIS_URL: z.string(),
   })
   .superRefine((data, ctx) => {
     const allowedRedirectUris = data.OAUTH_ALLOWED_REDIRECT_URIS.split(',').map((uri) => uri.trim())

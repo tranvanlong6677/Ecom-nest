@@ -1,8 +1,11 @@
+import envConfig from '@/shared/config'
 import { generatePaymentRoomName } from '@/shared/helper'
 import { SharedWebsocketRepository } from '@/shared/repository/shared-websocket.repo'
 import { TokenService } from '@/shared/services/token.service'
 import { INestApplicationContext } from '@nestjs/common'
 import { IoAdapter } from '@nestjs/platform-socket.io'
+import { createAdapter } from '@socket.io/redis-adapter'
+import { createClient } from 'redis'
 import { Server, ServerOptions } from 'socket.io'
 
 const namespaces = [
@@ -14,10 +17,21 @@ const namespaces = [
 export class WebsocketAdapter extends IoAdapter {
   private readonly sharedWebsocketRepository: SharedWebsocketRepository
   private readonly tokenService: TokenService
+  private readonly redisAdapterPromise: Promise<ReturnType<typeof createAdapter>>
   constructor(app: INestApplicationContext) {
     super(app)
     this.sharedWebsocketRepository = app.get(SharedWebsocketRepository)
     this.tokenService = app.get(TokenService)
+    this.redisAdapterPromise = this.connectToRedis()
+  }
+
+  private async connectToRedis() {
+    const pubClient = createClient({ url: envConfig.REDIS_URL })
+    const subClient = pubClient.duplicate()
+
+    await Promise.all([pubClient.connect(), subClient.connect()])
+
+    return createAdapter(pubClient, subClient)
   }
 
   async authMiddleware(socket: any, next: (err?: Error) => void) {
@@ -53,6 +67,10 @@ export class WebsocketAdapter extends IoAdapter {
         origin: '*',
         credentials: true,
       },
+    })
+
+    this.redisAdapterPromise.then((redisAdapter) => {
+      server.adapter(redisAdapter)
     })
 
     namespaces.forEach((namespace) => {
