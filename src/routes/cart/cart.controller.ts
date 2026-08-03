@@ -1,4 +1,5 @@
 import { Controller, Get, Body, Param, Delete, Query, Post, Put } from '@nestjs/common'
+import { ApiBearerAuth } from '@nestjs/swagger'
 import { CartService } from './cart.service'
 import { ActiveUser } from '@/shared/decorators/active-user.decorator'
 import { PaginationParamsDto } from '@/shared/dtos/request.dto'
@@ -14,6 +15,7 @@ import { ZodSerializerDto } from 'nestjs-zod'
 import { MessageResDTO } from '@/shared/dtos/response.dto'
 
 @Controller('cart')
+@ApiBearerAuth('access-token')
 export class CartController {
   constructor(private readonly cartService: CartService) {}
 

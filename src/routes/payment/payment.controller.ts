@@ -1,4 +1,5 @@
 import { Controller, Post, Body } from '@nestjs/common'
+import { ApiSecurity } from '@nestjs/swagger'
 import { WebhookPaymentBodyDTO } from './payment.dto'
 import { PaymentService } from './payment.service'
 import { AuthOptionsType, AuthType } from '@/shared/enums/auth-type.enum'
@@ -11,6 +12,7 @@ export class PaymentController {
   @Post('/receiver')
   //   @IsPublic()
   @Auth([AuthType.PaymentAPIKey], { condition: AuthOptionsType.AND })
+  @ApiSecurity('payment-api-key')
   receiver(@Body() body: WebhookPaymentBodyDTO) {
     return this.paymentService.receiver(body)
   }

@@ -1,4 +1,5 @@
 import { Controller, Get, Post, Body, Param, Delete, Query, Put } from '@nestjs/common'
+import { ApiBearerAuth } from '@nestjs/swagger'
 import { UsersService } from './users.service'
 import {
   CreateUserBodyDto,
@@ -15,6 +16,7 @@ import { ActiveUser } from '@/shared/decorators/active-user.decorator'
 import { MessageResDTO } from '@/shared/dtos/response.dto'
 
 @Controller('users')
+@ApiBearerAuth('access-token')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 

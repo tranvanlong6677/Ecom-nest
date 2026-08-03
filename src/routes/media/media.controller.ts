@@ -13,6 +13,7 @@ import {
   MaxFileSizeValidator,
   FileTypeValidator,
 } from '@nestjs/common'
+import { ApiBearerAuth } from '@nestjs/swagger'
 import { ZodSerializerDto } from 'nestjs-zod'
 import { MediaService } from './media.service'
 import { PresignedUploadFileBodyDto, PresignedUploadFileResDto } from './media.dto'
@@ -25,6 +26,7 @@ import {
 } from '@/shared/constants/media.constant'
 
 @Controller('media')
+@ApiBearerAuth('access-token')
 export class MediaController {
   constructor(private readonly mediaService: MediaService) {}
 

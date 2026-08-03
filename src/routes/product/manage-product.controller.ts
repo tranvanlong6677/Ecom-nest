@@ -1,4 +1,5 @@
 import { Body, Controller, Delete, Get, Headers, Param, Post, Put, Query } from '@nestjs/common'
+import { ApiBearerAuth } from '@nestjs/swagger'
 import { ZodSerializerDto } from 'nestjs-zod'
 import { ActiveUser } from '@/shared/decorators/active-user.decorator'
 import { MessageResDTO } from '@/shared/dtos/response.dto'
@@ -17,6 +18,7 @@ import {
 } from './product.dto'
 
 @Controller('manage-product/products')
+@ApiBearerAuth('access-token')
 export class ManageProductController {
   constructor(private readonly manageProductService: ManageProductService) {}
 

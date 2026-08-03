@@ -1,4 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common'
+import { ApiBearerAuth } from '@nestjs/swagger'
 import { ZodSerializerDto } from 'nestjs-zod'
 import { PermissionService } from './permission.service'
 import {
@@ -14,6 +15,7 @@ import { ActiveUser } from '@/shared/decorators/active-user.decorator'
 import { MessageResDTO } from '@/shared/dtos/response.dto'
 
 @Controller('permissions')
+@ApiBearerAuth('access-token')
 export class PermissionController {
   constructor(private readonly permissionService: PermissionService) {}
 

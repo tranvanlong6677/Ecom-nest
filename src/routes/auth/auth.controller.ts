@@ -1,4 +1,5 @@
 import { Body, Controller, HttpCode, HttpStatus, Ip, Post } from '@nestjs/common'
+import { ApiBearerAuth } from '@nestjs/swagger'
 import { AuthService } from '@/routes/auth/auth.service'
 import {
   DisableTwoFactorBodyDTO,
@@ -67,6 +68,7 @@ export class AuthController {
   }
 
   @Post('logout')
+  @ApiBearerAuth('access-token')
   @HttpCode(HttpStatus.OK)
   @ZodSerializerDto(MessageResDTO)
   logout(@Body() body: LogoutBodyDto) {
@@ -74,6 +76,7 @@ export class AuthController {
   }
 
   @Post('2fa/disable')
+  @ApiBearerAuth('access-token')
   @HttpCode(HttpStatus.OK)
   @ZodSerializerDto(MessageResDTO)
   disable2FA(@Body() body: DisableTwoFactorBodyDTO, @ActiveUser('userId') userId: number) {
@@ -81,6 +84,7 @@ export class AuthController {
   }
 
   @Post('2fa/setup')
+  @ApiBearerAuth('access-token')
   @HttpCode(HttpStatus.OK)
   @ZodSerializerDto(TwoFactorSetupResDTO)
   setup2FA(@Body() _: EmptyBodyDTO, @ActiveUser('userId') userId: number) {

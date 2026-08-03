@@ -1,4 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common'
+import { ApiBearerAuth } from '@nestjs/swagger'
 import { ZodSerializerDto } from 'nestjs-zod'
 import { CategoryTranslationService } from './category-translation.service'
 import {
@@ -24,12 +25,14 @@ export class CategoryTranslationController {
   }
 
   @Post()
+  @ApiBearerAuth('access-token')
   @ZodSerializerDto(CategoryTranslationResDTO)
   create(@Body() body: CreateCategoryTranslationBodyDTO, @ActiveUser('userId') userId: number) {
     return this.categoryTranslationService.create(body, userId)
   }
 
   @Put(':categoryTranslationId')
+  @ApiBearerAuth('access-token')
   @ZodSerializerDto(CategoryTranslationResDTO)
   update(
     @Param() params: GetCategoryTranslationParamsDTO,
@@ -40,6 +43,7 @@ export class CategoryTranslationController {
   }
 
   @Delete(':categoryTranslationId')
+  @ApiBearerAuth('access-token')
   @ZodSerializerDto(MessageResDTO)
   delete(
     @Param() params: GetCategoryTranslationParamsDTO,

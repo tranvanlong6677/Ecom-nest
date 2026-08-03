@@ -1,4 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common'
+import { ApiBearerAuth } from '@nestjs/swagger'
 import { ZodSerializerDto } from 'nestjs-zod'
 import { ActiveUser } from '@/shared/decorators/active-user.decorator'
 import { IsPublic } from '@/shared/decorators/auth.decorator'
@@ -24,12 +25,14 @@ export class ProductTranslationController {
   }
 
   @Post()
+  @ApiBearerAuth('access-token')
   @ZodSerializerDto(ProductTranslationResDTO)
   create(@Body() body: CreateProductTranslationBodyDTO, @ActiveUser('userId') userId: number) {
     return this.productTranslationService.create(body, userId)
   }
 
   @Put(':productTranslationId')
+  @ApiBearerAuth('access-token')
   @ZodSerializerDto(ProductTranslationResDTO)
   update(
     @Param() params: GetProductTranslationParamsDTO,
@@ -40,6 +43,7 @@ export class ProductTranslationController {
   }
 
   @Delete(':productTranslationId')
+  @ApiBearerAuth('access-token')
   @ZodSerializerDto(MessageResDTO)
   delete(
     @Param() params: GetProductTranslationParamsDTO,
