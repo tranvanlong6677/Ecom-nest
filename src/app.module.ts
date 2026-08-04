@@ -36,7 +36,7 @@ import { WebsocketsModule } from './websockets/websockets.module'
     ThrottlerModule.forRoot([
       {
         ttl: 60000,
-        limit: 20,
+        limit: 10,
       },
     ]),
     BullModule.forRoot({
