@@ -11,7 +11,6 @@ import { TokenService } from '@/shared/services/token.service'
 import { EmailService } from '@/shared/services/email.service'
 import { S3Service } from '@/shared/services/s3.service'
 import { SharedUserRepository } from '@/shared/repository/shared-user.repo'
-import { CleanupTask } from '@/shared/tasks/cleanup.task'
 import { TotpService } from './services/totp.service'
 import { SharedPaymentRepository } from './repository/shared-payment.repo'
 import { SharedWebsocketRepository } from './repository/shared-websocket.repo'
@@ -24,7 +23,6 @@ const sharedServices = [
   EmailService,
   TotpService,
   S3Service,
-  CleanupTask,
   SharedWebsocketRepository,
 ]
 const sharedRepos = [SharedUserRepository, SharedPaymentRepository]
