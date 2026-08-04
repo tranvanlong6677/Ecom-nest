@@ -70,6 +70,7 @@ export const ModelName = {
   ProductSKUSnapshot: 'ProductSKUSnapshot',
   Order: 'Order',
   Review: 'Review',
+  ReviewMedia: 'ReviewMedia',
   Payment: 'Payment',
   Websocket: 'Websocket',
   PaymentTransaction: 'PaymentTransaction',
@@ -386,13 +387,26 @@ export const ReviewScalarFieldEnum = {
   id: 'id',
   content: 'content',
   rating: 'rating',
+  orderId: 'orderId',
   productId: 'productId',
   userId: 'userId',
+  updateCount: 'updateCount',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum]
+
+
+export const ReviewMediaScalarFieldEnum = {
+  id: 'id',
+  url: 'url',
+  type: 'type',
+  reviewId: 'reviewId',
+  createdAt: 'createdAt'
+} as const
+
+export type ReviewMediaScalarFieldEnum = (typeof ReviewMediaScalarFieldEnum)[keyof typeof ReviewMediaScalarFieldEnum]
 
 
 export const PaymentScalarFieldEnum = {

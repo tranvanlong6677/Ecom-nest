@@ -459,7 +459,7 @@ model ReviewMedia {
 
 enum MediaType {
   IMAGE
-  AUDIO
+  VIDEO
 }
 
 enum PaymentStatus {

@@ -1,3 +1,8 @@
+export const MediaType = {
+  IMAGE: 'IMAGE',
+  VIDEO: 'VIDEO',
+} as const
+
 export const MAX_UPLOAD_FILE_SIZE_IN_BYTES = 5 * 1024 * 1024 // 5MB
 
 export const MAX_UPLOAD_FILES_COUNT = 10

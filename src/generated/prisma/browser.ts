@@ -113,6 +113,11 @@ export type Order = Prisma.OrderModel
  */
 export type Review = Prisma.ReviewModel
 /**
+ * Model ReviewMedia
+ * 
+ */
+export type ReviewMedia = Prisma.ReviewMediaModel
+/**
  * Model Payment
  * 
  */

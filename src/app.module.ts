@@ -30,6 +30,7 @@ import { PaymentModule } from './routes/payment/payment.module'
 import { BullModule } from '@nestjs/bullmq'
 import { PaymentConsumer } from './queues/payment.consumer'
 import { WebsocketsModule } from './websockets/websockets.module'
+import { ReviewModule } from './routes/review/review.module'
 @Module({
   imports: [
     ScheduleModule.forRoot(),
@@ -63,6 +64,7 @@ import { WebsocketsModule } from './websockets/websockets.module'
     OrderModule,
     PaymentModule,
     WebsocketsModule,
+    ReviewModule,
   ],
   controllers: [AppController],
   providers: [
