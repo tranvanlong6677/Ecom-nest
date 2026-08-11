@@ -33,7 +33,7 @@ export class AuthRepository {
       const [newUser] = await Promise.all([
         tx.user.create({ data: user, omit: { password: true, totpSecret: true } }),
         tx.verificationCode.delete({
-          where: { email_code_type: { email: verificationEmail, code, type: VerificationCodePurpose.REGISTER } },
+          where: { email_type: { email: verificationEmail, type: VerificationCodePurpose.REGISTER } },
         }),
       ])
       return newUser
@@ -54,7 +54,7 @@ export class AuthRepository {
       }
       const [user] = await Promise.all([
         tx.user.update({ where: { id: existingUser.id }, data: { password: hashedPassword } }),
-        tx.verificationCode.delete({ where: { email_code_type: { email, code, type } } }),
+        tx.verificationCode.delete({ where: { email_type: { email, type } } }),
       ])
       return user
     })
@@ -117,7 +117,7 @@ export class AuthRepository {
     payload: Pick<VerificationCodeType, 'email' | 'type' | 'code' | 'expiresAt'>,
   ): Promise<VerificationCodeType> {
     return await this.prismaService.verificationCode.upsert({
-      where: { email_code_type: { email: payload.email, type: payload.type, code: payload.code } },
+      where: { email_type: { email: payload.email, type: payload.type } },
       create: payload,
       update: {
         code: payload.code,
@@ -169,7 +169,7 @@ export class AuthRepository {
 
     return this.prismaService.verificationCode.delete({
       where: {
-        email_code_type: { email: uniqueValue.email, code: uniqueValue.code, type: uniqueValue.type },
+        email_type: { email: uniqueValue.email, type: uniqueValue.type },
       },
     })
   }

@@ -135,7 +135,7 @@ model VerificationCode {
   createdAt DateTime             @default(now())
   type      VerificationCodeType
 
-  @@unique([email, code, type])
+  @@unique([email, type])
   @@index([expiresAt])
 }
 
