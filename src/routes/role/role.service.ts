@@ -1,13 +1,18 @@
-import { Injectable } from '@nestjs/common'
-import { isNotFoundPrismaError, isUniqueConstraintPrismaError } from '@/shared/helper'
+import { Inject, Injectable } from '@nestjs/common'
+import { generateRoleCacheKey, isNotFoundPrismaError, isUniqueConstraintPrismaError } from '@/shared/helper'
 import { RoleException } from '@/shared/models/error.model'
 import { RoleRepository } from './role.repo'
 import { CreateRoleBodyType, GetRolesQueryType, UpdateRoleBodyType } from './role.model'
 import { RoleName } from '@/shared/constants/role.constant'
+import { RoleType } from '@/shared/models/role.model'
+import { CACHE_MANAGER, Cache } from '@nestjs/cache-manager'
 
 @Injectable()
 export class RoleService {
-  constructor(private readonly roleRepo: RoleRepository) {}
+  constructor(
+    @Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
+    private readonly roleRepo: RoleRepository,
+  ) {}
 
   async findAll(query: GetRolesQueryType) {
     try {
@@ -53,7 +58,9 @@ export class RoleService {
   async update(roleId: number, body: UpdateRoleBodyType, updatedById: number) {
     try {
       await this.verifyRole(roleId)
-      return await this.roleRepo.update(roleId, body, updatedById)
+      const role = await this.roleRepo.update(roleId, body, updatedById)
+      await this.deleteCachedRole(role)
+      return role
     } catch (error) {
       if (isNotFoundPrismaError(error)) {
         throw RoleException.NotFound
@@ -66,6 +73,7 @@ export class RoleService {
     try {
       await this.verifyRole(roleId)
       await this.roleRepo.delete(roleId, deletedById, isHard)
+      await this.cacheManager.del(generateRoleCacheKey(roleId))
       return { message: 'Role deleted successfully' }
     } catch (error) {
       if (isNotFoundPrismaError(error)) {
@@ -81,9 +89,13 @@ export class RoleService {
       throw RoleException.NotFound
     }
     const baseRoles = [...Object.values(RoleName)] as string[]
-    if (baseRoles.includes(role.name)) {
-      throw RoleException.BaseRoleCannotBeDeleted
-    }
+    // if (baseRoles.includes(role.name)) {
+    //   throw RoleException.BaseRoleCannotBeDeleted
+    // }
     return role
+  }
+
+  async deleteCachedRole(role: RoleType) {
+    return this.cacheManager.del(generateRoleCacheKey(role.id))
   }
 }

@@ -24,3 +24,5 @@ export const generateCancelPaymentID = (paymentId: number) => {
 export const generatePaymentRoomName = (userId: number) => {
   return `userId-${userId}`
 }
+
+export const generateRoleCacheKey = (roleId: number) => `role-${roleId}`

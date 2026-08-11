@@ -32,8 +32,11 @@ import { PaymentConsumer } from './queues/payment.consumer'
 import { WebsocketsModule } from './websockets/websockets.module'
 import { ReviewModule } from './routes/review/review.module'
 import { CronjobsModule } from './cronjobs/cronjobs.module'
+import { CacheModule } from '@nestjs/cache-manager'
+
 @Module({
   imports: [
+    CacheModule.register({ isGlobal: true }),
     ScheduleModule.forRoot(),
     ThrottlerModule.forRoot([
       {
