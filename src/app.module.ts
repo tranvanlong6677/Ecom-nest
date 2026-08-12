@@ -37,9 +37,36 @@ import KeyvRedis from '@keyv/redis'
 import { Keyv } from 'keyv'
 import { KeyvCacheableMemory } from 'cacheable'
 import envConfig from './shared/config'
+import { LoggerModule } from 'nestjs-pino'
+import path from 'path'
+import pino from 'pino'
 
 @Module({
   imports: [
+    LoggerModule.forRoot({
+      pinoHttp: {
+        serializers: {
+          req(req: any) {
+            return {
+              method: req.method,
+              url: req.url,
+              query: req.query,
+              params: req.params,
+            }
+          },
+          res(res: any) {
+            return {
+              statusCode: res.statusCode,
+            }
+          },
+        },
+        stream: pino.destination({
+          dest: path.resolve('logs/app.log'),
+          sync: false, // Asynchronous logging
+          mkdir: true, // Create the directory if it doesn't exist
+        }),
+      },
+    }),
     // CacheModule.register({ isGlobal: true }), // cache in memory
     CacheModule.registerAsync({
       isGlobal: true,
