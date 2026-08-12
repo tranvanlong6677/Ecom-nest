@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { cleanupOpenApiDoc } from 'nestjs-zod'
+import helmet from 'helmet'
 import envConfig from '@/shared/config'
 import { AppModule } from '@/app.module'
 import { WebsocketAdapter } from './websockets/websocket.adapter'
@@ -10,6 +11,7 @@ async function bootstrap() {
   app.enableCors()
   const websocketAdapter = new WebsocketAdapter(app)
   app.useWebSocketAdapter(websocketAdapter)
+  app.use(helmet())
 
   const swaggerConfig = new DocumentBuilder()
     .setTitle(envConfig.APP_NAME)

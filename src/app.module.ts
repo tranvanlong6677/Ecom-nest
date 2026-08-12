@@ -33,10 +33,27 @@ import { WebsocketsModule } from './websockets/websockets.module'
 import { ReviewModule } from './routes/review/review.module'
 import { CronjobsModule } from './cronjobs/cronjobs.module'
 import { CacheModule } from '@nestjs/cache-manager'
+import KeyvRedis from '@keyv/redis'
+import { Keyv } from 'keyv'
+import { KeyvCacheableMemory } from 'cacheable'
+import envConfig from './shared/config'
 
 @Module({
   imports: [
-    CacheModule.register({ isGlobal: true }),
+    // CacheModule.register({ isGlobal: true }), // cache in memory
+    CacheModule.registerAsync({
+      isGlobal: true,
+      useFactory: async () => {
+        return {
+          stores: [
+            new Keyv({
+              store: new KeyvCacheableMemory({ ttl: 60000, lruSize: 5000 }),
+            }),
+            new KeyvRedis(envConfig.REDIS_URL),
+          ],
+        }
+      },
+    }),
     ScheduleModule.forRoot(),
     ThrottlerModule.forRoot([
       {
